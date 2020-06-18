@@ -14,11 +14,12 @@ public class CodoMC : MonoBehaviour
     private GameObject p2;
     private GameObject p3;
     private GameObject p4;
+    public Material mat;
     // Start is called before the first frame update
     void Start()
     {
         angulo = Vector2.zero;
-        angulo = new Vector2(0, 90); //pruebas
+        angulo = new Vector2(90, 0); //pruebas
         ultAncho = 0;
         ultAltura = 0;
         pivot = new GameObject("pivote");
@@ -39,6 +40,7 @@ public class CodoMC : MonoBehaviour
         {
             gameObject.AddComponent(typeof(MeshRenderer));
         }
+        GetComponent<MeshRenderer>().material = mat;
         lmesh = GetComponent<MeshFilter>().mesh;
         Creator(0.254,0.254);
     }
@@ -48,7 +50,7 @@ public class CodoMC : MonoBehaviour
     {
         
     }
-    public void Creator(double ancho, double alto)
+    private void Creator(double ancho, double alto)
     {
         if(ultAltura == alto && ultAncho == ancho)
         {
@@ -77,6 +79,8 @@ public class CodoMC : MonoBehaviour
                 ang = angulo.x;
             else
                 ang = angulo.y;
+            if (ang < 0)
+                ang *= -1;
             int v = (int)(ang * 0.8);
             v += 8;
             if (ang % 10 > 0)
@@ -95,7 +99,6 @@ public class CodoMC : MonoBehaviour
             foreach (var vec in temp)
             {
                 vertex[jv] = vec;
-                //Debug.Log(vertex[jv]);
                 jv += 1;
             }
         }
@@ -112,7 +115,7 @@ public class CodoMC : MonoBehaviour
             tri[it] = item;
             it += 1;
         }
-        for (int i = 1; i < lmesh.vertexCount / 8; i++) //se inicia en uno, para mas comodidad
+        for (int i = 0; i < (lmesh.vertexCount / 8) - 1; i++)
         {
             foreach (var item in TrianguloPaso(i))
             {
@@ -139,7 +142,10 @@ public class CodoMC : MonoBehaviour
             4,15,12,4,7,15, //abajo e
             5,13,6,6,13,14 //abajo i
         };
-
+        for (int i = 0; i < ret.Length; i++)
+        {
+            ret[i] += 8 * paso;
+        }
         return ret;
     }
     private int[] TrianguloInFn(Boolean fin)
@@ -205,12 +211,22 @@ public class CodoMC : MonoBehaviour
         }
         else
         {
-            Vector3 rotationTemp = new Vector3(angulo.x - pivot.transform.localEulerAngles.x,
-                angulo.y - pivot.transform.localEulerAngles.y);
-            if (rotationTemp.x > 10)
-                rotationTemp.x = 10;
-            if (rotationTemp.y > 10)
-                rotationTemp.y = 10;
+            Vector3 rotationTemp = new Vector3((angulo.y * -1) - pivot.transform.localEulerAngles.x,
+                angulo.x - pivot.transform.localEulerAngles.y);
+            if (rotationTemp.x < 0 || rotationTemp.y < 0)
+            {
+                if (rotationTemp.x < -10)
+                    rotationTemp.x = -10;
+                if (rotationTemp.y < -10)
+                    rotationTemp.y = -10;
+            }
+            if (rotationTemp.x > 0 || rotationTemp.y > 0)
+            {
+                if (rotationTemp.x > 10)
+                    rotationTemp.x = 10;
+                if (rotationTemp.y > 10)
+                    rotationTemp.y = 10;
+            }
             pivot.transform.Rotate(rotationTemp);
         }
     }
@@ -221,11 +237,15 @@ public class CodoMC : MonoBehaviour
         switch (DireccionAngulo())
         {
             case 0:
-                pivot.transform.localPosition = new Vector3((float)((ultAncho / 2 - 0.1) * -1), 0, 0);
+                pivot.transform.localPosition = new Vector3((float)((ultAncho / 2 + 0.1) * -1), 0, 0);
                 direccion = Vector3.right;
                 break;
+            case 1:
+                pivot.transform.localPosition = new Vector3((float)((ultAncho / 2 + 0.1) * 1), 0, 0);
+                direccion = Vector3.left;
+                break;
             case 2:
-                pivot.transform.localPosition = new Vector3(0, (float)((ultAltura / 2 - 0.1) * -1), 0);
+                pivot.transform.localPosition = new Vector3(0, (float)((ultAltura / 2 + 0.1) * -1), 0);
                 direccion = Vector3.up;
                 break;
             case 3:
@@ -238,7 +258,7 @@ public class CodoMC : MonoBehaviour
                 break;
         }
         Vector3 distancia = new Vector3((float)ultAncho, (float)ultAltura);
-        if (DireccionAngulo() % 2 != 0 || DireccionAngulo() == 4)
+        if (DireccionAngulo() % 2 != 0 || DireccionAngulo() == 4) //por aca se puede poner el grosor
         {
             p1.transform.localPosition = new Vector3(direccion.x * distancia.x + direccion.x * 0.1f, direccion.y * distancia.y + direccion.y * 0.1f);
             p2.transform.localPosition = new Vector3(direccion.x * distancia.x * 0.95f + direccion.x * 0.1f, direccion.y * distancia.y * 0.95f + direccion.y * 0.1f);
