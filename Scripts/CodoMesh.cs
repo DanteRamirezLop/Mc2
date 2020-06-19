@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CodoMC : MonoBehaviour
+public class CodoMesh : MonoBehaviour
 {
     private Vector2 angulo;
     private Mesh lmesh;
-    private double ultAncho;
-    private double ultAltura;
+    private double ultAncho; //en metros
+    private double ultAltura; //en metros
     private GameObject pivot;
     private GameObject p1;
     private GameObject p2;
@@ -19,9 +19,9 @@ public class CodoMC : MonoBehaviour
     void Start()
     {
         angulo = Vector2.zero;
-        angulo = new Vector2(90, 0); //pruebas
-        ultAncho = 0;
-        ultAltura = 0;
+        angulo = new Vector2(0, 0); //pruebas
+        ultAncho = 0.254;
+        ultAltura = 0.254;
         pivot = new GameObject("pivote");
         pivot.transform.SetParent(this.transform);
         p1 = new GameObject("p1");
@@ -42,25 +42,45 @@ public class CodoMC : MonoBehaviour
         }
         GetComponent<MeshRenderer>().material = mat;
         lmesh = GetComponent<MeshFilter>().mesh;
-        Creator(0.254,0.254);
+        Creator();
     }
-
-    // Update is called once per frame
-    void Update()
+    /**
+     * <summary>Cambia el angulo del codo</summary>
+     */
+    public void Change(Vector2 angulo)
     {
-        
-    }
-    private void Creator(double ancho, double alto)
-    {
-        if(ultAltura == alto && ultAncho == ancho)
-        {
+        if (this.angulo == angulo)
             return;
-        }
-        else
-        {
-            ultAltura = alto;
-            ultAncho = ancho;
-        }
+        this.angulo = angulo;
+        Creator();
+    }
+    /**
+     * <summary>Cambia ambos tamaños del codo</summary>
+     */
+    public void Change(double ancho, double alto)
+    {
+        if (ultAltura == alto && ultAncho == ancho)
+            return;
+        ultAltura = alto;
+        ultAncho = ancho;
+        Creator();
+    }
+    /**
+     * <summary>Cambia el angulo y el tamaño del codo</summary>
+     */
+    public void Change(Vector2 angulo, double ancho, double alto)
+    {
+        if (this.angulo == angulo)
+            return;
+        this.angulo = angulo;
+        if (ultAltura == alto && ultAncho == ancho)
+            return;
+        ultAltura = alto;
+        ultAncho = ancho;
+        Creator();
+    }
+    private void Creator()
+    {
         InitPivot();
         HacerVertices();
         HacerTriangulos();
