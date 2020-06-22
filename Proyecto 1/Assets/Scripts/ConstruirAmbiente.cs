@@ -18,11 +18,11 @@ public class ConstruirAmbiente : MonoBehaviour {
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
-        if (Application.internetReachability != NetworkReachability.NotReachable) //validacion a internet reemplazar por validadcion al servidor
-        {
+      //  if (Application.internetReachability != NetworkReachability.NotReachable) //validacion a internet reemplazar por validadcion al servidor
+        //{
             WWW requestA = new WWW(URL + "ambiente/" + Id_Foranea);
             StartCoroutine(AmbienteOnReponse(requestA));
-        }
+       // }
     }
 
     private IEnumerator AmbienteOnReponse(WWW req)
