@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CodoControl : MonoBehaviour
+public class CodoControl : ObjectControlMain
 {
     private CodoMesh mesh;
-    public GameObject referencia;
     public Vector2 angulopr;
-    public double anchopr;
-    public double altopr;
+    public double anchopr = 6;
+    public double altopr = 6;
     public Boolean reset;
     // Start is called before the first frame update
     void Start()
@@ -26,20 +25,18 @@ public class CodoControl : MonoBehaviour
             reset = false;
         }
     }
-    public void SetReferencia(GameObject refer)
+    public new void SetReferencia(GameObject refer)
     {
-        this.referencia = refer;
-        if (this.referencia == null)
+        base.SetReferencia(refer);
+        this.atreferencia = refer;
+        if (this.atreferencia == null)
         {
-            mesh.Change(Vector2.zero, pulgadaAmetro(10), pulgadaAmetro(10));
+            mesh.Change(angulopr, pulgadaAmetro(anchopr), pulgadaAmetro(altopr));
+            //mesh.Change(Vector2.zero, pulgadaAmetro(10), pulgadaAmetro(10));
         }
         else
         {
 
         }
-    }
-    private double pulgadaAmetro(double pulgada)
-    {
-        return pulgada / 39.37;
     }
 }
