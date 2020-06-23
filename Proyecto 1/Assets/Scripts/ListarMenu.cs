@@ -19,11 +19,12 @@ public class ListarMenu : MonoBehaviour {
 
     void Start()
     {        
-        if (Application.internetReachability != NetworkReachability.NotReachable) //validacion a internet reemplazar por validadcion al servidor
-        {                                                                  
+       // if (Application.internetReachability != NetworkReachability.NotReachable) //validacion a internet reemplazar por validadcion al servidor
+        //{                                                                  
             WWW requestP = new WWW(URL + "proyecto");
             StartCoroutine(ProyectoOnReponse(requestP));
-        }
+            
+        //}
     }
 
     private IEnumerator ProyectoOnReponse(WWW req)
@@ -55,7 +56,6 @@ public class ListarMenu : MonoBehaviour {
             GameObject TextoClon = Instantiate(PrefabText, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
             TextoClon.transform.SetParent(Ancla.transform);
             TextoClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(-135.0f, -posRang);
-
             listaProyectos.CargarText(TextoClon, i, BotonClon);
         }
 
@@ -94,7 +94,6 @@ public class ListarMenu : MonoBehaviour {
               {
                   //Debug.Log(proyecto.nombre);
                   Texto.GetComponent<Text>().text = proyecto.nombre; 
-                   //Debug.Log(proyecto.id);
                   BotonClon.GetComponent<Cargar>().Cod_id = proyecto.id;
               }
               count++;
