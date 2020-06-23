@@ -70,17 +70,16 @@ public class CodoMesh : MonoBehaviour
      */
     public void Change(Vector2 angulo, double ancho, double alto)
     {
-        if (this.angulo == angulo)
+        if (ultAltura == alto && ultAncho == ancho && this.angulo == angulo)
             return;
         this.angulo = angulo;
-        if (ultAltura == alto && ultAncho == ancho)
-            return;
         ultAltura = alto;
         ultAncho = ancho;
         Creator();
     }
     private void Creator()
     {
+        lmesh.Clear();
         InitPivot();
         HacerVertices();
         HacerTriangulos();
