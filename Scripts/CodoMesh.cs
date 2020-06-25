@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CodoMesh : MonoBehaviour
@@ -86,10 +87,14 @@ public class CodoMesh : MonoBehaviour
     }
     private void HacerVertices()
     {
-        Vector3[] vertex;
+        List<Vector3> vertices = new List<Vector3>();
         if (angulo == Vector2.zero)
         {
-            vertex = new Vector3[16];
+            foreach (var vec in ObtainVertex())
+                vertices.Add(vec);
+            RotatePivot();
+            foreach (var vec in ObtainVertex())
+                vertices.Add(vec);
         }
         else
         {
@@ -98,30 +103,16 @@ public class CodoMesh : MonoBehaviour
                 ang = angulo.x;
             else
                 ang = angulo.y;
-            if (ang < 0)
-                ang *= -1;
-            int v = (int)(ang * 0.8);
-            v += 8;
-            if (ang % 10 > 0)
+            do
             {
-                v += 8;
-            }
-            vertex = new Vector3[v];
+                if (vertices.Count != 0)
+                    RotatePivot();
+                foreach (var vec in ObtainVertex())
+                    vertices.Add(vec);
+                ang -= 10;
+            } while (ang > 0);
         }
-        int jv = 0; //para iterar los espacios de los vertices
-        //Esta parte hara los vertices
-        for (int i = 0; i < vertex.Length / 8; i++)
-        {
-            if (i != 0)
-                RotatePivot();
-            Vector3[] temp = ObtainVertex();
-            foreach (var vec in temp)
-            {
-                vertex[jv] = vec;
-                jv += 1;
-            }
-        }
-        this.lmesh.SetVertices(vertex);
+        this.lmesh.SetVertices(vertices.ToArray());
     }
     private void HacerTriangulos()
     {
@@ -184,7 +175,8 @@ public class CodoMesh : MonoBehaviour
             }
             for (int i = 0; i < ret.Length; i++)
             {
-                ret[i] = lmesh.vertexCount - 1 - ret[i];
+                ret[i] = max - ret[i];
+                //Debug.Log("Vertex M: " + max + " this vertex: " + ret[i]);
             }
         }
 
