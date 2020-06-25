@@ -40,22 +40,21 @@ public class ConstruirAmbiente : MonoBehaviour {
 
         float posRang = 0.0f;
         float posY = 40.0f;  // espacio entre ambientes
-        //Vector3 Ancla;
 
         Debug.Log(Cantidad);
         for (int i = 0; i < Cantidad; i++)
         {
+            //******** parete de la construccion***********
 
             posRang = posY * (i + 1);
-            //Debug.Log(posRang);
-            //-------
-             //Ancla = new Vector3(0.0f, 0.0f, 0.0f);
-            //------
+
             GameObject AmbienteClon = Instantiate(PrefabObj, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
             AmbienteClon.transform.SetParent(Ancla.transform);
             //AmbienteClon.GetComponent<RectTransform>().anchoredPosition = new Vector3(posRang, 0.0f, 0.0f);// new Vector2(-135.0f, 0.0f);
-            AmbienteClon.transform.position = new Vector3(posRang, 0.0f, 0.0f);// new Vector2(-135.0f, 0.0f);
+            AmbienteClon.transform.position = new Vector3(posRang, 0.0f, 0.0f);
             listaAmbientes.CargarAmbientes(AmbienteClon,i);
+
+            //***********************
         }
         
     }
@@ -69,10 +68,15 @@ public class ConstruirAmbiente : MonoBehaviour {
         public string largo;
         public string ancho;
         public string altura;
+        //public string area;
+        //public string recambios;
+        //public string flujo;
+        //public string cfm;
+        public string coordenadas;
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5}", id, idProyecto, nAmbiente, largo, ancho, altura);
+            return string.Format("{0},{1},{2},{3},{4},{5},{6}", id, idProyecto, nAmbiente, largo, ancho, altura, coordenadas);
         }
     }
 
@@ -106,6 +110,9 @@ public class ConstruirAmbiente : MonoBehaviour {
                        varZ = float.Parse(Largo);
 
                        AmbienteClon.transform.localScale = new Vector3(varX, varY, varZ);
+                       Debug.Log(ambiente.coordenadas);
+                       
+                     //
                  }
                  count++;
              }
