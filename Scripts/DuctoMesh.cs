@@ -36,7 +36,7 @@ public class DuctoMesh : MonoBehaviour
         VertexMoveLong();
         foreach (var item in lmesh.vertices)
         {
-            Debug.Log(item);
+            //Debug.Log(item);
         }
     }
 
