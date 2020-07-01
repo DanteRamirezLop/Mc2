@@ -10,6 +10,7 @@ public class DuctoMesh : MonoBehaviour
     private double ultAlto;
     private int ultArea; //para la rejilla, solo necesita un valor, son cuadrados sin decimales
     private Mesh lmesh;
+    public Material mat;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class DuctoMesh : MonoBehaviour
             gameObject.AddComponent(typeof(MeshRenderer));
         }
         lmesh = GetComponent<MeshFilter>().mesh;
+        GetComponent<MeshRenderer>().material = mat;
         Creator();
     }
 
@@ -34,10 +36,6 @@ public class DuctoMesh : MonoBehaviour
         VertexMoveArea();
         TriangleCreation();
         VertexMoveLong();
-        foreach (var item in lmesh.vertices)
-        {
-            //Debug.Log(item);
-        }
     }
 
 
