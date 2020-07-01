@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class RegistroAmbiente : MonoBehaviour {
 
-    public InputField idProyecto;
+    public Text idProyecto;
     public InputField nAmbiente;
     public InputField largo;
     public InputField ancho;
     public InputField altura;
-    public InputField area;
+    //public InputField area;
     public InputField recambios;
     public InputField flujo;
     public InputField cfm;
@@ -21,18 +22,16 @@ public class RegistroAmbiente : MonoBehaviour {
     
     public void RegistrarAmbiente()
     {
-
-        if (idProyecto.text != "" && nAmbiente.text != "" && largo.text != "" && ancho.text != "" && altura.text != "" && area.text != "" && recambios.text != "" && flujo.text != "" && cfm.text != "" && coordenadas.text != "")
+        if (idProyecto.text != "" && nAmbiente.text != "" && largo.text != "" && ancho.text != "" && altura.text != "" && recambios.text != "" && flujo.text != "" && cfm.text != "" && coordenadas.text != "")
         {
-            Debug.Log("Correcto");
-            StartCoroutine(RegistraBD(idProyecto.text, nAmbiente.text, largo.text, ancho.text, altura.text, area.text, recambios.text, flujo.text, cfm.text,coordenadas.text));
+            //Debug.Log("Correcto");
+            string area = "0"; //calcular el area
+            StartCoroutine(RegistraBD(idProyecto.text, nAmbiente.text, largo.text, ancho.text, altura.text, area, recambios.text, flujo.text, cfm.text,coordenadas.text));
             LimpiarCampos();
-
-        }
-        else {
+            SceneManager.LoadScene("SampleScene");
+        }else {
             Panel_msj.SetActive(true);
         }
-     
     }
 
     private void LimpiarCampos(){
@@ -41,7 +40,7 @@ public class RegistroAmbiente : MonoBehaviour {
         largo.text = "";
         ancho.text = "";
         altura.text = "";
-        area.text = "";
+        // area.text = "";
         recambios.text = "";
         flujo.text = "";
         cfm.text = "";

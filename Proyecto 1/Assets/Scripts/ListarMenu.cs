@@ -5,10 +5,12 @@ using UnityEngine.UI;
 using System.IO;
 using UnityEngine.Networking;
 
+//using UnityEngine.CoreModule;
+
 public class ListarMenu : MonoBehaviour {
 
     public string URL;
-    public GameObject PrefabButtonCarg;//PrefabButtonCarg
+    public GameObject PrefabButtonCarg;
     public GameObject PrefabButtonElim;
     public GameObject PrefabText;
     public GameObject Ancla;
@@ -18,54 +20,58 @@ public class ListarMenu : MonoBehaviour {
     private Dictionary<string, string> localizedText;
 
     void Start()
-    {        
-       // if (Application.internetReachability != NetworkReachability.NotReachable) //validacion a internet reemplazar por validadcion al servidor
-        //{                                                                  
-            WWW requestP = new WWW(URL + "proyecto");
-            StartCoroutine(ProyectoOnReponse(requestP));
-            
-        //}
+    {
+       StartCoroutine(ProyectoOnReponse());
     }
 
-    private IEnumerator ProyectoOnReponse(WWW req)
+    private IEnumerator ProyectoOnReponse()
     {
-        yield return req;
+        using (WWW req = new WWW(URL + "proyecto"))
+        { 
+        
+           yield return req;
 
-        ListaProyectos listaProyectos = JsonUtility.FromJson<ListaProyectos>(req.text);
-        string ArchivoProyectos = JsonUtility.ToJson(listaProyectos);
-        PlayerPrefs.SetString("KeySaveProyectos", ArchivoProyectos);
+           if (!string.IsNullOrEmpty(req.error)){
+                Debug.Log(req.error);
+           }
+           else {
 
-        Cantidad = listaProyectos.proyectos.Count;
+             // Debug.Log("entron");
+            ListaProyectos listaProyectos = JsonUtility.FromJson<ListaProyectos>(req.text);
+            string ArchivoProyectos = JsonUtility.ToJson(listaProyectos);
+            PlayerPrefs.SetString("KeySaveProyectos", ArchivoProyectos);// esta de mas
 
-        float posRang = 0.0f;
-        float posY = 45.0f;
+            Cantidad = listaProyectos.proyectos.Count;
 
-        for (int i = 0; i < Cantidad; i++)
-        {
-            posRang = posY * (i + 1);
-            //CargarBotonCargar(posRang);
-            CargarBotonEliminar(posRang);
+            float posRang = 0.0f;
+            float posY = 30.0f;
 
-            //----boton cargar-----
-            GameObject BotonClon = Instantiate(PrefabButtonCarg, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
-            BotonClon.transform.SetParent(Ancla.transform);
-            BotonClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(0.0f, -posRang);
-           // BotonClon.GetComponent<Cargar>().Cod_id = "1";
+            for (int i = 0; i < Cantidad; i++)
+            {
+                posRang = posY * (i + 1);
+                CargarBotonEliminar(posRang);
 
-            //----- label-----
-            GameObject TextoClon = Instantiate(PrefabText, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
-            TextoClon.transform.SetParent(Ancla.transform);
-            TextoClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(-135.0f, -posRang);
-            listaProyectos.CargarText(TextoClon, i, BotonClon);
+                //----boton cargar-----
+                GameObject BotonClon = Instantiate(PrefabButtonCarg, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
+                BotonClon.transform.SetParent(Ancla.transform);
+                BotonClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(320.0f, -posRang);
+
+                //----- label-----
+
+                GameObject TextoClon = Instantiate(PrefabText, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
+                TextoClon.transform.SetParent(Ancla.transform);
+                TextoClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(70.0f, -posRang); 
+                listaProyectos.CargarText(TextoClon, i, BotonClon);
+            }
+            }
         }
-
     }
 
     private void CargarBotonEliminar(float posRang)
     {
         GameObject BotonClon = Instantiate(PrefabButtonElim, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
         BotonClon.transform.SetParent(Ancla.transform);
-        BotonClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(120.0f, -posRang);
+        BotonClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(470.0f, -posRang);
     }
 
  
