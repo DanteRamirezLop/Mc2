@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class AmbienteMesh : MonoBehaviour
@@ -25,6 +23,7 @@ public class AmbienteMesh : MonoBehaviour
         }
         lmesh = GetComponent<MeshFilter>().mesh;
         ultAlto = 0.1f;
+        lmesh.Clear();
         Beta();
         GetComponent<MeshRenderer>().material = mat;
     }
@@ -56,6 +55,28 @@ public class AmbienteMesh : MonoBehaviour
         }
         CambiarAlto(2.5f);
     }
+    public Vector3[] ConstruirCuadrante()
+    {
+        float x1 = 9, x2 = 0, z1 = 0, z2 = 0;
+        //orden IzqAb, IzqAr, DerAbj, DerArr
+        for (int i = 0; i < lmesh.vertexCount; i++)
+        {
+            if (lmesh.vertices[i].x < x1)
+                x1 = lmesh.vertices[i].x;
+            if (lmesh.vertices[i].x > x2)
+                x2 = lmesh.vertices[i].x;
+            if (lmesh.vertices[i].z < z1)
+                z2 = lmesh.vertices[i].z;
+            if (lmesh.vertices[i].z > z2)
+                z2 = lmesh.vertices[i].z;
+        }
+        return new Vector3[] {
+            new Vector3(x1, ultAlto + 0.5f , z1),
+            new Vector3(x1, ultAlto + 0.5f , z2),
+            new Vector3(x2, ultAlto + 0.5f , z1),
+            new Vector3(x2, ultAlto + 0.5f , z2)
+        };
+    }
     public void Creator(Vector2[] coordenadas)
     {
         this.coordenadas = coordenadas;
@@ -71,6 +92,10 @@ public class AmbienteMesh : MonoBehaviour
             return;
         }
         ultAlto = alto;
+        if (lmesh.vertexCount == 0)
+        {
+            return;
+        }
         Vector3[] nvertex = lmesh.vertices;
         int flagged = 0;
         for (int i = 0; i < nvertex.Length; i++)
