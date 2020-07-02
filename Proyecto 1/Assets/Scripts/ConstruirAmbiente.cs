@@ -4,59 +4,50 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using UnityEngine.Networking;
+using System;
 
 public class ConstruirAmbiente : MonoBehaviour {
 
     public string URL;
     public string Id_Foranea;
-
-    public GameObject PrefabObj;
-    public GameObject Ancla;
+    public Dropdown ComboAmnietnes;
 
     private Dictionary<string, string> localizedText;
 
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
-      //  if (Application.internetReachability != NetworkReachability.NotReachable) //validacion a internet reemplazar por validadcion al servidor
-        //{
-            WWW requestA = new WWW(URL + "ambiente/" + Id_Foranea);
-            StartCoroutine(AmbienteOnReponse(requestA));
-       // }
+        StartCoroutine(AmbienteOnReponse(Id_Foranea));	
     }
 
-    private IEnumerator AmbienteOnReponse(WWW req)
+    private IEnumerator AmbienteOnReponse(string Id_Foranea)
     {
+
+      using (WWW req = new WWW(URL + "ambiente/" + Id_Foranea))
+      {   
         yield return req;
 
-        int Cantidad;
+        if (!string.IsNullOrEmpty(req.error)){
+            Debug.Log(req.error);
 
-        ListaAmbientes listaAmbientes = JsonUtility.FromJson<ListaAmbientes>(req.text);
-        string ArchivoAmbientes = JsonUtility.ToJson(listaAmbientes);
-        PlayerPrefs.SetString("KeySaveAmbientes", ArchivoAmbientes);
+        }else {
 
-        Cantidad = listaAmbientes.ambientes.Count;
+            int Cantidad;
 
+            ListaAmbientes listaAmbientes = JsonUtility.FromJson<ListaAmbientes>(req.text);
+            Cantidad = listaAmbientes.ambientes.Count;
 
-        float posRang = 0.0f;
-        float posY = 40.0f;  // espacio entre ambientes
-
-        Debug.Log(Cantidad);
-        for (int i = 0; i < Cantidad; i++)
-        {
-            //******** parete de la construccion***********
-
-            posRang = posY * (i + 1);
-
-            GameObject AmbienteClon = Instantiate(PrefabObj, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
-            AmbienteClon.transform.SetParent(Ancla.transform);
-            //AmbienteClon.GetComponent<RectTransform>().anchoredPosition = new Vector3(posRang, 0.0f, 0.0f);// new Vector2(-135.0f, 0.0f);
-            AmbienteClon.transform.position = new Vector3(posRang, 0.0f, 0.0f);
-            listaAmbientes.CargarAmbientes(AmbienteClon,i);
-
-            //***********************
-        }
-        
+            if (Cantidad != 0)
+            {
+               //Construir el primer ambiente por defecto
+                listaAmbientes.CargarAmbientes(ComboAmnietnes);
+            }
+             else {
+                 Debug.Log("Este Proyecto no tiene ambientes");
+                 ComboAmnietnes.options.Clear();
+             }
+       }
+     }
     }
 
     [System.Serializable]
@@ -85,37 +76,37 @@ public class ConstruirAmbiente : MonoBehaviour {
     {
         public List<Ambiente> ambientes;
 
-        public void CargarAmbientes(GameObject AmbienteClon, int num)
+        public void CargarAmbientes(Dropdown ComboAmnietnes)
          {
              int count = 0;
-             string Altura;
-             string Largo;
-             string Ancho;
+             string Coordenadas;
+             string Nombre= "";
+             char newLine = '\n';
 
-             float varX = 0.0f;
-             float varY = 0.0f;
-             float varZ = 0.0f;
+             ComboAmnietnes.options.Clear();
+             List<string> nombres = new List<string>();
 
              foreach (Ambiente ambiente in ambientes)
              {
-                 if (count == num)
+                 if (count == 0)
                  {
-                    //***Construir****
-                       Altura = ambiente.altura;
-                       Largo = ambiente.largo;
-                       Ancho = ambiente.ancho;
+                     //****Construir primer ambiente
 
-                       varX = float.Parse(Ancho);
-                       varY = float.Parse(Altura);
-                       varZ = float.Parse(Largo);
-
-                       AmbienteClon.transform.localScale = new Vector3(varX, varY, varZ);
-                       Debug.Log(ambiente.coordenadas);
-                       
-                     //
+                     //se desmenusa las corrdenadas y se almacenan en split1
+                     Coordenadas = ambiente.coordenadas;
+                     string[] split1 = Coordenadas.Split(newLine);
+                     //Debug.Log(split1[0]);
+                     //Debug.Log(split1[1]);
+                     //Debug.Log(split1[2]);
+                     //Debug.Log(split1[3]);
                  }
+                 Nombre = ambiente.nAmbiente;
+                //ComboAmnietnes.options.Add(new Dropdown.OptionData() { text = Nombre });
+                 nombres.Add(Nombre);
                  count++;
              }
+
+             ComboAmnietnes.AddOptions(nombres);
          }
     }
 

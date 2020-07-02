@@ -7,9 +7,9 @@ public class Cargar : MonoBehaviour {
 
     public string Cod_id;
 
-    public void CambiarEscena()
+    public void CambiarEscena(string NombreEscena)
     {
         DatosScena.Id_proyecto = Cod_id;
-        SceneManager.LoadScene("EscenaConstruccion");
+        SceneManager.LoadScene(NombreEscena);
     }
 }
