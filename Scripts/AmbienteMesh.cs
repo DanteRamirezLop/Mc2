@@ -24,7 +24,7 @@ public class AmbienteMesh : MonoBehaviour
         lmesh = GetComponent<MeshFilter>().mesh;
         ultAlto = 0.1f;
         lmesh.Clear();
-        Beta();
+        //Beta();
         GetComponent<MeshRenderer>().material = mat;
     }
     private void Beta()
