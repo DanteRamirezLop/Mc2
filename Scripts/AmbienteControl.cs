@@ -7,7 +7,7 @@ public class AmbienteControl : MonoBehaviour
     private Vector3[] Cuadrante;
     void Start()
     {
-        if (TryGetComponent(typeof(AmbienteMesh), out Component c))
+        if (!TryGetComponent(typeof(AmbienteMesh), out Component c))
         {
             gameObject.AddComponent(typeof(AmbienteMesh));
         }

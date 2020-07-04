@@ -45,6 +45,14 @@ public class CodoMesh : MonoBehaviour
         lmesh = GetComponent<MeshFilter>().mesh;
         Creator();
     }
+    public Quaternion getUltRotation()
+    {
+        return pivot.transform.rotation;
+    }
+    public Vector3 getUltPosition()
+    {
+        return (p1.transform.position + p4.transform.position) / 2;
+    }
     /**
      * <summary>Cambia el angulo del codo</summary>
      */
