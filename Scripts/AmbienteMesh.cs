@@ -8,7 +8,6 @@ public class AmbienteMesh : MonoBehaviour
     private Vector2[] coordenadas;
     private float ultAlto;
     private Mesh lmesh;
-    public GameObject trial;
     public Material mat;
     // Start is called before the first frame update
     void Start()
@@ -232,14 +231,6 @@ public class AmbienteMesh : MonoBehaviour
             retVertex.Add(retVertex[retVertex.Count - 2] + Vector3.up * ultAlto);
             retVertex.Add(retVertex[retVertex.Count - 2] + Vector3.up * ultAlto);
         }
-        /*foreach (var item in mainVertex)
-        {
-            GameObject.Instantiate(this.trial, item, Quaternion.identity);
-        }
-        for (int i = 0; i < secondaryVertex.Count; i++)
-        {
-           GameObject.Instantiate(this.trial, secondaryVertex[i], Quaternion.identity);
-        }*/
         lmesh.vertices = retVertex.ToArray();
         return flag1;
     }
