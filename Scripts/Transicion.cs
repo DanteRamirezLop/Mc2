@@ -12,7 +12,7 @@ public class Transicion : MonoBehaviour {
 	private float tiempo;
 	public bool termina;
 
-    public void dTransicion(){
+    public void DTransicion(){
         //la funcion se llamaba Transicion pero se cambio por que la clase tien el mismo nombre
 		this.posicionInicial = new Vector3(0,0,0);
 		this.posicionFinal = new Vector3(0,0,0);
@@ -22,7 +22,7 @@ public class Transicion : MonoBehaviour {
 		tiempo = 0;
 		this.termina = false;
 	}
-	public void dTransicion(Vector3 wPosicionInicial, Vector3 wPosicionFinal,Quaternion wRotacionInicial,Quaternion wRotacionFinal,float wDuracion){
+	public void DTransicion(Vector3 wPosicionInicial, Vector3 wPosicionFinal,Quaternion wRotacionInicial,Quaternion wRotacionFinal,float wDuracion){
         //la funcion se llamaba Transicion pero se cambio por que la clase tien el mismo nombre
         this.posicionInicial = wPosicionInicial;
 		this.posicionFinal = wPosicionFinal;
@@ -33,11 +33,11 @@ public class Transicion : MonoBehaviour {
 		this.termina = false;
 	}
 	//funciones de tiempo
-	public void resetTime(){
+	public void ResetTime(){
 		tiempo = 0;
 		termina = false;
 	}
-	public void passTime(){
+	public void PassTime(){
 		if(this.tiempo< this.duracion){
 			this.tiempo += Time.deltaTime;
 		}
@@ -46,31 +46,31 @@ public class Transicion : MonoBehaviour {
 		}
 	}
 	//setter
-	public void setDuracion(float wDuracion){
+	public void SetDuracion(float wDuracion){
 		this.duracion = wDuracion;
 	}
 	//funciones de transicion
-	public Vector3 lerpTransPosition(){
+	public Vector3 LerpTransPosition(){
 		Vector3 ret;
-		ret = Vector3.Lerp(this.posicionInicial,this.posicionFinal,transitionCompleted());
+		ret = Vector3.Lerp(this.posicionInicial,this.posicionFinal,TransitionCompleted());
 		return ret;
 	}
-	public Vector3 slerpTransPosition(){
+	public Vector3 SlerpTransPosition(){
 		Vector3 ret;
-		ret = Vector3.Slerp(this.posicionInicial,this.posicionFinal,transitionCompleted());
+		ret = Vector3.Slerp(this.posicionInicial,this.posicionFinal,TransitionCompleted());
 		return ret;
 	}
-	public Quaternion lerpTransRotation(){
+	public Quaternion LerpTransRotation(){
 		Quaternion ret;
-		ret = Quaternion.Lerp(this.rotacionInicial, this.rotacionFinal, this.transitionCompleted());
+		ret = Quaternion.Lerp(this.rotacionInicial, this.rotacionFinal, this.TransitionCompleted());
 		return ret;
 	}
-	public Quaternion slerpTransRotation(){
+	public Quaternion SlerpTransRotation(){
 		Quaternion ret;
-		ret = Quaternion.Slerp(this.rotacionInicial, this.rotacionFinal, this.transitionCompleted());
+		ret = Quaternion.Slerp(this.rotacionInicial, this.rotacionFinal, this.TransitionCompleted());
 		return ret;
 	}
-	private float transitionCompleted(){
+	private float TransitionCompleted(){
 		float x;
 		if(this.tiempo >= this.duracion){
 			this.tiempo = this.duracion;

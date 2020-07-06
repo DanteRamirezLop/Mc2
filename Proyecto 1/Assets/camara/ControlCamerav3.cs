@@ -103,8 +103,8 @@ void Update()
              {
 				if(Input.GetKeyDown(i.getKey())){
 					if(actualView != cameraLooks.IndexOf(i)){
-						this.transicion.resetTime();//
-						this.transicion.setDuracion(this.cameraLooks[this.actualView].duracion);
+						this.transicion.ResetTime();//
+						this.transicion.SetDuracion(this.cameraLooks[this.actualView].duracion);
 						SetOrigin();
 					}
 					if (this.player.transform.parent) {
@@ -126,9 +126,9 @@ void Update()
             {
 				if(Input.GetKey(i.getKey())){
 					if (this.keyDetector != i.getKey()) {
-						this.transicion.setDuracion(this.cameraLooks[this.actualView].duracion);
+						this.transicion.SetDuracion(this.cameraLooks[this.actualView].duracion);
 						this.keyDetector = i.getKey();
-						this.transicion.resetTime();
+						this.transicion.ResetTime();
 						actualView = cameraLooks.IndexOf(i);
 						CullingMaskOrder();
 						SetOrigin();
@@ -146,8 +146,8 @@ void Update()
 	}
 	if (!this.encontrada) {
 		if (this.keyDetector != KeyCode.None) {
-			this.transicion.setDuracion(this.cameraLooks[this.actualView].duracion);
-			this.transicion.resetTime();
+			this.transicion.SetDuracion(this.cameraLooks[this.actualView].duracion);
+			this.transicion.ResetTime();
 			SetOrigin();
 			this.keyDetector = KeyCode.None;
 			actualView = this.lastCallView;
@@ -174,7 +174,7 @@ private void ExecuteView(){
 			break;
 	}
 	MoverCamara();
-	this.transicion.passTime();
+	this.transicion.PassTime();
 }
 private void SetOrigin(){
 	this.transicion.posicionInicial = this.camara.transform.position;
@@ -185,8 +185,8 @@ private void MoverCamara(){
 		this.camara.transform.position = this.transicion.posicionFinal;
 		this.camara.transform.rotation = this.transicion.rotacionFinal;
 	}else{
-		this.camara.transform.position = this.transicion.slerpTransPosition();
-		this.camara.transform.rotation = this.transicion.slerpTransRotation();
+		this.camara.transform.position = this.transicion.SlerpTransPosition();
+		this.camara.transform.rotation = this.transicion.SlerpTransRotation();
 	}
 }
 /*funciones propias de camara*/
@@ -267,9 +267,9 @@ public void ChangeView(int view){
 		return;
 	}
 	if (this.actualView != view){
-		this.transicion.resetTime();
+		this.transicion.ResetTime();
 		SetOrigin();
-		this.transicion.setDuracion(this.cameraLooks[view].duracion);
+		this.transicion.SetDuracion(this.cameraLooks[view].duracion);
 		this.lastCallView = view;
 		this.actualView = view;
 		CullingMaskOrder();
@@ -278,8 +278,8 @@ public void ChangeView(int view){
 public void ChangePlayer(GameObject player1){
 	this.player = player1;
 	this.auxiliar.transform.SetParent(this.player.transform);
-	this.transicion.resetTime();
-	this.transicion.setDuracion(this.cameraLooks[this.actualView].duracion);
+	this.transicion.ResetTime();
+	this.transicion.SetDuracion(this.cameraLooks[this.actualView].duracion);
 	SetOrigin();
 }
 public void SetMouseListener(GameObject mouseListen){

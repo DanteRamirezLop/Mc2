@@ -45,4 +45,17 @@ public class DuctoControl : ObjectControlMain
         this.mesh.ReCreator((float)longitud);
         this.mesh.ReCreator((float)ancho, (float)alto);
     }
+    public void setAlto(double alto)
+    {
+        this.alto = alto;
+    }
+    public void setAncho(double ancho)
+    {
+        this.ancho = ancho;
+    }
+    public void setLongitud(double longitud)
+    {
+        this.longitud = longitud;
+    }
+
 }
