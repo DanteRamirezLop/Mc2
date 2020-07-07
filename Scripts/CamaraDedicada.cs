@@ -8,86 +8,133 @@ public class CamaraDedicada : MonoBehaviour
     public Vector3[] cuadrante;
     private Vector3 centro;
     private Vector3 posAmbiente;
+    private Transicion transicion;
+    public float speed;
+    public float sensitivity;
     public bool habil;
 
     public GameObject ambiente; //para pruebas
     // Start is called before the first frame update
     void Start()
     {
+        this.speed = 5;
+        this.sensitivity = 100;
         this.cuadrante = null;
         this.habil = true;
+        transicion = new Transicion();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!transicion.IsFinished())
+        {
+            transicion.PassTime();
+            this.transform.position = transicion.SlerpTransPosition();
+            this.transform.rotation = transicion.SlerpTransRotation();
+            return;
+        }
         if (cuadrante != null)
         {
+            Direccionales();
             if (Input.GetKey(KeyCode.LeftControl))
-            {
                 DesplazarCamara();
-            }
             if (Input.GetMouseButton(1))
-            {
-                RotarCamara();
-            }
+                ControlMouse();
+            if (Input.mouseScrollDelta.y != 0f)
+                MoverAdelante();
         }
         else
         {
+            //esta parte es para que se pueda probar
             SetCuadrante(ambiente.GetComponent<AmbienteControl>().getCuadrante(), ambiente.transform.position);
         }
     }
 
-    private void RotarCamara()
+    private void MoverAdelante()
     {
-        float sensibilidad = 100f;
-        float speed = 10f;
-        this.transform.Rotate(Input.GetAxis("Mouse Y") * speed * sensibilidad * Time.deltaTime,
-            Input.GetAxis("Mouse X") * speed * sensibilidad * Time.deltaTime * -1,0,Space.Self);
+        this.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * Time.deltaTime * speed * sensitivity / 10);
+    }
+
+    private void Direccionales()
+    {
+        if (Input.GetKey(KeyCode.W))
+            this.transform.Translate(Vector3.up * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.S))
+            this.transform.Translate(Vector3.up * -1 * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.D))
+            this.transform.Translate(Vector3.right * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.A))
+            this.transform.Translate(Vector3.right * -1 * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.Q))
+            this.transform.Rotate(Vector3.forward * speed * sensitivity / 12 * Time.deltaTime);
+        if (Input.GetKey(KeyCode.E))
+            this.transform.Rotate(Vector3.forward * speed * -1 * sensitivity / 12 * Time.deltaTime);
+    }
+    private void ControlMouse()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            this.transform.Rotate(Input.GetAxis("Mouse Y") * speed * sensitivity * Time.deltaTime,
+                Input.GetAxis("Mouse X") * speed * sensitivity * Time.deltaTime * -1,0,Space.Self);
+        }
+        else
+        {
+            this.transform.Translate(new Vector3(
+                Input.GetAxis("Mouse X") * speed * sensitivity / 10 * -1 * Time.deltaTime,
+                Input.GetAxis("Mouse Y") * speed * sensitivity / 10 * -1 *Time.deltaTime,
+                0));
+        }
         //this.transform.Rotate(0,0, - this.transform.eulerAngles.z,Space.Self);
     }
 
     private void DesplazarCamara()
     {
         Vector3 change = this.transform.position;
+        Vector3 nPos = this.transform.position;
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            this.transform.position = posAmbiente + cuadrante[0];
+            nPos = posAmbiente + cuadrante[0];
         }
         else if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            this.transform.position = posAmbiente + (cuadrante[1] + cuadrante[0]) / 2;
+            nPos = posAmbiente + (cuadrante[1] + cuadrante[0]) / 2;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-            this.transform.position = posAmbiente + cuadrante[1];
+            nPos = posAmbiente + cuadrante[1];
         }
         else if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-            this.transform.position = posAmbiente + (cuadrante[0] + cuadrante[2]) / 2;
+            nPos = posAmbiente + (cuadrante[0] + cuadrante[2]) / 2;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad5))
         {
-            this.transform.position = centro + Vector3.up * (Vector3.Distance(cuadrante[0],cuadrante[3]) + Vector3.Distance(cuadrante[1],cuadrante[2])) / 4;
+            nPos = centro + Vector3.up * (Vector3.Distance(cuadrante[0],cuadrante[3]) + Vector3.Distance(cuadrante[1],cuadrante[2])) / 4;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad6))
         {
-            this.transform.position = posAmbiente + (cuadrante[1] + cuadrante[3]) / 2;
+            nPos = posAmbiente + (cuadrante[1] + cuadrante[3]) / 2;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad7))
         {
-            this.transform.position = posAmbiente + cuadrante[2];
+            nPos = posAmbiente + cuadrante[2];
         }
         else if (Input.GetKeyDown(KeyCode.Keypad8))
         {
-            this.transform.position = posAmbiente + (cuadrante[2] + cuadrante[3]) / 2;
+            nPos = posAmbiente + (cuadrante[2] + cuadrante[3]) / 2;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad9))
         {
-            this.transform.position = posAmbiente + cuadrante[3];
+            nPos = posAmbiente + cuadrante[3];
         }
-        if (change != this.transform.position)
-            this.transform.LookAt(this.centro);
+        if (change != nPos)
+        {
+            this.transicion.DTransicion(this.transform.position, nPos, this.transform.rotation,
+                Quaternion.LookRotation(centro - nPos, Vector3.up));
+            this.transicion.SetDuracion(3, 10, 0.5f);
+            //this.transform.LookAt(this.centro);
+        }
     }
     public void SetCuadrante(Vector3[] cuadrante, Vector3 posAmbiente)
     {

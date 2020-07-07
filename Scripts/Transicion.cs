@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transicion : MonoBehaviour {
+public class Transicion {
 
 	public Vector3 posicionInicial;
 	public Vector3 posicionFinal;
@@ -22,33 +22,64 @@ public class Transicion : MonoBehaviour {
 		tiempo = 0;
 		this.termina = false;
 	}
-	public void DTransicion(Vector3 wPosicionInicial, Vector3 wPosicionFinal,Quaternion wRotacionInicial,Quaternion wRotacionFinal,float wDuracion){
+	public void DTransicion(Vector3 wPosicionInicial, Vector3 wPosicionFinal,Quaternion wRotacionInicial,Quaternion wRotacionFinal){
         //la funcion se llamaba Transicion pero se cambio por que la clase tien el mismo nombre
         this.posicionInicial = wPosicionInicial;
 		this.posicionFinal = wPosicionFinal;
 		this.rotacionInicial = wRotacionInicial;
 		this.rotacionFinal = wRotacionFinal;
-		duracion = wDuracion;
+		duracion = 0;
 		tiempo = 0;
 		this.termina = false;
 	}
+	public void SetDuracion(float dr)
+    {
+		this.duracion = dr;
+    }
+	/**
+	 * <summary>Un modo de elegir la duracion, 1-> la distancia, 2-> la rotacion, ?-> el mayor de ambos, para no marear</summary>
+	 * <param name="min">El minimo de duracion que puede tener</param>
+	 * <param name="modo">3 modos, arriba puse que hacen</param>
+	 * <param name="velocidad">Unidades por segundo</param>
+	 */
+	public void SetDuracion(int modo, float velocidad, float min)
+    {
+        switch (modo)
+        {
+			case 1:
+				this.duracion = Vector3.Distance(posicionInicial, posicionFinal) / velocidad;
+				break;
+			case 2:
+				this.duracion = Vector3.Distance(rotacionInicial.eulerAngles, rotacionFinal.eulerAngles) / velocidad;
+				break;
+            default:
+                if (Vector3.Distance(posicionInicial, posicionFinal) > Vector3.Distance(rotacionInicial.eulerAngles, rotacionFinal.eulerAngles))
+					this.duracion = Vector3.Distance(posicionInicial, posicionFinal) / velocidad;
+				else
+					this.duracion = Vector3.Distance(rotacionInicial.eulerAngles, rotacionFinal.eulerAngles) / velocidad;
+                break;
+        }
+        if (min < this.duracion)
+        {
+			this.duracion = min;
+        }
+    }
 	//funciones de tiempo
 	public void ResetTime(){
 		tiempo = 0;
-		termina = false;
 	}
 	public void PassTime(){
 		if(this.tiempo< this.duracion){
 			this.tiempo += Time.deltaTime;
 		}
 		else{
-			this.termina = true;
+			this.tiempo = this.duracion;
 		}
 	}
-	//setter
-	public void SetDuracion(float wDuracion){
-		this.duracion = wDuracion;
-	}
+	public bool IsFinished()
+    {
+		return this.tiempo >= this.duracion;
+    }
 	//funciones de transicion
 	public Vector3 LerpTransPosition(){
 		Vector3 ret;

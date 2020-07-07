@@ -45,8 +45,8 @@ public class AmbienteMesh : MonoBehaviour
         }
         return new Vector3[] {
             new Vector3(x1 - 1f, ultAlto + 0.5f , z1 - 1f),
-            new Vector3(x1 - 1f, ultAlto + 0.5f , z2 + 1f),
             new Vector3(x2 + 1f, ultAlto + 0.5f , z1 - 1f),
+            new Vector3(x1 - 1f, ultAlto + 0.5f , z2 + 1f),
             new Vector3(x2 + 1f, ultAlto + 0.5f , z2 + 1f)
         };
     }
