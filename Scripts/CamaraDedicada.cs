@@ -11,6 +11,7 @@ public class CamaraDedicada : MonoBehaviour
     private Transicion transicion;
     public float speed;
     public float sensitivity;
+    public float caliber;
     public bool habil;
 
     public GameObject ambiente; //para pruebas
@@ -19,6 +20,7 @@ public class CamaraDedicada : MonoBehaviour
     {
         this.speed = 5;
         this.sensitivity = 100;
+        this.caliber = 100;
         this.cuadrante = null;
         this.habil = true;
         transicion = new Transicion();
@@ -66,10 +68,18 @@ public class CamaraDedicada : MonoBehaviour
             this.transform.Translate(Vector3.right * speed * Time.deltaTime);
         if (Input.GetKey(KeyCode.A))
             this.transform.Translate(Vector3.right * -1 * speed * Time.deltaTime);
+        if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.E))
+        {
+            Quaternion q = this.transform.rotation;
+            q.eulerAngles = new Vector3(q.eulerAngles.x, q.eulerAngles.y, 0);
+            this.transicion.DTransicion(this.transform.position, this.transform.position, this.transform.rotation, q);
+            this.transicion.SetDuracion(3, 10, 0.5f);
+            return;
+        }
         if (Input.GetKey(KeyCode.Q))
-            this.transform.Rotate(Vector3.forward * speed * sensitivity / 12 * Time.deltaTime);
+            this.transform.Rotate(Vector3.forward * speed * sensitivity / 10 * Time.deltaTime);
         if (Input.GetKey(KeyCode.E))
-            this.transform.Rotate(Vector3.forward * speed * -1 * sensitivity / 12 * Time.deltaTime);
+            this.transform.Rotate(Vector3.forward * speed * -1 * sensitivity / 10 * Time.deltaTime);
     }
     private void ControlMouse()
     {
