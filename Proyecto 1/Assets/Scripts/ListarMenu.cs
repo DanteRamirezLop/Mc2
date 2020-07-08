@@ -26,20 +26,22 @@ public class ListarMenu : MonoBehaviour {
 
     private IEnumerator ProyectoOnReponse()
     {
-        using (WWW req = new WWW(URL + "proyecto"))
-        { 
-        
-           yield return req;
+        using (UnityWebRequest req = UnityWebRequest.Get(URL + "proyecto"))
+        {
 
-           if (!string.IsNullOrEmpty(req.error)){
+            yield return req.SendWebRequest();
+
+           //if(www.isNetworkError || www.isHttpError)
+           if (!string.IsNullOrEmpty(req.error))
+           { 
                 Debug.Log(req.error);
            }
            else {
 
              // Debug.Log("entron");
-            ListaProyectos listaProyectos = JsonUtility.FromJson<ListaProyectos>(req.text);
+            ListaProyectos listaProyectos = JsonUtility.FromJson<ListaProyectos>(req.downloadHandler.text);
             string ArchivoProyectos = JsonUtility.ToJson(listaProyectos);
-            PlayerPrefs.SetString("KeySaveProyectos", ArchivoProyectos);// esta de mas
+            //PlayerPrefs.SetString("KeySaveProyectos", ArchivoProyectos);// esta de mas
 
             Cantidad = listaProyectos.proyectos.Count;
 
@@ -57,7 +59,6 @@ public class ListarMenu : MonoBehaviour {
                 BotonClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(320.0f, -posRang);
 
                 //----- label-----
-
                 GameObject TextoClon = Instantiate(PrefabText, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
                 TextoClon.transform.SetParent(Ancla.transform);
                 TextoClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(70.0f, -posRang); 

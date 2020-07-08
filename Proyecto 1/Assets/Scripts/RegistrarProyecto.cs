@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class RegistrarProyecto : MonoBehaviour {
 
@@ -15,7 +16,9 @@ public class RegistrarProyecto : MonoBehaviour {
         {
             //Debug.Log("Correcto");
             StartCoroutine(RegistraBD(nombre.text));
-            LimpiarCampos();
+            Debug.Log("proyecto creado");
+            SceneManager.LoadScene("SampleScene");
+            //LimpiarCampos();
         }
         else
         {

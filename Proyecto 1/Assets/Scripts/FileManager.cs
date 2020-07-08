@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.Networking;
 
 public class FileManager : MonoBehaviour {
 
@@ -25,6 +26,7 @@ public class FileManager : MonoBehaviour {
     void ActualizarTexto() 
     {
         WWW www = new WWW("file://" + Direccion);
+
         Txt_Coordenadas.text = www.text;
     }
 

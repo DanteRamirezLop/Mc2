@@ -16,19 +16,20 @@ public class RegistroAmbiente : MonoBehaviour {
     public InputField recambios;
     public InputField flujo;
     public InputField cfm;
-    public Text coordenadas;
+    public Text coordenada;
 
     public GameObject Panel_msj;
     
     public void RegistrarAmbiente()
     {
-        if (idProyecto.text != "" && nAmbiente.text != "" && largo.text != "" && ancho.text != "" && altura.text != "" && recambios.text != "" && flujo.text != "" && cfm.text != "" && coordenadas.text != "")
+        if (idProyecto.text != "" && nAmbiente.text != "" && largo.text != "" && ancho.text != "" && altura.text != "" && recambios.text != "" && flujo.text != "" && cfm.text != "" && coordenada.text != "")
         {
-            //Debug.Log("Correcto");
+            //validar que solo se ingrese numeros o texto
+
             string area = "0"; //calcular el area
-            StartCoroutine(RegistraBD(idProyecto.text, nAmbiente.text, largo.text, ancho.text, altura.text, area, recambios.text, flujo.text, cfm.text,coordenadas.text));
-            LimpiarCampos();
-            SceneManager.LoadScene("SampleScene");
+            StartCoroutine(RegistraBD(idProyecto.text, nAmbiente.text, largo.text, ancho.text, altura.text, area, recambios.text, flujo.text, cfm.text,coordenada.text));
+            //LimpiarCampos();
+            SceneManager.LoadScene("EscenaConstruccion");
         }else {
             Panel_msj.SetActive(true);
         }
@@ -44,10 +45,10 @@ public class RegistroAmbiente : MonoBehaviour {
         recambios.text = "";
         flujo.text = "";
         cfm.text = "";
-        coordenadas.text = "";
+        coordenada.text = "";
     }
 
-    private IEnumerator RegistraBD(string idProyecto, string nAmbiente, string largo, string ancho, string altura, string area, string recambios, string flujo, string cfm, string coordenadas)
+    private IEnumerator RegistraBD(string idProyecto, string nAmbiente, string largo, string ancho, string altura, string area, string recambios, string flujo, string cfm, string coordenada)
     {
         WWWForm form = new WWWForm();
         form.AddField("idProyecto", idProyecto);
@@ -59,7 +60,7 @@ public class RegistroAmbiente : MonoBehaviour {
         form.AddField("recambios", recambios);
         form.AddField("flujo", flujo);
         form.AddField("cfm", cfm);
-        form.AddField("coordenadas", coordenadas);
+        form.AddField("coordenada", coordenada);
 
         using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Ambiente.php", form))
         {
@@ -74,5 +75,4 @@ public class RegistroAmbiente : MonoBehaviour {
         
         }
     }
-
 }
