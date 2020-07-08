@@ -8,7 +8,6 @@ public class AmbienteMesh : MonoBehaviour
     private Vector2[] coordenadas;
     private float ultAlto;
     private Mesh lmesh;
-    public GameObject trial;
     public Material mat;
     // Start is called before the first frame update
     void Start()
@@ -24,37 +23,11 @@ public class AmbienteMesh : MonoBehaviour
         lmesh = GetComponent<MeshFilter>().mesh;
         ultAlto = 0.1f;
         lmesh.Clear();
-        //Beta();
         GetComponent<MeshRenderer>().material = mat;
     }
-    private void Beta()
-    {
-        if (true)
-        {
-        Creator(new Vector2[] {
-            new Vector2(0,0),
-            new Vector2(1f,0),
-            new Vector2(1f,0.5f),
-            new Vector2(1.5f,0.5f),
-            new Vector2(3f,0),
-            new Vector2(2f,2f),
-            new Vector2(0,2f)
-        });
-        }
-        else
-        {
-        Creator(new Vector2[] {
-            new Vector2(0,0),
-            new Vector2(0,2f),
-            new Vector2(2f,2f),
-            new Vector2(3f,0),
-            new Vector2(1.5f,0.5f),
-            new Vector2(1f,0.5f),
-            new Vector2(1f,0)
-        });
-        }
-        CambiarAlto(2.5f);
-    }
+   /**
+    * <summary>Construye los cuadrantes de la camara, viene con un alejamiento de 1 incluido</summary>
+    */
     public Vector3[] ConstruirCuadrante()
     {
         float x1 = 9, x2 = 0, z1 = 0, z2 = 0;
@@ -71,10 +44,10 @@ public class AmbienteMesh : MonoBehaviour
                 z2 = lmesh.vertices[i].z;
         }
         return new Vector3[] {
-            new Vector3(x1, ultAlto + 0.5f , z1),
-            new Vector3(x1, ultAlto + 0.5f , z2),
-            new Vector3(x2, ultAlto + 0.5f , z1),
-            new Vector3(x2, ultAlto + 0.5f , z2)
+            new Vector3(x1 - 1f, ultAlto + 0.5f , z1 - 1f),
+            new Vector3(x2 + 1f, ultAlto + 0.5f , z1 - 1f),
+            new Vector3(x1 - 1f, ultAlto + 0.5f , z2 + 1f),
+            new Vector3(x2 + 1f, ultAlto + 0.5f , z2 + 1f)
         };
     }
     public void Creator(Vector2[] coordenadas)
@@ -83,6 +56,7 @@ public class AmbienteMesh : MonoBehaviour
         lmesh.Clear();
         bool sentido = CrearVertices();
         CrearTriangulos(sentido);
+        lmesh.RecalculateBounds();
     }
 
     public void CambiarAlto(float alto)
@@ -111,6 +85,7 @@ public class AmbienteMesh : MonoBehaviour
             }
         }
         lmesh.vertices = nvertex;
+        lmesh.RecalculateBounds();
     }
 
     private void CrearTriangulos(bool sentido)
@@ -232,14 +207,6 @@ public class AmbienteMesh : MonoBehaviour
             retVertex.Add(retVertex[retVertex.Count - 2] + Vector3.up * ultAlto);
             retVertex.Add(retVertex[retVertex.Count - 2] + Vector3.up * ultAlto);
         }
-        /*foreach (var item in mainVertex)
-        {
-            GameObject.Instantiate(this.trial, item, Quaternion.identity);
-        }
-        for (int i = 0; i < secondaryVertex.Count; i++)
-        {
-           GameObject.Instantiate(this.trial, secondaryVertex[i], Quaternion.identity);
-        }*/
         lmesh.vertices = retVertex.ToArray();
         return flag1;
     }

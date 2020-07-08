@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class DuctoMesh : MonoBehaviour
 {
-    private double ultAncho;
-    private double ultLargo; //siempre en metros...
-    private double ultAlto;
-    private int ultArea; //para la rejilla, solo necesita un valor, son cuadrados sin decimales
+    private float ultAncho;
+    private float ultLargo; //siempre en metros...
+    private float ultAlto;
     private Mesh lmesh;
     public Material mat;
     // Start is called before the first frame update
     void Start()
     {
-        ultAlto = 0.254;
-        ultAncho = 0.254;
+        ultAlto = 0.254f;
+        ultAncho = 0.254f;
         ultLargo = 1;
         if (!TryGetComponent(typeof(MeshFilter), out Component c))
         {
@@ -28,6 +27,19 @@ public class DuctoMesh : MonoBehaviour
         lmesh = GetComponent<MeshFilter>().mesh;
         GetComponent<MeshRenderer>().material = mat;
         Creator();
+    }
+
+    public void ReCreator(float largo)
+    {
+        if (largo == ultAlto)
+            return;
+        VertexMoveLong();
+    }
+    public void ReCreator(float ancho, float alto)
+    {
+        if (ancho == ultAncho && alto == ultAlto)
+            return;
+        VertexMoveArea();
     }
 
     private void Creator()
@@ -66,7 +78,7 @@ public class DuctoMesh : MonoBehaviour
     private void VertexMoveArea()
     {
         Vector3[] nVertex = new Vector3[16];
-        Vector3 pivot = new Vector3((float)ultAncho, (float)ultAlto);
+        Vector3 pivot = new Vector3(ultAncho, ultAlto);
         pivot /= 2;
         //ArD
         nVertex[3] = pivot;
