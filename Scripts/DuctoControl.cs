@@ -8,6 +8,7 @@ public class DuctoControl : ObjectControlMain
     private double alto; //esta en pulgadas
     private double ancho; //esta en pulgadas
     private double longitud; //esta en metros
+    private int pass;//si es que se dirige a alguna parte
 
     public override double getAlto()
     {
@@ -58,4 +59,15 @@ public class DuctoControl : ObjectControlMain
         this.longitud = longitud;
     }
 
+    public override void SetReferencia(GameObject refer)
+    {
+        atreferencia = refer;
+        refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
+        PositionFromReference();
+    }
+
+    public override void setAdReference(GameObject refer)
+    {
+        adreferencia = refer;
+    }
 }

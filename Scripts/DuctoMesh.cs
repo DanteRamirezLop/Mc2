@@ -34,12 +34,14 @@ public class DuctoMesh : MonoBehaviour
         if (largo == ultAlto)
             return;
         VertexMoveLong();
+        lmesh.RecalculateBounds();
     }
     public void ReCreator(float ancho, float alto)
     {
         if (ancho == ultAncho && alto == ultAlto)
             return;
         VertexMoveArea();
+        lmesh.RecalculateBounds();
     }
 
     private void Creator()
@@ -48,6 +50,7 @@ public class DuctoMesh : MonoBehaviour
         VertexMoveArea();
         TriangleCreation();
         VertexMoveLong();
+        lmesh.RecalculateBounds();
     }
 
 

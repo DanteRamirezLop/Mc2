@@ -29,19 +29,6 @@ public class CodoControl : ObjectControlMain
             reset = false;
         }
     }
-    public new void SetReferencia(GameObject refer)
-    {
-        base.SetReferencia(refer);
-        this.atreferencia = refer;
-        if (this.atreferencia != null)
-        {
-            mesh.Change(angulo, pulgadaAmetro(anchopr), pulgadaAmetro(altopr));
-        }
-        else
-        {
-            mesh.Change(Vector2.zero, pulgadaAmetro(10), pulgadaAmetro(10));
-        }
-    }
 
     public override double getAncho()
     {
@@ -89,5 +76,18 @@ public class CodoControl : ObjectControlMain
     public override Quaternion getRotation(int target)
     {
         return mesh.getUltRotation();
+    }
+
+    public override void SetReferencia(GameObject refer)
+    {
+        atreferencia = refer;
+        refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
+        this.mesh.Change(getAncho(), getAlto());
+        PositionFromReference();
+    }
+
+    public override void setAdReference(GameObject refer)
+    {
+        adreferencia = refer;
     }
 }

@@ -7,6 +7,11 @@ public class AmbienteControl : MonoBehaviour
     private Vector3[] Cuadrante;
     void Start()
     {
+        if (Cuadrante == null)
+            Beta();
+    }
+    void OnEnable()
+    {
         if (!TryGetComponent(typeof(AmbienteMesh), out Component c))
         {
             gameObject.AddComponent(typeof(AmbienteMesh));
@@ -43,9 +48,9 @@ public class AmbienteControl : MonoBehaviour
     }
     void Update()
     {
-        if (Cuadrante == null)
-            Beta();
+        
     }
+
     public void EnterData(Vector2[] coordenadas, double altura)
     {
         GetComponent<AmbienteMesh>().CambiarAlto((float)altura);

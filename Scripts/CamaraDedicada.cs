@@ -12,7 +12,6 @@ public class CamaraDedicada : MonoBehaviour
     public float speed;
     public float sensitivity;
     public float caliber;
-    public bool habil;
 
     public GameObject ambiente; //para pruebas
     // Start is called before the first frame update
@@ -22,7 +21,6 @@ public class CamaraDedicada : MonoBehaviour
         this.sensitivity = 100;
         this.caliber = 100;
         this.cuadrante = null;
-        this.habil = true;
         transicion = new Transicion();
     }
 
@@ -152,9 +150,5 @@ public class CamaraDedicada : MonoBehaviour
         this.cuadrante = cuadrante;
         centro = cuadrante[0] + cuadrante[1] + cuadrante[2] + cuadrante[3];
         centro /= 4;
-    }
-    public void SetHabil(bool habil)
-    {
-        this.habil = habil;
     }
 }

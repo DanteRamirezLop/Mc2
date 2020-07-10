@@ -92,6 +92,7 @@ public class CodoMesh : MonoBehaviour
         InitPivot();
         HacerVertices();
         HacerTriangulos();
+        lmesh.RecalculateBounds();
     }
     private void HacerVertices()
     {
