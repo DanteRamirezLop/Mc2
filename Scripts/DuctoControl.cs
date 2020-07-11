@@ -5,10 +5,24 @@ using UnityEngine;
 public class DuctoControl : ObjectControlMain
 {
     private DuctoMesh mesh;
-    private double alto; //esta en pulgadas
-    private double ancho; //esta en pulgadas
+
     private double longitud; //esta en metros
-    private int pass;//si es que se dirige a alguna parte
+    private int paso { get; set; }//a que ambiente se dirige, tiene un tipo distinto de guardado
+    private bool dibujar { get; set; } //si en autocad se dibuja, usualmente en false
+    //nota, las coordenadas van directo al transform
+    private bool tipo { get; set; } //0 inyeccion 1 extraccion
+    private string nombre { get; set; }
+    private double alto { get; set; } //esta en pulgadas, es DimA
+    private double ancho { get; set; } //esta en pulgadas, es DimB
+    //solo para formulas, el usuario las cambia
+    private double damAb100 { get; set; }
+    private double damCer10 { get; set; } 
+    private double damCer50 { get; set; }
+    private double tranRec { get; set; }
+    private double conVen { get; set; }
+    private double lumAli { get; set; }
+    //Fin
+
 
     public override double getAlto()
     {

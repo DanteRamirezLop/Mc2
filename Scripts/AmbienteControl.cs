@@ -5,6 +5,16 @@ using UnityEngine;
 public class AmbienteControl : MonoBehaviour
 {
     private Vector3[] Cuadrante;
+    public int IdProyecto { get; set; }
+    public string NAmbiente { get; set; }
+    public double Largo { get; set; }
+    public double Ancho { get; set; }
+    public double Alto { get; set; }
+    public double Area { get; set; }
+    public double Recambios { get; set; }
+    public double Flujo { get; set; }
+    public double CFM { get; set; }
+
     void Start()
     {
         if (Cuadrante == null)
@@ -19,8 +29,6 @@ public class AmbienteControl : MonoBehaviour
     }
     private void Beta()
     {
-        if (true)
-        {
             GetComponent<AmbienteMesh>().Creator(new Vector2[] {
             new Vector2(0,0),
             new Vector2(1f,0),
@@ -30,10 +38,7 @@ public class AmbienteControl : MonoBehaviour
             new Vector2(2f,2f),
             new Vector2(0,2f)
         });
-        }
-        else
-        {
-            GetComponent<AmbienteMesh>().Creator(new Vector2[] {
+        /*    GetComponent<AmbienteMesh>().Creator(new Vector2[] {
             new Vector2(0,0),
             new Vector2(0,2f),
             new Vector2(2f,2f),
@@ -42,13 +47,9 @@ public class AmbienteControl : MonoBehaviour
             new Vector2(1f,0.5f),
             new Vector2(1f,0)
         });
-        }
+        }*/
         GetComponent<AmbienteMesh>().CambiarAlto(2.5f);
         Cuadrante = GetComponent<AmbienteMesh>().ConstruirCuadrante();
-    }
-    void Update()
-    {
-        
     }
 
     public void EnterData(Vector2[] coordenadas, double altura)

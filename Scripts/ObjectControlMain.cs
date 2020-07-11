@@ -22,4 +22,12 @@ public abstract class ObjectControlMain : MonoBehaviour
     public abstract double getAlto();
     public abstract Vector3 getUbi(int target);
     public abstract Quaternion getRotation(int target);
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+    public int getId()
+    {
+        return this.id;
+    }
 }
