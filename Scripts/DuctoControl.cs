@@ -84,4 +84,14 @@ public class DuctoControl : ObjectControlMain
     {
         adreferencia = refer;
     }
+
+    protected override void ColliderInspectState()
+    {
+        mesh.ParaInspector();
+    }
+
+    protected override void ColliderConnectState()
+    {
+        mesh.ParaUnir();
+    }
 }

@@ -9,6 +9,7 @@ public class GranControl : MonoBehaviour
     // 0 sin accion, 1 preparado para construir, 2 preparado para mover, 3 preparado para remover
     private int operationState;
     private GameObject grab;
+    private GameObject equipoEnUso;
     public GameObject codo;
     public GameObject ducto;
     public GameObject union;
@@ -18,6 +19,7 @@ public class GranControl : MonoBehaviour
     {
         operationState = 0;
         grab = null;
+        equipoEnUso = null;
     }
 
     // Update is called once per frame
@@ -47,12 +49,13 @@ public class GranControl : MonoBehaviour
             }
         }
     }
-    public void BetaCreate(int a)
+    public void Creador(int a)
     {
         switch (a)
         {
             case 0:
                 grab = equipo;
+                equipoEnUso = equipo;
                 break;
             case 1:
                 grab = GameObject.Instantiate(ducto);
@@ -61,11 +64,17 @@ public class GranControl : MonoBehaviour
                 grab = GameObject.Instantiate(codo);
                 break;
         }
+        grab.layer = 8; //Hold
+        if (equipoEnUso != null)
+            equipoEnUso.GetComponent<EquipoControl>().PulsoColision(true);
         operationState = 1;
     }
     private void BringInfo()
     {
-        Debug.Log("para el canvas");
+        if (GetRayObject() == null)
+            Debug.Log("undetected");
+        else
+            Debug.Log("detected");
     }
     private void BringCreate()
     {
@@ -73,12 +82,25 @@ public class GranControl : MonoBehaviour
             operationState = 0; //evita un posible bug
         else
         {
-            
+            if (grab.TryGetComponent(typeof(EquipoControl), out Component e))
+            {
+                grab.layer = 9; //Placed
+                grab = null;
+                operationState = 0;
+                if (equipoEnUso != null)
+                    equipoEnUso.GetComponent<EquipoControl>().PulsoColision(false);
+                return;
+            }
             GameObject target = GetRayObject();
             if (target != null)
             {
+                Debug.Log("" + target.name);
                 //en caso sea un multiple el proceso debe ser diferente
-                target.GetComponent<ObjectControlMain>().SetReferencia(grab);
+                grab.SendMessage("SetReferencia", target);
+                grab.layer = 9; //Placed
+                grab = null;
+                if (equipoEnUso != null)
+                    equipoEnUso.GetComponent<EquipoControl>().PulsoColision(false);
             }
         }
     }
@@ -94,7 +116,7 @@ public class GranControl : MonoBehaviour
     {
         Ray rayo = this.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(rayo, out hit, 50f))
+        if (Physics.Raycast(rayo, out hit, 50f, LayerMask.GetMask("Placed")))
             return hit.transform.gameObject;
         else
             return null;

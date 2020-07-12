@@ -10,6 +10,7 @@ public class DuctoMesh : MonoBehaviour
     private float ultAlto;
     private Mesh lmesh;
     public Material mat;
+    private GameObject colision;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,13 @@ public class DuctoMesh : MonoBehaviour
             gameObject.AddComponent(typeof(MeshRenderer));
         }
         lmesh = GetComponent<MeshFilter>().mesh;
+
+        colision = new GameObject("colision");
+        colision.transform.SetParent(this.transform);
+        colision.AddComponent(typeof(BoxCollider));
+        colision.AddComponent(typeof(MiniColision));
+        ParaInspector();
+
         GetComponent<MeshRenderer>().material = mat;
         Creator();
     }
@@ -35,6 +43,7 @@ public class DuctoMesh : MonoBehaviour
             return;
         VertexMoveLong();
         lmesh.RecalculateBounds();
+        ParaInspector();
     }
     public void ReCreator(float ancho, float alto)
     {
@@ -42,6 +51,7 @@ public class DuctoMesh : MonoBehaviour
             return;
         VertexMoveArea();
         lmesh.RecalculateBounds();
+        ParaInspector();
     }
 
     private void Creator()
@@ -110,5 +120,15 @@ public class DuctoMesh : MonoBehaviour
         for (int i = 8; i < 16; i++)
             nVertex[i].z = (float)ultLargo;
         lmesh.vertices = nVertex;
+    }
+    public void ParaInspector()
+    {
+        colision.transform.position = Vector3.zero;
+        colision.GetComponent<BoxCollider>().size = lmesh.bounds.size;
+    }
+    public void ParaUnir()
+    {
+        colision.transform.position = Vector3.forward * ultLargo;
+        colision.GetComponent<BoxCollider>().size = new Vector3(ultAncho,ultAlto,0.5f);
     }
 }

@@ -7,10 +7,11 @@ using UnityEngine.Networking.Types;
 public class EquipoControl : ObjectControlMain
 {
     public Vector3 offset;
+    private GameObject[] colision;
     //parte de la tabla equipov
     public int idProyecto { get; set; }
     public string codigo { get; set; }
-    public int tipo { get; set; }
+    public int tipo { get; set; } //inyeccion, extraccion, ambos
     public double velocidadIny { get; set; }
     public double velocidadExt { get; set; }
     public double porcentaje { get; set; }
@@ -34,15 +35,26 @@ public class EquipoControl : ObjectControlMain
     public double ELatente { get; set; }
     public double caudal { get; set; }
 
-
+    void Start()
+    {
+        colision = new GameObject[2];
+        colision[0] = new GameObject("colision");
+        colision[0].transform.SetParent(this.transform);
+        colision[0].AddComponent(typeof(BoxCollider));
+        colision[0].AddComponent(typeof(MiniColision));
+        ColliderInspectState();
+    }
     public override Quaternion getRotation(int target)
     {
-        return this.transform.rotation;
+        if (target == 0)
+            return this.transform.rotation * Quaternion.Euler(0,180,0);
+        else
+            return this.transform.rotation;
     }
 
     public override Vector3 getUbi(int target)
     {
-        return this.transform.position;
+        return this.transform.position + offset;
     }
 
     public override void setAdReference(GameObject refer)
@@ -64,4 +76,31 @@ public class EquipoControl : ObjectControlMain
         return 0;
     }
 
+    protected override void ColliderInspectState()
+    {
+        if (TryGetComponent(typeof(MeshFilter), out Component e))
+        {
+            colision[0].GetComponent<BoxCollider>().center = ((MeshFilter)e).mesh.bounds.center;
+            colision[0].GetComponent<BoxCollider>().size = ((MeshFilter)e).mesh.bounds.size;
+        }
+        else
+        {
+            colision[0].GetComponent<BoxCollider>().center = this.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh.bounds.center;
+            colision[0].GetComponent<BoxCollider>().size = this.transform.GetChild(0).gameObject.GetComponent<MeshFilter>().mesh.bounds.size;
+        }
+        if (colision[1] != null)
+        {
+            colision[1].SetActive(false);
+        }
+    }
+
+    protected override void ColliderConnectState()
+    {
+        colision[0].GetComponent<BoxCollider>().center = offset;
+        colision[0].GetComponent<BoxCollider>().size = new Vector3(2, 2, 1);
+        if (colision[1] != null)
+        {
+            colision[1].SetActive(true);
+        }
+    }
 }

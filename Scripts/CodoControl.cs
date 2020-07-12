@@ -7,9 +7,9 @@ public class CodoControl : ObjectControlMain
 {
     private CodoMesh mesh;
     public Vector2 angulo;
-    public double anchopr = 6;
-    public double altopr = 6;
-    public Boolean reset;
+    public double anchopr;
+    public double altopr;
+    public bool reset;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,5 +89,15 @@ public class CodoControl : ObjectControlMain
     public override void setAdReference(GameObject refer)
     {
         adreferencia = refer;
+    }
+
+    protected override void ColliderInspectState()
+    {
+        throw new NotImplementedException();
+    }
+
+    protected override void ColliderConnectState()
+    {
+        throw new NotImplementedException();
     }
 }
