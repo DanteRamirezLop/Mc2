@@ -94,7 +94,6 @@ public class GranControl : MonoBehaviour
             GameObject target = GetRayObject();
             if (target != null)
             {
-                Debug.Log("" + target.name);
                 //en caso sea un multiple el proceso debe ser diferente
                 grab.SendMessage("SetReferencia", target);
                 grab.layer = 9; //Placed

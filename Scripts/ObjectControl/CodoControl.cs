@@ -100,4 +100,9 @@ public class CodoControl : ObjectControlMain
     {
         throw new NotImplementedException();
     }
+
+    public override void ChangeLayer(int layer)
+    {
+        this.gameObject.layer = layer;
+    }
 }

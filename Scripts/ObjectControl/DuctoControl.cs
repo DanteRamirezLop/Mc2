@@ -94,4 +94,9 @@ public class DuctoControl : ObjectControlMain
     {
         mesh.ParaUnir();
     }
+
+    public override void ChangeLayer(int layer)
+    {
+        this.gameObject.layer = layer;
+    }
 }

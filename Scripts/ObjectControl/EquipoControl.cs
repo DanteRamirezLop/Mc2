@@ -103,4 +103,12 @@ public class EquipoControl : ObjectControlMain
             colision[1].SetActive(true);
         }
     }
+
+    public override void ChangeLayer(int layer)
+    {
+        foreach (var col in colision)
+        {
+            col.layer = layer;
+        }
+    }
 }

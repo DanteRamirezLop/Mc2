@@ -16,6 +16,7 @@ public class CodoMesh : MonoBehaviour
     private GameObject p3;
     private GameObject p4;
     public Material mat;
+    private GameObject colision;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,10 +42,29 @@ public class CodoMesh : MonoBehaviour
         {
             gameObject.AddComponent(typeof(MeshRenderer));
         }
+
+        colision = new GameObject("colision");
+        colision.transform.SetParent(this.transform);
+        colision.AddComponent(typeof(BoxCollider));
+        colision.AddComponent(typeof(MiniColision));
+        ParaInspector();
+
         GetComponent<MeshRenderer>().material = mat;
         lmesh = GetComponent<MeshFilter>().mesh;
         Creator();
     }
+
+    private void ParaInspector()
+    {
+        colision.transform.position = Vector3.zero;
+        colision.GetComponent<BoxCollider>().size = lmesh.bounds.size;
+    }
+    private void ParaUnir()
+    {
+        colision.transform.position = (p1.transform.position + p2.transform.position) /2;
+        colision.GetComponent<BoxCollider>().size = new Vector3((float)ultAncho,(float)ultAltura,0.5f);
+    }
+
     public Quaternion getUltRotation()
     {
         return pivot.transform.rotation;

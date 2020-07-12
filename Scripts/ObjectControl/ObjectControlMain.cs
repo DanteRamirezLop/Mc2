@@ -50,6 +50,7 @@ public abstract class ObjectControlMain : MonoBehaviour
     }
     protected abstract void ColliderInspectState();
     protected abstract void ColliderConnectState();
+    public abstract void ChangeLayer(int layer);
     public void setId(int id)
     {
         this.id = id;
