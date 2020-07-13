@@ -93,12 +93,12 @@ public class CodoControl : ObjectControlMain
 
     protected override void ColliderInspectState()
     {
-        throw new NotImplementedException();
+        GetComponent<CodoMesh>().ParaInspector();
     }
 
     protected override void ColliderConnectState()
     {
-        throw new NotImplementedException();
+        GetComponent<CodoMesh>().ParaUnir();
     }
 
     public override void ChangeLayer(int layer)

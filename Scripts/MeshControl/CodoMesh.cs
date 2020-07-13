@@ -54,12 +54,12 @@ public class CodoMesh : MonoBehaviour
         ParaInspector();
     }
 
-    private void ParaInspector()
+    public void ParaInspector()
     {
-        colision.transform.position = Vector3.zero;
+        colision.transform.localPosition = lmesh.bounds.center;
         colision.GetComponent<BoxCollider>().size = lmesh.bounds.size;
     }
-    private void ParaUnir()
+    public void ParaUnir()
     {
         colision.transform.position = (p1.transform.position + p2.transform.position) /2;
         colision.GetComponent<BoxCollider>().size = new Vector3((float)ultAncho,(float)ultAltura,0.5f);
