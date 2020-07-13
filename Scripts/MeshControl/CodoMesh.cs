@@ -43,15 +43,15 @@ public class CodoMesh : MonoBehaviour
             gameObject.AddComponent(typeof(MeshRenderer));
         }
 
+        GetComponent<MeshRenderer>().material = mat;
+        lmesh = GetComponent<MeshFilter>().mesh;
+        Creator();
+
         colision = new GameObject("colision");
         colision.transform.SetParent(this.transform);
         colision.AddComponent(typeof(BoxCollider));
         colision.AddComponent(typeof(MiniColision));
         ParaInspector();
-
-        GetComponent<MeshRenderer>().material = mat;
-        lmesh = GetComponent<MeshFilter>().mesh;
-        Creator();
     }
 
     private void ParaInspector()

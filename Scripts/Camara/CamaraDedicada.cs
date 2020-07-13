@@ -19,7 +19,7 @@ public class CamaraDedicada : MonoBehaviour
     {
         this.speed = 5;
         this.sensitivity = 100;
-        this.caliber = 100;
+        this.caliber = 500;
         this.cuadrante = null;
         transicion = new Transicion();
     }
@@ -53,7 +53,7 @@ public class CamaraDedicada : MonoBehaviour
 
     private void MoverAdelante()
     {
-        this.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * Time.deltaTime * speed * sensitivity / 10);
+        this.transform.Translate(Vector3.forward * Input.mouseScrollDelta.y * Time.deltaTime * speed * caliber / 10);
     }
 
     private void Direccionales()
@@ -83,14 +83,14 @@ public class CamaraDedicada : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            this.transform.Rotate(Input.GetAxis("Mouse Y") * speed * sensitivity * Time.deltaTime,
-                Input.GetAxis("Mouse X") * speed * sensitivity * Time.deltaTime * -1,0,Space.Self);
+            this.transform.Rotate(Input.GetAxis("Mouse Y") * speed * caliber * Time.deltaTime,
+                Input.GetAxis("Mouse X") * speed * caliber * Time.deltaTime * -1,0,Space.Self);
         }
         else
         {
             this.transform.Translate(new Vector3(
-                Input.GetAxis("Mouse X") * speed * sensitivity / 10 * -1 * Time.deltaTime,
-                Input.GetAxis("Mouse Y") * speed * sensitivity / 10 * -1 *Time.deltaTime,
+                Input.GetAxis("Mouse X") * speed * caliber / 10 * -1 * Time.deltaTime,
+                Input.GetAxis("Mouse Y") * speed * caliber / 10 * -1 *Time.deltaTime,
                 0));
         }
         //this.transform.Rotate(0,0, - this.transform.eulerAngles.z,Space.Self);

@@ -27,7 +27,7 @@ public class GranControl : MonoBehaviour
     {
         if (grab != null)
         {
-            grab.transform.position = GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition + Vector3.forward);
+            grab.transform.position = GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 3);
             //grab.transform.position += this.transform.forward * 3;
         }
         if (Input.GetMouseButtonDown(0))
@@ -48,14 +48,27 @@ public class GranControl : MonoBehaviour
                     break;
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            switch (operationState)
+            {
+                case 1:
+                    break;
+                default:
+                    break;
+            }
+            grab = null;
+            operationState = 0;
+
+        }
     }
     public void Creador(int a)
     {
         switch (a)
         {
             case 0:
-                grab = equipo;
-                equipoEnUso = equipo;
+                grab = GameObject.Instantiate(equipo);
+                equipoEnUso = grab;
                 break;
             case 1:
                 grab = GameObject.Instantiate(ducto);
@@ -64,7 +77,8 @@ public class GranControl : MonoBehaviour
                 grab = GameObject.Instantiate(codo);
                 break;
         }
-        grab.layer = 8; //Hold
+        grab.SetActive(true);
+        grab.SendMessage("ChangeLayer", 8);
         if (equipoEnUso != null)
             equipoEnUso.GetComponent<EquipoControl>().PulsoColision(true);
         operationState = 1;
@@ -84,7 +98,7 @@ public class GranControl : MonoBehaviour
         {
             if (grab.TryGetComponent(typeof(EquipoControl), out Component e))
             {
-                grab.layer = 9; //Placed
+                grab.SendMessage("ChangeLayer", 9);
                 grab = null;
                 operationState = 0;
                 if (equipoEnUso != null)
@@ -94,9 +108,10 @@ public class GranControl : MonoBehaviour
             GameObject target = GetRayObject();
             if (target != null)
             {
+                grab.SendMessage("SetConexion", target.GetComponent<MiniColision>().GetConexion());
                 //en caso sea un multiple el proceso debe ser diferente
-                grab.SendMessage("SetReferencia", target);
-                grab.layer = 9; //Placed
+                grab.SendMessage("SetReferencia", target.transform.parent.gameObject);
+                grab.SendMessage("ChangeLayer", 9);
                 grab = null;
                 if (equipoEnUso != null)
                     equipoEnUso.GetComponent<EquipoControl>().PulsoColision(false);

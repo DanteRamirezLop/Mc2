@@ -29,6 +29,10 @@ public abstract class ObjectControlMain : MonoBehaviour
             adreferencia.GetComponent<ObjectControlMain>().PulsoColision(modo);
         }
     }
+    public void SetConexion(int conexion)
+    {
+        this.conexion = conexion;
+    }
     public abstract void SetReferencia(GameObject refer);
     public abstract void setAdReference(GameObject refer);
     public abstract double getAncho();

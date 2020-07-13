@@ -123,12 +123,12 @@ public class DuctoMesh : MonoBehaviour
     }
     public void ParaInspector()
     {
-        colision.transform.position = Vector3.zero;
+        colision.transform.localPosition = lmesh.bounds.center;
         colision.GetComponent<BoxCollider>().size = lmesh.bounds.size;
     }
     public void ParaUnir()
     {
-        colision.transform.position = Vector3.forward * ultLargo;
+        colision.transform.localPosition = Vector3.forward * ultLargo;
         colision.GetComponent<BoxCollider>().size = new Vector3(ultAncho,ultAlto,0.5f);
     }
 }
