@@ -12,7 +12,7 @@ public class DuctoMesh : MonoBehaviour
     public Material mat;
     private GameObject colision;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         ultAlto = 0.254f;
         ultAncho = 0.254f;
@@ -126,9 +126,14 @@ public class DuctoMesh : MonoBehaviour
         colision.transform.localPosition = lmesh.bounds.center;
         colision.GetComponent<BoxCollider>().size = lmesh.bounds.size;
     }
-    public void ParaUnir()
+    public void ParaUnir(bool active)
     {
+        colision.SetActive(active);
         colision.transform.localPosition = Vector3.forward * ultLargo;
         colision.GetComponent<BoxCollider>().size = new Vector3(ultAncho,ultAlto,0.5f);
+    }
+    public void ChangeLayer(int layer)
+    {
+        this.colision.layer = layer;
     }
 }

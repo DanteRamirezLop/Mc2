@@ -76,6 +76,9 @@ public class GranControl : MonoBehaviour
             case 2:
                 grab = GameObject.Instantiate(codo);
                 break;
+            case 3:
+                grab = GameObject.Instantiate(union);
+                break;
         }
         grab.SetActive(true);
         grab.SendMessage("ChangeLayer", 8);

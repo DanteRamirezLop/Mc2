@@ -114,16 +114,16 @@ public class EquipoControl : ObjectControlMain
 
     protected override void ColliderConnectState()
     {
-
         colision[0].transform.localPosition = offset[0];
         colision[0].GetComponent<BoxCollider>().center = Vector3.zero;
         colision[0].GetComponent<BoxCollider>().size = new Vector3(2, 2, 1);
+        colision[0].SetActive(this.adRefers[0] == null);
         if (offset.Length == 2)
         {
             colision[1].transform.localPosition = offset[1];
             colision[1].GetComponent<BoxCollider>().center = Vector3.zero;
             colision[1].GetComponent<BoxCollider>().size = new Vector3(2, 2, 1);
-            colision[1].SetActive(true);
+            colision[1].SetActive(this.adRefers[1] == null);
         }
     }
 

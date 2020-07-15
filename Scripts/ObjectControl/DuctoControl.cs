@@ -6,7 +6,7 @@ public class DuctoControl : ObjectControlMain
 {
     private DuctoMesh mesh;
 
-    private double longitud; //esta en metros
+    private double longitud = 1; //esta en metros
     private int paso { get; set; }//a que ambiente se dirige, tiene un tipo distinto de guardado
     private bool dibujar { get; set; } //si en autocad se dibuja, usualmente en false
     //nota, las coordenadas van directo al transform
@@ -46,7 +46,7 @@ public class DuctoControl : ObjectControlMain
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if (!TryGetComponent(typeof(DuctoMesh), out Component c))
         {
@@ -92,11 +92,11 @@ public class DuctoControl : ObjectControlMain
 
     protected override void ColliderConnectState()
     {
-        mesh.ParaUnir();
+        mesh.ParaUnir(this.adreferencia == null);
     }
 
     public override void ChangeLayer(int layer)
     {
-        this.gameObject.layer = layer;
+        this.mesh.ChangeLayer(layer);
     }
 }

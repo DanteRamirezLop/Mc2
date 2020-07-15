@@ -9,25 +9,14 @@ public class CodoControl : ObjectControlMain
     public Vector2 angulo;
     public double anchopr;
     public double altopr;
-    public bool reset;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if (!TryGetComponent(typeof (CodoMesh), out Component c))
         {
             gameObject.AddComponent(typeof(CodoMesh));
         }
         mesh = GetComponent<CodoMesh>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (reset)
-        {
-            SetReferencia(null);
-            reset = false;
-        }
     }
 
     public override double getAncho()
@@ -82,13 +71,16 @@ public class CodoControl : ObjectControlMain
     {
         atreferencia = refer;
         refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
-        this.mesh.Change(getAncho(), getAlto());
         PositionFromReference();
     }
 
     public override void setAdReference(GameObject refer)
     {
         adreferencia = refer;
+        if (angulo == Vector2.zero)
+            angulo = new Vector2(90, 0);
+        this.mesh.Change(angulo,pulgadaAmetro(getAncho()), pulgadaAmetro(getAlto()));
+
     }
 
     protected override void ColliderInspectState()
@@ -103,6 +95,6 @@ public class CodoControl : ObjectControlMain
 
     public override void ChangeLayer(int layer)
     {
-        this.gameObject.layer = layer;
+        this.mesh.ChangeLayer(layer);
     }
 }

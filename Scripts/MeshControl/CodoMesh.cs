@@ -8,8 +8,8 @@ public class CodoMesh : MonoBehaviour
 {
     private Vector2 angulo;
     private Mesh lmesh;
-    private double ultAncho; //en metros
-    private double ultAltura; //en metros
+    public double ultAncho; //en metros
+    public double ultAltura; //en metros
     private GameObject pivot;
     private GameObject p1;
     private GameObject p2;
@@ -18,7 +18,7 @@ public class CodoMesh : MonoBehaviour
     public Material mat;
     private GameObject colision;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         angulo = Vector2.zero;
         angulo = new Vector2(0, 0); //pruebas
@@ -83,9 +83,15 @@ public class CodoMesh : MonoBehaviour
         this.angulo = angulo;
         Creator();
     }
+
+    public void ChangeLayer(int layer)
+    {
+        this.colision.layer = layer;
+    }
+
     /**
-     * <summary>Cambia ambos tamaños del codo</summary>
-     */
+* <summary>Cambia ambos tamaños del codo</summary>
+*/
     public void Change(double ancho, double alto)
     {
         if (ultAltura == alto && ultAncho == ancho)
@@ -268,6 +274,7 @@ public class CodoMesh : MonoBehaviour
                     rotationTemp.y = 10;
             }
             pivot.transform.Rotate(rotationTemp);
+            Debug.Log("x: " + pivot.transform.eulerAngles.x + " y: " + pivot.transform.eulerAngles.y + " z: " + pivot.transform.eulerAngles.z);
         }
     }
 
