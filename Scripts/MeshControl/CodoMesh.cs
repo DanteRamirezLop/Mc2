@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class CodoMesh : MonoBehaviour
 {
-    private Vector2 angulo;
+    //nuevo funcionamiento eje x -> arriba -, abajo +, eje y -> derecha +, izquierda -
+    public Vector2 angulo;
     private Mesh lmesh;
     public double ultAncho; //en metros
     public double ultAltura; //en metros
@@ -15,13 +16,13 @@ public class CodoMesh : MonoBehaviour
     private GameObject p2;
     private GameObject p3;
     private GameObject p4;
+    public Quaternion fDirection; //la direccion final
     public Material mat;
     private GameObject colision;
     // Start is called before the first frame update
     void OnEnable()
     {
-        angulo = Vector2.zero;
-        angulo = new Vector2(0, 0); //pruebas
+        angulo = new Vector2();
         ultAncho = 0.254;
         ultAltura = 0.254;
         pivot = new GameObject("pivote");
@@ -67,7 +68,7 @@ public class CodoMesh : MonoBehaviour
 
     public Quaternion getUltRotation()
     {
-        return pivot.transform.rotation;
+        return this.transform.rotation * Quaternion.Euler(-angulo.y, angulo.x, 0);
     }
     public Vector3 getUltPosition()
     {
@@ -115,8 +116,11 @@ public class CodoMesh : MonoBehaviour
     private void Creator()
     {
         lmesh.Clear();
+        Quaternion temp = this.transform.rotation;
+        this.transform.rotation = Quaternion.identity;
         InitPivot();
         HacerVertices();
+        this.transform.rotation = temp;
         HacerTriangulos();
         lmesh.RecalculateBounds();
     }
@@ -133,19 +137,13 @@ public class CodoMesh : MonoBehaviour
         }
         else
         {
-            float ang;
-            if (angulo.x != 0)
-                ang = angulo.x;
-            else
-                ang = angulo.y;
             do
             {
                 if (vertices.Count != 0)
                     RotatePivot();
                 foreach (var vec in ObtainVertex())
                     vertices.Add(vec);
-                ang -= 10;
-            } while (ang > 0);
+            } while (this.pivot.transform.rotation != this.fDirection);
         }
         this.lmesh.SetVertices(vertices.ToArray());
     }
@@ -235,7 +233,7 @@ public class CodoMesh : MonoBehaviour
         }
         else
         {
-            dir = Vector3.right * (float)ultAncho / 2;
+            dir = Vector3.up * (float)ultAncho / 2;
         }
         for (int i = 0; i < 8; i++)
         {
@@ -253,73 +251,68 @@ public class CodoMesh : MonoBehaviour
     {
         if(angulo == Vector2.zero)
         {
-            pivot.transform.Translate(Vector3.forward * 0.5f);
+            pivot.transform.position = pivot.transform.position + this.transform.forward * 0.5f;
         }
         else
         {
-            Vector3 rotationTemp = new Vector3((angulo.y * -1) - pivot.transform.localEulerAngles.x,
-                angulo.x - pivot.transform.localEulerAngles.y);
-            if (rotationTemp.x < 0 || rotationTemp.y < 0)
+            pivot.transform.rotation = Quaternion.RotateTowards(pivot.transform.rotation, fDirection, 10);
+            if (Quaternion.Angle(pivot.transform.rotation,fDirection) < 5)
             {
-                if (rotationTemp.x < -10)
-                    rotationTemp.x = -10;
-                if (rotationTemp.y < -10)
-                    rotationTemp.y = -10;
+                pivot.transform.rotation = Quaternion.RotateTowards(pivot.transform.rotation, fDirection, 10);
             }
-            if (rotationTemp.x > 0 || rotationTemp.y > 0)
-            {
-                if (rotationTemp.x > 10)
-                    rotationTemp.x = 10;
-                if (rotationTemp.y > 10)
-                    rotationTemp.y = 10;
-            }
-            pivot.transform.Rotate(rotationTemp);
-            Debug.Log("x: " + pivot.transform.eulerAngles.x + " y: " + pivot.transform.eulerAngles.y + " z: " + pivot.transform.eulerAngles.z);
+            //Debug.Log("x: " + pivot.transform.localEulerAngles.x + " y: " + pivot.transform.localEulerAngles.y + " z: " + pivot.transform.localEulerAngles.z);
+            //Debug.Log("x: " + pivot.transform.eulerAngles.x + " y: " + pivot.transform.eulerAngles.y + " z: " + pivot.transform.eulerAngles.z);
         }
     }
 
     private void InitPivot()
     {
-        Vector3 direccion;
+        pivot.transform.localPosition = Vector3.zero;
+        pivot.transform.localRotation = Quaternion.identity;
+        Vector3 direccion = Vector3.forward;
         switch (DireccionAngulo())
         {
             case 0:
-                pivot.transform.localPosition = new Vector3((float)((ultAncho / 2 + 0.1) * -1), 0, 0);
-                direccion = Vector3.right;
+                pivot.transform.Translate(((float)ultAncho / 2 + 0.1f) * Vector3.left);
+                direccion *= (float)ultAncho;
                 break;
             case 1:
-                pivot.transform.localPosition = new Vector3((float)((ultAncho / 2 + 0.1) * 1), 0, 0);
-                direccion = Vector3.left;
+                pivot.transform.Translate(((float)ultAncho / 2 + 0.1f) * Vector3.right);
+                direccion *= (float)ultAncho;
                 break;
             case 2:
-                pivot.transform.localPosition = new Vector3(0, (float)((ultAltura / 2 + 0.1) * -1), 0);
-                direccion = Vector3.up;
+                pivot.transform.Translate(((float)ultAltura / 2 + 0.1f) * Vector3.down);
+                direccion *= (float)ultAltura;
                 break;
             case 3:
-                pivot.transform.localPosition = new Vector3(0, (float)((ultAltura / 2 + 0.1) * 1), 0);
-                direccion = Vector3.down;
+                pivot.transform.Translate(((float)ultAltura / 2 + 0.1f) * Vector3.up);
+                direccion *= (float)ultAltura;
                 break;
             default:
-                pivot.transform.localPosition = new Vector3((float)((ultAncho / 2 + 0.1) * 1), 0, 0);
-                direccion = Vector3.left;
+                pivot.transform.Translate(((float)ultAncho / 2 + 0.1f) * Vector3.right);
+                direccion *= (float)ultAncho;
                 break;
         }
-        Vector3 distancia = new Vector3((float)ultAncho, (float)ultAltura);
         if (DireccionAngulo() % 2 != 0 || DireccionAngulo() == 4) //por aca se puede poner el grosor
         {
-            p1.transform.localPosition = new Vector3(direccion.x * distancia.x + direccion.x * 0.1f, direccion.y * distancia.y + direccion.y * 0.1f);
-            p2.transform.localPosition = new Vector3(direccion.x * distancia.x * 0.95f + direccion.x * 0.1f, direccion.y * distancia.y * 0.95f + direccion.y * 0.1f);
-            p3.transform.localPosition = new Vector3(direccion.x * distancia.x * 0.05f + direccion.x * 0.1f, direccion.y * distancia.y * 0.05f + direccion.y * 0.1f);
-            p4.transform.localPosition = new Vector3(direccion.x * 0.1f, direccion.y * 0.1f);
+            p1.transform.localPosition = Vector3.forward * 0.1f + direccion;
+            p2.transform.localPosition = Vector3.forward * 0.1f + direccion * 0.95f;
+            p3.transform.localPosition = Vector3.forward * 0.1f + direccion * 0.05f;
+            p4.transform.localPosition = Vector3.forward * 0.1f;
         }
         else
         {
-            p4.transform.localPosition = new Vector3(direccion.x * distancia.x + direccion.x * 0.1f, direccion.y * distancia.y + direccion.y * 0.1f);
-            p3.transform.localPosition = new Vector3(direccion.x * distancia.x * 0.95f + direccion.x * 0.1f, direccion.y * distancia.y * 0.95f + direccion.y * 0.1f);
-            p2.transform.localPosition = new Vector3(direccion.x * distancia.x * 0.05f + direccion.x * 0.1f, direccion.y * distancia.y * 0.05f + direccion.y * 0.1f);
-            p1.transform.localPosition = new Vector3(direccion.x * 0.1f, direccion.y * 0.1f);
+            p4.transform.localPosition = Vector3.forward * 0.1f + direccion;
+            p3.transform.localPosition = Vector3.forward * 0.1f + direccion * 0.95f;
+            p2.transform.localPosition = Vector3.forward * 0.1f + direccion * 0.05f;
+            p1.transform.localPosition = Vector3.forward * 0.1f;
         }
-        pivot.transform.rotation = Quaternion.identity;
+        pivot.transform.LookAt(this.transform);
+        //Debug.Log("x: " + pivot.transform.localEulerAngles.x + " y: " + pivot.transform.localEulerAngles.y + " z: " + pivot.transform.localEulerAngles.z);
+        pivot.transform.Rotate(-angulo.y, angulo.x, 0);
+        fDirection = pivot.transform.rotation;
+        //Debug.Log("x: " + pivot.transform.localEulerAngles.x + " y: " + pivot.transform.localEulerAngles.y + " z: " + pivot.transform.localEulerAngles.z);
+        pivot.transform.LookAt(this.transform);
     }
     //Indica la direccion del angulo, 0 izquierda, 1 derecha, 2 abajo, 3 arriba; tener en cuenta que esto es relativo
     private int DireccionAngulo()

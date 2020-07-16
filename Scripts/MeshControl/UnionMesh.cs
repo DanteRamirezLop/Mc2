@@ -26,7 +26,17 @@ public class UnionMesh : MonoBehaviour
         lmesh = GetComponent<MeshFilter>().mesh;
         Creator();
     }
-
+    public void Change(float ancho, float alto)
+    {
+        if (ultancho == ancho && ultalto == alto)
+        {
+            return;
+        }
+        ultalto = alto;
+        ultancho = ancho;
+        ReCrearVertices();
+        lmesh.RecalculateBounds();
+    }
     private void Creator()
     {
         lmesh.Clear();
@@ -67,5 +77,12 @@ public class UnionMesh : MonoBehaviour
         vertex[7] = new Vector3(ultancho / 2, ultalto / -2, ultancho);
         lmesh.vertices = vertex;
     }
-    
+    public Vector3 GetMeshCenter()
+    {
+        return this.lmesh.bounds.center;
+    }
+    public Vector3 GetMeshSize()
+    {
+        return this.lmesh.bounds.size;
+    }
 }

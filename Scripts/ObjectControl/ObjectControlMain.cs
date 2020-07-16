@@ -8,7 +8,7 @@ public abstract class ObjectControlMain : MonoBehaviour
     public int conexion = 0;
     public GameObject atreferencia; //referencia atras, a quien esta conectado este item
     public GameObject adreferencia; //referencia adelante, dejar en desuso para las uniones multiples
-    protected double pulgadaAmetro(double pulgada)
+    protected double metroAPulgada(double pulgada)
     {
         return pulgada / 39.37;
     }
@@ -37,6 +37,14 @@ public abstract class ObjectControlMain : MonoBehaviour
     public abstract void setAdReference(GameObject refer);
     public abstract double getAncho();
     public abstract double getAlto();
+    protected float getPAlto()
+    {
+        return (float)metroAPulgada(getAlto());
+    }
+    protected float getPAncho()
+    {
+        return (float)metroAPulgada(getAncho());
+    }
     public abstract Vector3 getUbi(int target);
     public abstract Quaternion getRotation(int target);
     /// <summary>

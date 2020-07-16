@@ -79,7 +79,7 @@ public class CodoControl : ObjectControlMain
         adreferencia = refer;
         if (angulo == Vector2.zero)
             angulo = new Vector2(90, 0);
-        this.mesh.Change(angulo,pulgadaAmetro(getAncho()), pulgadaAmetro(getAlto()));
+        this.mesh.Change(angulo, getPAncho(), getPAlto());
 
     }
 

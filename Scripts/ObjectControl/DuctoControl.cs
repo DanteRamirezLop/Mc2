@@ -48,6 +48,8 @@ public class DuctoControl : ObjectControlMain
     // Start is called before the first frame update
     void OnEnable()
     {
+        alto = 6;
+        ancho = 6;
         if (!TryGetComponent(typeof(DuctoMesh), out Component c))
         {
             gameObject.AddComponent(typeof(DuctoMesh));

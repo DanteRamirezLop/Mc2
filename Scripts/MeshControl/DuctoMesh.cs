@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class DuctoMesh : MonoBehaviour
 {
-    private float ultAncho;
+    public float ultAncho;
     private float ultLargo; //siempre en metros...
-    private float ultAlto;
+    public float ultAlto;
     private Mesh lmesh;
     public Material mat;
     private GameObject colision;
