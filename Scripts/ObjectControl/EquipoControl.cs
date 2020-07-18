@@ -18,7 +18,8 @@ public class EquipoControl : ObjectControlMain
     public int tipo { get; set; } //inyeccion, extraccion, ambos
     public double velocidadIny { get; set; }
     public double velocidadExt { get; set; }
-    public double porcentaje { get; set; }
+    public double porcentajeIny { get; set; }
+    public double porcentajeExt { get; set; }
     public bool calculo { get; set; }
     public int vinculo { get; set; }
     public string nivel { get; set; }
