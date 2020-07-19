@@ -5,35 +5,33 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class RegistroDucto : MonoBehaviour {
+public class RegistroEspfiltro : MonoBehaviour {
 
-    //public Text id;
-	public InputField longitud;
-    public InputField paso;
-    public InputField dibujar;
+    public InputField idEquipo;
+    public InputField idFiltro;
 
     public GameObject Panel_msj;
     
     public void RegistrarAmbiente()
     {
-        if (longitud.text != "" && paso.text != "" && dibujar.text != "")
+        if ( idEquipo.text != "" && idFiltro.text != "" )
         {
             //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(longitud.text, paso.text, dibujar.text));
+            StartCoroutine(RegistraBD(idEquipo.text,idFiltro.text));
             SceneManager.LoadScene("EscenaConstruccion");
         }else {
             Panel_msj.SetActive(true);
         }
     }
 
-    private IEnumerator RegistraBD(string longitud, string paso, string dibujar)
+    private IEnumerator RegistraBD(string idEquipo, string idFiltro )
     {
         WWWForm form = new WWWForm();
-        form.AddField("longitud", longitud);
-        form.AddField("paso", paso);
-        form.AddField("dibujar", dibujar);
+        form.AddField("idEquipo", idEquipo);
+        form.AddField("idFiltro", idFiltro);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Ducto.php", form))
+
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Espfiltro.php", form))
         {
             yield return www.SendWebRequest();
 

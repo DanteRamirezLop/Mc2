@@ -4,7 +4,7 @@
 	 //$id = $_POST["id"];
 	 $nombre =$_POST["nombre"];
 	 
-	$sql ="INSERT INTO proyecto (nombre) VALUES ('".$nombre ."')";	
+	$sql ="INSERT INTO filtro (nombre) VALUES ('".$nombre ."')";	
 	
 	if($conn->query($sql)===TRUE){
 		echo "Registro exitoso";
