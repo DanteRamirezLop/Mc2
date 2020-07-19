@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class RegistroAmbiente : MonoBehaviour {
 
+    //public Text id;
     public Text idProyecto;
     public InputField nAmbiente;
     public InputField largo;

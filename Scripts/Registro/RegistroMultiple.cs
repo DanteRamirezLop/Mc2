@@ -5,35 +5,33 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class RegistroDucto : MonoBehaviour {
+public class RegistroMultiple : MonoBehaviour {
 
     //public Text id;
-	public InputField longitud;
-    public InputField paso;
-    public InputField dibujar;
+    public InputField giroX;
+    public InputField giroY;
 
     public GameObject Panel_msj;
     
     public void RegistrarAmbiente()
     {
-        if (longitud.text != "" && paso.text != "" && dibujar.text != "")
+        if (giroX.text != "" && giroY.text != "")
         {
             //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(longitud.text, paso.text, dibujar.text));
+            StartCoroutine(RegistraBD(giroX.text, giroY.text));
             SceneManager.LoadScene("EscenaConstruccion");
         }else {
             Panel_msj.SetActive(true);
         }
     }
 
-    private IEnumerator RegistraBD(string longitud, string paso, string dibujar)
+    private IEnumerator RegistraBD(string giroX, string giroY)
     {
         WWWForm form = new WWWForm();
-        form.AddField("longitud", longitud);
-        form.AddField("paso", paso);
-        form.AddField("dibujar", dibujar);
+        form.AddField("giroX", giroX);
+        form.AddField("giroY", giroY);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Ducto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Multiple.php", form))
         {
             yield return www.SendWebRequest();
 

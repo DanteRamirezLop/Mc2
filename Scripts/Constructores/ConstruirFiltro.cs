@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class ConstruirFiltro : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [System.Serializable]
+    public class Filtro
     {
-        
+        public string id;
+        public string nombre;
+
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1}", id, nombre);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    [System.Serializable]
+    public class ListaFiltro
     {
-        
+
+        public List<Filtro> filtros;
+
+        public void CargarFiltro(string id_buscar)
+        {
+            foreach (Filtro filtro in filtros)
+            {
+
+                if (id_buscar == filtro.id)
+                {
+                    Debug.Log(filtro.nombre);
+                }
+
+            }
+        }
     }
 }

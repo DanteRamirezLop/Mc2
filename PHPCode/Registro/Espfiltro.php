@@ -1,10 +1,11 @@
 <?php
      include_once 'Conexion.php';	 
 	 
-	 //$id = $_POST["id"];
-	 $nombre =$_POST["nombre"];
+	 $idEquip = $_POST["idEquip"];
+	 $idFiltro =$_POST["idFiltro"];
 	 
-	$sql ="INSERT INTO proyecto (nombre) VALUES ('".$nombre ."')";	
+	$sql ="INSERT INTO espfiltro (idEquip,idFiltro) 
+	VALUES ('".$idEquip."','".$idFiltro."')";
 	
 	if($conn->query($sql)===TRUE){
 		echo "Registro exitoso";

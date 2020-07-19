@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class ConstruirEspfiltro : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [System.Serializable]
+    public class Espfiltro
     {
-        
+        public string idEquip;
+        public string idFiltro;
+
+        public override string ToString()
+        {
+            return string.Format("{0},{1", idEquip, idFiltro);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    [System.Serializable]
+    public class ListaEspfiltro
     {
-        
+
+        public List<Espfiltro> espfiltros;
+
+        public void CargarEspfiltro()
+        {
+            foreach (Espfiltro espfiltro in espfiltros)
+            {
+
+                Debug.Log(espfiltro.idEquip);
+                Debug.Log(espfiltro.idFiltro);
+
+
+
+            }
+        }
+
     }
 }
+
+
+
