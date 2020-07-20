@@ -1,14 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+using UnityEngine.Networking;
+using System;
+
 
 public class ConstruirEquipoesp : MonoBehaviour
 {
-   
-    
-    
-    
-    
+
+    public string URL;
+    public string Id_Foranea;
+    public string id_buscar;
+
+    void Start()
+    {
+        Id_Foranea = DatosScena.Id_proyecto;
+        StartCoroutine(EquipoespOnReponse(Id_Foranea));
+    }
+
+    private IEnumerator EquipoespOnReponse(string Id_Foranea)
+    {
+        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+        using (UnityWebRequest req = UnityWebRequest.Get(URL + "equipoesp"))
+        {
+            yield return req.SendWebRequest();
+
+            if (!string.IsNullOrEmpty(req.error))
+            {
+                Debug.Log(req.error);
+
+            }
+            else
+            {
+                int Cantidad;
+                ListaEquipoesps listaEquipoesps = JsonUtility.FromJson<ListaEquipoesps>(req.downloadHandler.text);
+                Cantidad = listaEquipoesps.equipoesps.Count;
+
+                if (Cantidad != 0)
+                {
+                    listaEquipoesps.CargarEquipoesp(id_buscar);
+                }
+                else
+                {
+                    Debug.Log("No hay ductos");
+                }
+            }
+        }
+    } 
     
     [System.Serializable]
     public class Equipoesp

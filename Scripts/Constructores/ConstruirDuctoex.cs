@@ -1,9 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+using UnityEngine.Networking;
+using System;
 
 public class ConstruirDuctoex : MonoBehaviour
 {
+
+    public string URL;
+    public string Id_Foranea;
+    public string id_buscar;
+
+    void Start()
+    {
+        Id_Foranea = DatosScena.Id_proyecto;
+        StartCoroutine(DuctoexOnReponse(Id_Foranea));
+    }
+
+    private IEnumerator DuctoexOnReponse(string Id_Foranea)
+    {
+        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductoex/" + Id_Foranea))
+        using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductoex"))
+        {
+            yield return req.SendWebRequest();
+
+            if (!string.IsNullOrEmpty(req.error))
+            {
+                Debug.Log(req.error);
+
+            }
+            else
+            {
+
+                int Cantidad;
+                ListaDuctoexs listaDuctoexs = JsonUtility.FromJson<ListaDuctoexs>(req.downloadHandler.text);
+                Cantidad = listaDuctoexs.ductoexs.Count;
+
+                if (Cantidad != 0)
+                {
+                    listaDuctoexs.CargarDuctoex(id_buscar);
+                }
+                else
+                {
+                    Debug.Log("No hay ductos");
+                }
+            }
+        }
+    }	
+	
+
 
 
     [System.Serializable]
@@ -33,7 +80,7 @@ public class ConstruirDuctoex : MonoBehaviour
 		
 	 public List<Ductoex> ductoexs;
 
-     public void CargarDuctoexs(string id_buscar)
+     public void CargarDuctoex(string id_buscar)
      {
 		foreach (Ductoex ductoex in ductoexs) {
 			

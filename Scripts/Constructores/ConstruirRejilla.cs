@@ -1,9 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+using UnityEngine.Networking;
+using System;
 
 public class ConstruirRejilla : MonoBehaviour
 {
+
+    public string URL;
+    public string Id_Foranea;
+    public string id_buscar;
+
+    void Start()
+    {
+        Id_Foranea = DatosScena.Id_proyecto;
+        StartCoroutine(RejillaOnReponse(Id_Foranea));
+    }
+
+    private IEnumerator RejillaOnReponse(string Id_Foranea)
+    {
+        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+        using (UnityWebRequest req = UnityWebRequest.Get(URL + "rejilla"))
+        {
+            yield return req.SendWebRequest();
+
+            if (!string.IsNullOrEmpty(req.error))
+            {
+                Debug.Log(req.error);
+
+            }
+            else
+            {
+
+                int Cantidad;
+                ListaRejilla listaRejillas = JsonUtility.FromJson<ListaRejilla>(req.downloadHandler.text);
+                Cantidad = listaRejillas.rejillas.Count;
+
+                if (Cantidad != 0)
+                {
+                    listaRejillas.CargarRejilla(id_buscar);
+                }
+                else
+                {
+                    Debug.Log("No hay ductos");
+                }
+            }
+        }
+    }	
+    
+    
     [System.Serializable]
     public class Rejilla
     {
