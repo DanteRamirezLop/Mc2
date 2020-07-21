@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GranControl : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GranControl : MonoBehaviour
     public GameObject ducto;
     public GameObject union;
     public GameObject equipo;
+    public EquipoCanvas cEquipo;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +27,9 @@ public class GranControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (grab != null)
+        if (grab != null && operationState == 1)
         {
             grab.transform.position = GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 3);
-            //grab.transform.position += this.transform.forward * 3;
         }
         if (Input.GetMouseButtonDown(0))
         {
@@ -88,11 +89,34 @@ public class GranControl : MonoBehaviour
     }
     private void BringInfo()
     {
-        if (GetRayObject() == null)
-            Debug.Log("undetected");
+        grab = GetRayObject();
+        if (grab == null)
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+                Debug.Log("OVER UI");
+            else
+                HideInspector();
+        }
         else
-            Debug.Log("detected");
+            BringInspector();
     }
+
+    private void HideInspector()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void BringInspector()
+    {
+        grab = grab.transform.parent.gameObject;
+        if (grab.TryGetComponent(typeof(EquipoControl), out Component a))
+        {
+            cEquipo.gameObject.SetActive(true);
+            cEquipo.target = (EquipoControl)a;
+            cEquipo.Exploit();
+        }
+    }
+
     private void BringCreate()
     {
         if (grab == null)
@@ -131,6 +155,8 @@ public class GranControl : MonoBehaviour
     }
     private GameObject GetRayObject()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return null;
         Ray rayo = this.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(rayo, out hit, 50f, LayerMask.GetMask("Placed")))

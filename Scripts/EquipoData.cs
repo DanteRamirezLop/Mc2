@@ -8,6 +8,7 @@ public class EquipoData
     public Vector3[] offsets;
     public Vector3[] rotation;
     public Material material;
+    public Texture textura;
     public string nombre;
 
     public Quaternion[] GetRotations()
@@ -17,6 +18,7 @@ public class EquipoData
         {
             ret[i] = Quaternion.Euler(rotation[i]);
         }
+        material.mainTexture = textura;
         return ret;
     }
 }

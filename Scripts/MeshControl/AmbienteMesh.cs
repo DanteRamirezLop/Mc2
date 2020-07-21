@@ -159,7 +159,6 @@ public class AmbienteMesh : MonoBehaviour
             mainVertex.Add(new Vector3(cc.x, 0, cc.y));
         }
         bool flag1 = mainVertex[1].z < mainVertex[mainVertex.Count - 1].z;
-        Debug.Log(flag1);
         List<Vector3> secondaryVertex = new List<Vector3>();
         for (int i = 0; i < mainVertex.Count; i++)
         {

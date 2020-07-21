@@ -20,7 +20,7 @@ public class EquipoControl : ObjectControlMain
     public double velocidadExt { get; set; }
     public double porcentajeIny { get; set; }
     public double porcentajeExt { get; set; }
-    public bool calculo { get; set; }
+    public bool calculo { get; set; } //aire acondicionado o ventilacion
     public int vinculo { get; set; }
     public string nivel { get; set; }
     public int idAmbiente { get; set; }
@@ -130,7 +130,6 @@ public class EquipoControl : ObjectControlMain
 
     public override void ChangeLayer(int layer)
     {
-        Debug.Log(colision);
         foreach (var col in colision)
         {
             col.layer = layer;
@@ -153,6 +152,10 @@ public class EquipoControl : ObjectControlMain
     {
         this.tipoEsp = tipoEsp;
         CambiarMesh();
+    }
+    public double getAutoPotencia()
+    {
+        return (CSensible + CLatente) / 11000 ;
     }
     private void CambiarMesh()
     {
