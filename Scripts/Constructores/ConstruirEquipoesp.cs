@@ -12,17 +12,46 @@ public class ConstruirEquipoesp : MonoBehaviour
 
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
-
+	private List<string> aux = new List<string>();
+	
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
         StartCoroutine(EquipoespOnReponse(Id_Foranea));
     }
 
+	
+    public List<string> DatosEquipoesp(string id_busqueda) {
+        List<string> datosEquipoesp = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 15;
+            }
+
+            if (bandera) {
+                datosEquipoesp.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosEquipoesp;
+    }
+	
+	
     private IEnumerator EquipoespOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+        List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "equipoesp"))
         {
             yield return req.SendWebRequest();
@@ -40,7 +69,8 @@ public class ConstruirEquipoesp : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaEquipoesps.CargarEquipoesp(id_buscar);
+                    listaEquipoesps.CargarEquipoesp(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -81,29 +111,26 @@ public class ConstruirEquipoesp : MonoBehaviour
 
         public List<Equipoesp> equipoesps;
 
-        public void CargarEquipoesp(string id_buscar)
+        public void CargarEquipoesp(List<string> datos)
         {
             foreach (Equipoesp equipoesp in equipoesps)
             {
 
-                if (id_buscar == equipoesp.idEquipoV)
-                {
-                    Debug.Log(equipoesp.potencia);
-                    Debug.Log(equipoesp.voltaje);
-                    Debug.Log(equipoesp.sistema);
-                    Debug.Log(equipoesp.enfEntrada1);
-                    Debug.Log(equipoesp.enfEntrada2);
-                    Debug.Log(equipoesp.enfSalida1);
-                    Debug.Log(equipoesp.enfSalida2);
-                    Debug.Log(equipoesp.tipo);
-                    Debug.Log(equipoesp.Hz);
-                    Debug.Log(equipoesp.CSensible);
-                    Debug.Log(equipoesp.CLatente);
-                    Debug.Log(equipoesp.ESensible);
-                    Debug.Log(equipoesp.ELatente);
-                    Debug.Log(equipoesp.caudal);
+                    datos.Add(equipoesp.potencia);
+                    datos.Add(equipoesp.voltaje);
+                    datos.Add(equipoesp.sistema);
+                    datos.Add(equipoesp.enfEntrada1);
+                    datos.Add(equipoesp.enfEntrada2);
+                    datos.Add(equipoesp.enfSalida1);
+                    datos.Add(equipoesp.enfSalida2);
+                    datos.Add(equipoesp.tipo);
+                    datos.Add(equipoesp.Hz);
+                    datos.Add(equipoesp.CSensible);
+                    datos.Add(equipoesp.CLatente);
+                    datos.Add(equipoesp.ESensible);
+                    datos.Add(equipoesp.ELatente);
+                    datos.Add(equipoesp.caudal);
 
-                }
 
             }
         }

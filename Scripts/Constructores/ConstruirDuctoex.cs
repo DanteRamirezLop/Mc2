@@ -11,17 +11,49 @@ public class ConstruirDuctoex : MonoBehaviour
 
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
-
+	private List<string> aux = new List<string>();
+	
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
         StartCoroutine(DuctoexOnReponse(Id_Foranea));
     }
 
+    public List<string> DatosDuctoex(string id_busqueda)
+    {
+        List<string> datosDuctoex = new List<string>();
+        int cont = 0;
+        int varAux = 0;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item)
+                {
+                    bandera = true;
+                }
+                else
+                    bandera = false;
+                varAux = varAux + 12;
+            }
+
+            if (bandera)
+            {
+                datosDuctoex.Add(item);
+            }
+            cont++;
+
+        }
+        return datosDuctoex;
+
+    }
+	
     private IEnumerator DuctoexOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductoex/" + Id_Foranea))
+        List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductoex/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductoex"))
         {
             yield return req.SendWebRequest();
@@ -29,18 +61,17 @@ public class ConstruirDuctoex : MonoBehaviour
             if (!string.IsNullOrEmpty(req.error))
             {
                 Debug.Log(req.error);
-
             }
             else
             {
-
                 int Cantidad;
                 ListaDuctoexs listaDuctoexs = JsonUtility.FromJson<ListaDuctoexs>(req.downloadHandler.text);
                 Cantidad = listaDuctoexs.ductoexs.Count;
 
                 if (Cantidad != 0)
                 {
-                    listaDuctoexs.CargarDuctoex(id_buscar);
+                    listaDuctoexs.CargarDuctoex(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -80,24 +111,23 @@ public class ConstruirDuctoex : MonoBehaviour
 		
 	 public List<Ductoex> ductoexs;
 
-     public void CargarDuctoex(string id_buscar)
+     public void CargarDuctoex(List<string> datos)
      {
 		foreach (Ductoex ductoex in ductoexs) {
 			
-			if (id_buscar == ductoex.idDucto) {
-					Debug.Log(ductoex.tipo);
-					Debug.Log(ductoex.nombre);
-					Debug.Log(ductoex.dimA);
-					Debug.Log(ductoex.dimB);
-					Debug.Log(ductoex.flujoCFM);
-					Debug.Log(ductoex.damAb100);
-					Debug.Log(ductoex.damCer10);
-					Debug.Log(ductoex.damCer50);
-					Debug.Log(ductoex.tranRec);
-					Debug.Log(ductoex.conVen);
-					Debug.Log(ductoex.lumAli);
+			
+					datos.Add(ductoex.tipo);
+					datos.Add(ductoex.nombre);
+					datos.Add(ductoex.dimA);
+					datos.Add(ductoex.dimB);
+					datos.Add(ductoex.flujoCFM);
+					datos.Add(ductoex.damAb100);
+					datos.Add(ductoex.damCer10);
+					datos.Add(ductoex.damCer50);
+					datos.Add(ductoex.tranRec);
+					datos.Add(ductoex.conVen);
+					datos.Add(ductoex.lumAli);
 
-			}
 
 		}
 	 }

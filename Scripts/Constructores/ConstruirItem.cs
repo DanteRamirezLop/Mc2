@@ -10,7 +10,7 @@ public class ConstruirItem : MonoBehaviour
 {
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
+   private List<string> aux = new List<string>();
 
     void Start()
     {
@@ -18,9 +18,38 @@ public class ConstruirItem : MonoBehaviour
         StartCoroutine(ItemOnReponse(Id_Foranea));
     }
 
+	
+    public List<string> DatosItem(string id_busqueda) {
+        List<string> datosItem = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 4;
+            }
+
+            if (bandera) {
+                datosItem.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosItem;
+    }
+	
+	
     private IEnumerator ItemOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+        List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "item"))
         {
             yield return req.SendWebRequest();
@@ -38,7 +67,8 @@ public class ConstruirItem : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaItems.CargarItem(id_buscar);
+                    listaItems.CargarItem(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -70,17 +100,14 @@ public class ConstruirItem : MonoBehaviour
 
         public List<Item> items;
 
-        public void CargarItem(string id_buscar)
+        public void CargarItem(List<string> datos)
         {
             foreach (Item item in items)
             {
 
-                if (id_buscar == item.id)
-                {
-                    Debug.Log(item.idItem);
-                    Debug.Log(item.idEquipo);
-                    Debug.Log(item.conexion);
-                }
+                    datos.Add(item.idItem);
+                    datos.Add(item.idEquipo);
+                    datos.Add(item.conexion);
 
             }
         }

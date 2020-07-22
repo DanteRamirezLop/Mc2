@@ -11,7 +11,7 @@ public class ConstruirFiltro : MonoBehaviour
 
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
+    private List<string> aux = new List<string>();
 
     void Start()
     {
@@ -19,9 +19,38 @@ public class ConstruirFiltro : MonoBehaviour
         StartCoroutine(FiltroOnReponse(Id_Foranea));
     }
 
+	
+    public List<string> DatosFiltro(string id_busqueda) {
+        List<string> datosFiltro = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 2;
+            }
+
+            if (bandera) {
+                datosFiltro.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosFiltro;
+    }
+	
+	
     private IEnumerator FiltroOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+         List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "filtro"))
         {
             yield return req.SendWebRequest();
@@ -39,7 +68,8 @@ public class ConstruirFiltro : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaFiltros.CargarFiltro(id_buscar);
+                    listaFiltros.CargarFiltro(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -70,15 +100,12 @@ public class ConstruirFiltro : MonoBehaviour
 
         public List<Filtro> filtros;
 
-        public void CargarFiltro(string id_buscar)
+        public void CargarFiltro(List<string> datos)
         {
             foreach (Filtro filtro in filtros)
             {
 
-                if (id_buscar == filtro.id)
-                {
-                    Debug.Log(filtro.nombre);
-                }
+                    datos.Add(filtro.nombre);
 
             }
         }

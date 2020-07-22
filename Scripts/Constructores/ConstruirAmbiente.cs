@@ -20,7 +20,6 @@ public class ConstruirAmbiente : MonoBehaviour {
     {
         Id_Foranea = DatosScena.Id_proyecto;
         StartCoroutine(AmbienteOnReponse(Id_Foranea));
-        Debug.Log("En el Star");
     }
 
     public void seleccionCombo() {
@@ -56,7 +55,10 @@ public class ConstruirAmbiente : MonoBehaviour {
                     listaAmbientes.AmbientesSeleccionado(altura2, NombreAmbiente, Coordenada2);
                     Vector2[] Coordenada = Coordenada2.ToArray();
                     altura = altura2[0];
+                    //En la lista datos estan cargados todos los campos
+                    //*****utilizar los datos en este lugar si los necesitas al ejecutar el programa*****
                     ScriptAmbCont.EnterData(Coordenada, altura);
+                    //
                 }
                 else {
                     Debug.Log("Este Proyecto no tiene ambientes");
@@ -67,7 +69,6 @@ public class ConstruirAmbiente : MonoBehaviour {
 
     private IEnumerator AmbienteOnReponse(string Id_Foranea)
     {
-        Debug.Log("En la corrutina");
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "ambiente/" + Id_Foranea))
       {
           yield return req.SendWebRequest();

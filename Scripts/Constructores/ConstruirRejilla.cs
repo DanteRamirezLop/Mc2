@@ -11,7 +11,7 @@ public class ConstruirRejilla : MonoBehaviour
 
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
+    private List<string> aux = new List<string>();
 
     void Start()
     {
@@ -19,9 +19,38 @@ public class ConstruirRejilla : MonoBehaviour
         StartCoroutine(RejillaOnReponse(Id_Foranea));
     }
 
+	
+    public List<string> DatosRejilla(string id_busqueda) {
+        List<string> datosRejilla = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 3;
+            }
+
+            if (bandera) {
+                datosRejilla.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosRejilla;
+    }
+	
+	
     private IEnumerator RejillaOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+        List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "rejilla"))
         {
             yield return req.SendWebRequest();
@@ -40,7 +69,8 @@ public class ConstruirRejilla : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaRejillas.CargarRejilla(id_buscar);
+                    listaRejillas.CargarRejilla(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -70,17 +100,13 @@ public class ConstruirRejilla : MonoBehaviour
 
         public List<Rejilla> rejillas;
 
-        public void CargarRejilla(string id_buscar)
+        public void CargarRejilla(List<string> datos)
         {
             foreach (Rejilla rejilla in rejillas)
             {
 
-                if (id_buscar == rejilla.id)
-                {
-                    Debug.Log(rejilla.nombre);
-                    Debug.Log(rejilla.cfm);
-                }
-
+                    datos.Add(rejilla.nombre);
+                    datos.Add(rejilla.cfm);
             }
         }
 

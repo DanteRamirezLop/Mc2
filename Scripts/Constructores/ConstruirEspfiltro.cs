@@ -11,7 +11,7 @@ public class ConstruirEspfiltro : MonoBehaviour
 
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
+     private List<string> aux = new List<string>();
 
     void Start()
     {
@@ -19,9 +19,37 @@ public class ConstruirEspfiltro : MonoBehaviour
         StartCoroutine(EspfiltroOnReponse(Id_Foranea));
     }
 
+    public List<string> DatosEspfiltro(string id_busqueda) {
+        List<string> datosEspfiltro = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 2;
+            }
+
+            if (bandera) {
+                datosEspfiltro.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosEspfiltro;
+    }
+	
+	
     private IEnumerator EspfiltroOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+         List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "espfiltro"))
         {
             yield return req.SendWebRequest();
@@ -39,11 +67,12 @@ public class ConstruirEspfiltro : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaEspfiltros.CargarEspfiltro();
+                    listaEspfiltros.CargarEspfiltro(datos);
+					aux = datos;
                 }
                 else
                 {
-                    Debug.Log("No hay ductos");
+                    Debug.Log("No hay filtro");
                 }
             }
         }
@@ -57,7 +86,7 @@ public class ConstruirEspfiltro : MonoBehaviour
 
         public override string ToString()
         {
-            return string.Format("{0},{1", idEquip, idFiltro);
+            return string.Format("{0},{1}", idEquip, idFiltro);
         }
     }
 
@@ -67,15 +96,13 @@ public class ConstruirEspfiltro : MonoBehaviour
 
         public List<Espfiltro> espfiltros;
 
-        public void CargarEspfiltro()
+        public void CargarEspfiltro(List<string> datos)
         {
             foreach (Espfiltro espfiltro in espfiltros)
             {
 
-                Debug.Log(espfiltro.idEquip);
-                Debug.Log(espfiltro.idFiltro);
-
-
+                datos.Add(espfiltro.idEquip);
+                datos.Add(espfiltro.idFiltro);
 
             }
         }

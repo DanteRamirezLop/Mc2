@@ -10,7 +10,7 @@ public class ConstruirMetradoex : MonoBehaviour
 {
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
+    private List<string> aux = new List<string>();
 
     void Start()
     {
@@ -18,9 +18,38 @@ public class ConstruirMetradoex : MonoBehaviour
         StartCoroutine(MetradoexOnReponse(Id_Foranea));
     }
 
+
+    public List<string> DatosMetradoex (string id_busqueda) {
+        List<string> datosMetradoex = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 6;
+            }
+
+            if (bandera) {
+                datosMetradoex .Add(item);
+            }
+            cont++;
+            
+        }
+        return datosMetradoex ;
+    }
+	
+	
     private IEnumerator MetradoexOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+		List<string> datos = new List<string>();
+	   //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "metradoex"))
         {
             yield return req.SendWebRequest();
@@ -39,7 +68,8 @@ public class ConstruirMetradoex : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaMetradoexs.CargarMetradoex(id_buscar);
+                    listaMetradoexs.CargarMetradoex(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -70,22 +100,18 @@ public class ConstruirMetradoex : MonoBehaviour
     [System.Serializable]
     public class ListaMetradoex
     {
-
         public List<Metradoex> metradoexs;
 
-        public void CargarMetradoex(string id_buscar)
+        public void CargarMetradoex(List<string> datos)
         {
             foreach (Metradoex metradoex in metradoexs)
             {
 
-                if (id_buscar == metradoex.id)
-                {
-                    Debug.Log(metradoex.idEquipo);
-                    Debug.Log(metradoex.dima);
-                    Debug.Log(metradoex.dimb);
-                    Debug.Log(metradoex.tipo);
-                    Debug.Log(metradoex.multi);
-                }
+                    datos.Add(metradoex.idEquipo);
+                    datos.Add(metradoex.dima);
+                    datos.Add(metradoex.dimb);
+                    datos.Add(metradoex.tipo);
+                    datos.Add(metradoex.multi);
 
             }
         }

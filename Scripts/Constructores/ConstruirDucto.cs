@@ -8,10 +8,9 @@ using System;
 
 public class ConstruirDucto : MonoBehaviour
 {
-
 	public string URL;
     public string Id_Foranea;
-	public string id_buscar;
+	private List<string> aux = new List<string>();
 	
     void Start()
     {
@@ -19,12 +18,43 @@ public class ConstruirDucto : MonoBehaviour
         StartCoroutine(DuctoOnReponse(Id_Foranea));
     }
 
+	
+    public List<string> DatosDucto(string id_busqueda) {
+        List<string> datosDucto = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 4;
+            }
+
+            if (bandera) {
+                datosDucto.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosDucto;
+    }
+	
+
 	 private IEnumerator DuctoOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
-      using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto"))
+       List<string> datos = new List<string>();
+	  //acceder a los datos por medio de la URL
+      //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/"+ Id_Foranea))
+	  using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto"))
       {
-          yield return req.SendWebRequest();
+         //validaciones de coneccion
+         yield return req.SendWebRequest();
 
          if (!string.IsNullOrEmpty(req.error)){
             Debug.Log(req.error);
@@ -32,11 +62,16 @@ public class ConstruirDucto : MonoBehaviour
          }else {
 
 			int Cantidad;
+            //crear variables con las clases y asignarle los datos traidos de la API
             ListaDuctos listaDuctos = JsonUtility.FromJson<ListaDuctos>(req.downloadHandler.text);
             Cantidad = listaDuctos.ductos.Count;
 
             if (Cantidad != 0){
-                listaDuctos.CargarDuctos(id_buscar);
+
+              listaDuctos.CargarDuctos(datos);
+		      aux = datos;
+
+
             }
              else {
                  Debug.Log("No hay ductos");
@@ -45,6 +80,7 @@ public class ConstruirDucto : MonoBehaviour
       }
     }	
 	
+    //***** CLASES PARA ACCDER A LOS DATOS DE LA TABLA DUCTO**********
     [System.Serializable]
     public class Ducto
     {
@@ -63,19 +99,19 @@ public class ConstruirDucto : MonoBehaviour
     public class ListaDuctos {
 		
 	 public List<Ducto> ductos;
-
-     public void CargarDuctos(string id_buscar)
+      // ********Fuincion para acceder a los datos y almacenarlos en la array datos*********
+     public void CargarDuctos(List<string> datos)
      {
 		foreach (Ducto ducto in ductos) {
 			
-			if (id_buscar == ducto.id) {
-					Debug.Log(ducto.longitud);
-					Debug.Log(ducto.paso);
-					Debug.Log(ducto.dibujar);
-
-			}
-
+              datos.Add(ducto.id);
+              datos.Add(ducto.longitud);
+              datos.Add(ducto.paso);
+              datos.Add(ducto.dibujar);
 		}
 	 }
     }
+
+
+
 }

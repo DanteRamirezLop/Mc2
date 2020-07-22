@@ -11,7 +11,8 @@ public class ConstruirDuctopass : MonoBehaviour
 
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
+	
+	 private List<string> aux = new List<string>();
 
     void Start()
     {
@@ -19,9 +20,39 @@ public class ConstruirDuctopass : MonoBehaviour
         StartCoroutine(DuctopassOnReponse(Id_Foranea));
     }
 
+
+    public List<string> DatosDuctopass(string id_busqueda) {
+        List<string> datosDuctopass = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 6;
+            }
+
+            if (bandera) {
+                datosDuctopass.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosDuctopass;
+    }
+	
+	
+	
     private IEnumerator DuctopassOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductoex/" + Id_Foranea))
+        List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductoex/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "ductopass"))
         {
             yield return req.SendWebRequest();
@@ -29,18 +60,17 @@ public class ConstruirDuctopass : MonoBehaviour
             if (!string.IsNullOrEmpty(req.error))
             {
                 Debug.Log(req.error);
-
             }
             else
             {
-
                 int Cantidad;
                 ListaDuctopasss listaDuctopasss = JsonUtility.FromJson<ListaDuctopasss>(req.downloadHandler.text);
                 Cantidad = listaDuctopasss.ductopasss.Count;
 
                 if (Cantidad != 0)
                 {
-                    listaDuctopasss.CargarDuctopass(id_buscar);
+                    listaDuctopasss.CargarDuctopass(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -73,18 +103,16 @@ public class ConstruirDuctopass : MonoBehaviour
 		
 	 public List<Ductopass> ductopasss;
 
-     public void CargarDuctopass(string id_buscar)
+     public void CargarDuctopass(List<string> datos)
      {
 		foreach (Ductopass ductopass in ductopasss) {
 			
-			if (id_buscar == ductopass.idDucto) {
-					Debug.Log(ductopass.ccx);
-					Debug.Log(ductopass.ccy);
-					Debug.Log(ductopass.ccz);
-					Debug.Log(ductopass.paso);
-					Debug.Log(ductopass.dibujar);
-
-			}
+			
+					datos.Add(ductopass.ccx);
+					datos.Add(ductopass.ccy);
+					datos.Add(ductopass.ccz);
+					datos.Add(ductopass.paso);
+					datos.Add(ductopass.dibujar);
 
 		}
 	 }

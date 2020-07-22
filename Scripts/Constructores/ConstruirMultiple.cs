@@ -10,7 +10,7 @@ public class ConstruirMultiple : MonoBehaviour
 {
     public string URL;
     public string Id_Foranea;
-    public string id_buscar;
+    private List<string> aux = new List<string>();
 
     void Start()
     {
@@ -18,9 +18,38 @@ public class ConstruirMultiple : MonoBehaviour
         StartCoroutine(MultipleOnReponse(Id_Foranea));
     }
 
+	
+    public List<string> DatosMultiple(string id_busqueda) {
+        List<string> datosMultiple = new List<string>();
+        int cont = 0;
+        int varAux = 0 ;
+        bool bandera = false;
+
+        foreach (string item in aux)
+        {
+            if (varAux == cont)
+            {
+                if (id_busqueda == item){
+                    bandera = true;
+                }else
+                    bandera = false;
+                varAux = varAux + 3;
+            }
+
+            if (bandera) {
+                datosMultiple.Add(item);
+            }
+            cont++;
+            
+        }
+        return datosMultiple;
+    }
+	
+	
     private IEnumerator MultipleOnReponse(string Id_Foranea)
     {
-        //using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
+        List<string> datos = new List<string>();
+		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "multiple"))
         {
             yield return req.SendWebRequest();
@@ -39,7 +68,8 @@ public class ConstruirMultiple : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaMultiples.CargarMultiple(id_buscar);
+                    listaMultiples.CargarMultiple(datos);
+					aux = datos;
                 }
                 else
                 {
@@ -69,17 +99,12 @@ public class ConstruirMultiple : MonoBehaviour
 
         public List<Multiple> multiples;
 
-        public void CargarMultiple(string id_buscar)
+        public void CargarMultiple(List<string> datos)
         {
             foreach (Multiple multiple in multiples)
             {
-
-                if (id_buscar == multiple.id)
-                {
-                    Debug.Log(multiple.giroX);
-                    Debug.Log(multiple.giroY);
-                }
-
+                    datos.Add(multiple.giroX);
+                    datos.Add(multiple.giroY);
             }
         }
     }
