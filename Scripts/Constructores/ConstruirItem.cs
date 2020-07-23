@@ -27,7 +27,7 @@ public class ConstruirItem : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param> id de la tabla
     /// <returns></returns>
-    public List<string> DatosItem(string id_busqueda) {
+    public List<string> DatosItemId(string id_busqueda) {
         List<string> datosItem = new List<string>();
         int cont = 0;
         int varAux = 0 ;
@@ -53,6 +53,12 @@ public class ConstruirItem : MonoBehaviour
         return datosItem;
     }
 
+	
+	public List<string> DatosItem() {
+        List<string> datosItem = new List<string>(aux);
+
+        return datosItem;
+    }
     /// <summary>
     /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
     /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones

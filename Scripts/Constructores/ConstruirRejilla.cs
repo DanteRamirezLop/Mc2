@@ -28,7 +28,7 @@ public class ConstruirRejilla : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param> id de la tabla
     /// <returns></returns>
-    public List<string> DatosRejilla(string id_busqueda) {
+    public List<string> DatosRejillaId(string id_busqueda) {
         List<string> datosRejilla = new List<string>();
         int cont = 0;
         int varAux = 0 ;
@@ -51,6 +51,13 @@ public class ConstruirRejilla : MonoBehaviour
             cont++;
             
         }
+        return datosRejilla;
+    }
+	
+	
+	public List<string> DatosRejilla() {
+        List<string> datosRejilla = new List<string>(aux);
+
         return datosRejilla;
     }
 
@@ -93,7 +100,7 @@ public class ConstruirRejilla : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("No hay ductos");
+                    Debug.Log("No hay rejilla");
                 }
             }
         }

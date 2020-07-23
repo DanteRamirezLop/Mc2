@@ -28,7 +28,7 @@ public class ConstruirDuctoex : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param>
     /// <returns></returns>
-    public List<string> DatosDuctoex(string id_busqueda)
+    public List<string> DatosDuctoexId(string id_busqueda)
     {
         List<string> datosDuctoex = new List<string>();
         int cont = 0;
@@ -56,8 +56,14 @@ public class ConstruirDuctoex : MonoBehaviour
 
         }
         return datosDuctoex;
-
     }
+	
+    public List<string> DatosDuctoex()
+    {
+        List<string> datosDuctoex = new List<string>(aux);
+        return datosDuctoex;
+    }
+	
     /// <summary>
     /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
     /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones

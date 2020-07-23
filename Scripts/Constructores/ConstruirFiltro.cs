@@ -28,7 +28,7 @@ public class ConstruirFiltro : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param> id de la tabla
     /// <returns></returns>
-    public List<string> DatosFiltro(string id_busqueda) {
+    public List<string> DatosFiltroId(string id_busqueda) {
         List<string> datosFiltro = new List<string>();
         int cont = 0;
         int varAux = 0 ;
@@ -54,6 +54,11 @@ public class ConstruirFiltro : MonoBehaviour
         return datosFiltro;
     }
 	
+	public List<string> DatosFiltro() {
+        List<string> datosFiltro = new List<string>(aux);
+
+        return datosFiltro;
+    }
 	
     private IEnumerator FiltroOnReponse(string Id_Foranea)
     {

@@ -27,7 +27,7 @@ public class ConstruirDucto : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param> id de la tabla
     /// <returns></returns>
-    public List<string> DatosDucto(string id_busqueda) {
+    public List<string> DatosDuctoId(string id_busqueda) {
         List<string> datosDucto = new List<string>();
         int cont = 0;
         int varAux = 0 ;
@@ -53,6 +53,14 @@ public class ConstruirDucto : MonoBehaviour
         return datosDucto;
     }
 
+	
+	    public List<string> DatosDucto() {
+          List<string> datosDucto = new List<string>(aux);
+            return datosDucto;
+        }
+        
+    
+	
     /// <summary>
     /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
     /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones
@@ -111,27 +119,43 @@ public class ConstruirDucto : MonoBehaviour
             return string.Format("{0},{1},{2},{3}", id, longitud, paso, dibujar);
         }
     }
-	
-	[System.Serializable]
-    public class ListaDuctos {
-		
-	 public List<Ducto> ductos;
+
+    [System.Serializable]
+    public class ListaDuctos
+    {
+
+        public List<Ducto> ductos;
         /// <summary>
         /// Asigna a la variable'datos' todos los datos de la tabla 
         /// </summary>
         /// <param name="datos"></param> variable por valor
-     public void CargarDuctos(List<string> datos)
-     {
-		foreach (Ducto ducto in ductos) {
-			
-              datos.Add(ducto.id);
-              datos.Add(ducto.longitud);
-              datos.Add(ducto.paso);
-              datos.Add(ducto.dibujar);
-		}
-	 }
+        public void CargarDuctos(List<string> datos)
+        {
+            foreach (Ducto ducto in ductos)
+            {
+
+                datos.Add(ducto.id);
+                datos.Add(ducto.longitud);
+                datos.Add(ducto.paso);
+                datos.Add(ducto.dibujar);
+            }
+        }
+
+        public void CargarDuctosID(List<string> datos, string id_busqueda)
+        {
+            foreach (Ducto ducto in ductos)
+            {
+
+                if (id_busqueda == ducto.id)
+                {
+                    datos.Add(ducto.id);
+                    datos.Add(ducto.longitud);
+                    datos.Add(ducto.paso);
+                    datos.Add(ducto.dibujar);
+                }
+            }
+        }
+
+    }
     }
 
-
-
-}

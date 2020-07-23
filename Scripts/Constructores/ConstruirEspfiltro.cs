@@ -28,7 +28,7 @@ public class ConstruirEspfiltro : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param> id de la tabla
     /// <returns></returns>
-    public List<string> DatosEspfiltro(string id_busqueda) {
+    public List<string> DatosEspfiltroId(string id_busqueda) {
         List<string> datosEspfiltro = new List<string>();
         int cont = 0;
         int varAux = 0 ;
@@ -54,6 +54,13 @@ public class ConstruirEspfiltro : MonoBehaviour
         return datosEspfiltro;
     }
 
+	public List<string> DatosEspfiltro() {
+        List<string> datosEspfiltro = new List<string>(aux);
+
+        return datosEspfiltro;
+    }
+	
+	
     /// <summary>
     /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
     /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones

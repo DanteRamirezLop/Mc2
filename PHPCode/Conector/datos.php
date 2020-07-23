@@ -159,7 +159,7 @@ if($_GET['variable']== 'ductopass'){
 					'dibujar'=> $row['dibujar'],
 					
                 );
-                array_push($ductos["ductopasss"], $item);
+                array_push($ductopasss["ductopasss"], $item);
             }
         
             echo json_encode($ductopasss);

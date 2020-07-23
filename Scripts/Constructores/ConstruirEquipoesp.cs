@@ -29,7 +29,7 @@ public class ConstruirEquipoesp : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param> id de la tabla
     /// <returns></returns>
-    public List<string> DatosEquipoesp(string id_busqueda) {
+    public List<string> DatosEquipoespId(string id_busqueda) {
         List<string> datosEquipoesp = new List<string>();
         int cont = 0;
         int varAux = 0 ;
@@ -52,6 +52,13 @@ public class ConstruirEquipoesp : MonoBehaviour
             cont++;
             
         }
+        return datosEquipoesp;
+    }
+
+	
+	public List<string> DatosEquipoesp() {
+        List<string> datosEquipoesp = new List<string>(aux);
+
         return datosEquipoesp;
     }
 

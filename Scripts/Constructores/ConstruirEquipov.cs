@@ -26,7 +26,7 @@ public class ConstruirEquipov : MonoBehaviour
     /// </summary>
     /// <param name="id_busqueda"></param> id de la tabla
     /// <returns></returns>
-    public List<string> DatosEquipov(string id_busqueda) {
+    public List<string> DatosEquipovId(string id_busqueda) {
         List<string> datosEquipov = new List<string>();
         int cont = 0;
         int varAux = 0 ;
@@ -52,6 +52,12 @@ public class ConstruirEquipov : MonoBehaviour
         return datosEquipov;
     }
 
+	public List<string> DatosEquipov() {
+        List<string> datosEquipov = new List<string>(aux);
+
+        return datosEquipov;
+    }
+	
     /// <summary>
     /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
     /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones
