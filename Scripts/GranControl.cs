@@ -103,7 +103,7 @@ public class GranControl : MonoBehaviour
 
     private void HideInspector()
     {
-        throw new NotImplementedException();
+        cEquipo.gameObject.SetActive(false);
     }
 
     private void BringInspector()
