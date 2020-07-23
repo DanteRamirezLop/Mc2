@@ -11,14 +11,23 @@ public class ConstruirEspfiltro : MonoBehaviour
 
     public string URL;
     public string Id_Foranea;
-     private List<string> aux = new List<string>();
+    private List<string> aux = new List<string>();
 
+     /// <summary>
+     /// Rescata el Id del proyecto
+     /// Ejecuta una corutina para traer lo datos de la API
+     /// </summary>
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
         StartCoroutine(EspfiltroOnReponse(Id_Foranea));
     }
 
+    /// <summary>
+    /// Filtra los datos por la varibale id_busqueda que es el ID de la tabla Equipov y los retorna en una variable List
+    /// </summary>
+    /// <param name="id_busqueda"></param> id de la tabla
+    /// <returns></returns>
     public List<string> DatosEspfiltro(string id_busqueda) {
         List<string> datosEspfiltro = new List<string>();
         int cont = 0;
@@ -44,8 +53,14 @@ public class ConstruirEspfiltro : MonoBehaviour
         }
         return datosEspfiltro;
     }
-	
-	
+
+    /// <summary>
+    /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
+    /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones
+    /// 
+    /// </summary>
+    /// <param name="Id_Foranea"></param>
+    /// <returns></returns>
     private IEnumerator EspfiltroOnReponse(string Id_Foranea)
     {
          List<string> datos = new List<string>();
@@ -67,6 +82,7 @@ public class ConstruirEspfiltro : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
+                    //*****utilizar los datos en este lugar si los necesitas al ejecutar el programa*****
                     listaEspfiltros.CargarEspfiltro(datos);
 					aux = datos;
                 }
@@ -95,7 +111,10 @@ public class ConstruirEspfiltro : MonoBehaviour
     {
 
         public List<Espfiltro> espfiltros;
-
+        /// <summary>
+        /// Asigna a la variable'datos' todos los datos de la tabla 
+        /// </summary>
+        /// <param name="datos"></param> variable por valor
         public void CargarEspfiltro(List<string> datos)
         {
             foreach (Espfiltro espfiltro in espfiltros)

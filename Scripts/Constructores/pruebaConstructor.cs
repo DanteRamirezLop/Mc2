@@ -14,7 +14,7 @@ public class pruebaConstructor : MonoBehaviour
     public void prueba() {
         List<string> prueba = new List<string>();
 
-        prueba=llamada.DatosEquipov("4");
+        prueba=llamada.DatosEquipov("4"); //************
         
         foreach (string item in prueba)
         {

@@ -11,14 +11,22 @@ public class ConstruirDucto : MonoBehaviour
 	public string URL;
     public string Id_Foranea;
 	private List<string> aux = new List<string>();
-	
+
+    /// <summary>
+    /// Rescata el Id del proyecto
+    /// Ejecuta una corutina para traer lo datos de la API
+    /// </summary>
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
         StartCoroutine(DuctoOnReponse(Id_Foranea));
     }
 
-	
+    /// <summary>
+    /// Filtra los datos por la varibale id_busqueda que es el ID de la tabla Equipov y los retorna en una variable List
+    /// </summary>
+    /// <param name="id_busqueda"></param> id de la tabla
+    /// <returns></returns>
     public List<string> DatosDucto(string id_busqueda) {
         List<string> datosDucto = new List<string>();
         int cont = 0;
@@ -44,8 +52,14 @@ public class ConstruirDucto : MonoBehaviour
         }
         return datosDucto;
     }
-	
 
+    /// <summary>
+    /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
+    /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones
+    /// 
+    /// </summary>
+    /// <param name="Id_Foranea"></param>
+    /// <returns></returns>
 	 private IEnumerator DuctoOnReponse(string Id_Foranea)
     {
        List<string> datos = new List<string>();
@@ -68,8 +82,11 @@ public class ConstruirDucto : MonoBehaviour
 
             if (Cantidad != 0){
 
-              listaDuctos.CargarDuctos(datos);
-		      aux = datos;
+                //*****utilizar los datos en este lugar si los necesitas al ejecutar el programa*****
+                //****Comentar el  listaDuctos.CargarDuctos(datos); si se necesita utilizar los datos en en el start y utilizar '  listaDuctos.CargarDuctosId'
+                //llistaDuctos.CargarDuctosId(datos,"1");
+                   listaDuctos.CargarDuctos(datos);
+		           aux = datos;
 
 
             }
@@ -99,7 +116,10 @@ public class ConstruirDucto : MonoBehaviour
     public class ListaDuctos {
 		
 	 public List<Ducto> ductos;
-      // ********Fuincion para acceder a los datos y almacenarlos en la array datos*********
+        /// <summary>
+        /// Asigna a la variable'datos' todos los datos de la tabla 
+        /// </summary>
+        /// <param name="datos"></param> variable por valor
      public void CargarDuctos(List<string> datos)
      {
 		foreach (Ducto ducto in ductos) {

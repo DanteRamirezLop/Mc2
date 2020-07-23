@@ -66,17 +66,17 @@ if($_GET['variable']== 'ambiente'){
             echo json_encode(array('mensaje' => 'No hay elementos'));
         }
 }
-/*
+
 if($_GET['variable']== 'ducto'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	   // $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $ducto = new Ducto();
         $ductos= array();
         $ductos["ductos"] = array();
 		
-        $res = $ducto->obtenerDucto($Id_foraneo);
+        $res = $ducto->obtenerDucto();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -100,14 +100,14 @@ if($_GET['variable']== 'ducto'){
 
 if($_GET['variable']== 'ductoex'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $ductoex = new Ductoex();
         $ductoexs= array();
         $ductoexs["ductoexs"] = array();
 		
-        $res = $ductoex->obtenerDuctoex($Id_foraneo);
+        $res = $ductoex->obtenerDuctoex();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -138,14 +138,14 @@ if($_GET['variable']== 'ductoex'){
 }
 if($_GET['variable']== 'ductopass'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $ductopass = new Ductopass();
         $ductopasss= array();
         $ductopasss["ductopasss"] = array();
 		
-        $res = $ductopass->obtenerDuctopass($Id_foraneo);
+        $res = $ductopass->obtenerDuctopass();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -170,14 +170,15 @@ if($_GET['variable']== 'ductopass'){
 }
 if($_GET['variable']== 'equipoesp'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	   // $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $equipoesp = new Equipoesp();
         $equipoesps= array();
         $equipoesps["equipoesps"] = array();
 		
-        $res = $equipoesp->obtenerEquipoesp($Id_foraneo);
+		//$res = $equipoesp->obtenerEquipoesp($Id_foraneo);
+        $res = $equipoesp->obtenerEquipoesp();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -229,10 +230,10 @@ if($_GET['variable']== 'equipov'){
                     'idProyecto'=> $row['idProyecto'],
 					'codigo'=> $row['codigo'],
 					'tipo'=> $row['tipo'],
-					'velocidadlny'=> $row['velocidadlny'],
+					'velocidadIny'=> $row['velocidadIny'],
 					'velocidadExt'=> $row['velocidadExt'],
-					'porsentajelny'=> $row['porsentajelny'],
-					'porsentajeExt'=> $row['porsentajeExt'],
+					'porcentajeIny'=> $row['porcentajeIny'],
+					'porcentajeExt'=> $row['porcentajeExt'],
 					'calculo'=> $row['calculo'],
 					'vinculo'=> $row['vinculo'],
 					'nivel'=> $row['nivel'],
@@ -255,14 +256,14 @@ if($_GET['variable']== 'equipov'){
 
 if($_GET['variable']== 'espfiltro'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $espfiltro = new Espfiltro();
         $espfiltros= array();
         $espfiltros["espfiltros"] = array();
 		
-        $res = $espfiltro->obtenerEspfiltro($Id_foraneo);
+        $res = $espfiltro->obtenerEspfiltro();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -283,14 +284,14 @@ if($_GET['variable']== 'espfiltro'){
 
 if($_GET['variable']== 'filtro'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	   // $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $filtro = new Filtro();
         $filtros= array();
         $filtros["filtros"] = array();
 		
-        $res = $filtro->obtenerFiltro($Id_foraneo);
+        $res = $filtro->obtenerFiltro();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -313,14 +314,14 @@ if($_GET['variable']== 'filtro'){
 
 if($_GET['variable']== 'item'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $item = new Item();
         $items= array();
         $items["items"] = array();
 		
-        $res = $item->obtenerItem($Id_foraneo);
+        $res = $item->obtenerItem();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -329,7 +330,7 @@ if($_GET['variable']== 'item'){
                     'id'=> $row['id'],
                     'idItem'=> $row['idItem'],
 					'idEquipo'=> $row['idEquipo'],
-					'conexion'=> $row['conexion'],],
+					'conexion'=> $row['conexion'],
 					
                 );
                 array_push($items["items"], $item2);
@@ -345,14 +346,14 @@ if($_GET['variable']== 'item'){
 
 if($_GET['variable']== 'metradoex'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $metradoex = new Metradoex();
         $metradoexs= array();
         $metradoexs["metradoexs"] = array();
 		
-        $res = $metradoex->obtenerMetradoex($Id_foraneo);
+        $res = $metradoex->obtenerMetradoex();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -378,14 +379,14 @@ if($_GET['variable']== 'metradoex'){
 
 if($_GET['variable']== 'rejilla'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $rejilla = new Rejilla();
         $rejillas= array();
         $rejillas["rejillas"] = array();
 		
-        $res = $rejilla->obtenerRejilla($Id_foraneo);
+        $res = $rejilla->obtenerRejilla();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -407,14 +408,14 @@ if($_GET['variable']== 'rejilla'){
 
 if($_GET['variable']== 'multiple'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $multiple = new Multiple();
         $multiples= array();
         $multiples["multiples"] = array();
 		
-        $res = $multiple->obtenerMultiple($Id_foraneo);
+        $res = $multiple->obtenerMultiple();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -434,6 +435,6 @@ if($_GET['variable']== 'multiple'){
             echo json_encode(array('mensaje' => 'No hay elementos'));
         }
 }
-*/
+
 
 ?>

@@ -13,13 +13,21 @@ public class ConstruirFiltro : MonoBehaviour
     public string Id_Foranea;
     private List<string> aux = new List<string>();
 
+    /// <summary>
+    /// Rescata el Id del proyecto
+    /// Ejecuta una corutina para traer lo datos de la API
+    /// </summary>
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
         StartCoroutine(FiltroOnReponse(Id_Foranea));
     }
 
-	
+    /// <summary>
+    /// Filtra los datos por la varibale id_busqueda que es el ID de la tabla Equipov y los retorna en una variable List
+    /// </summary>
+    /// <param name="id_busqueda"></param> id de la tabla
+    /// <returns></returns>
     public List<string> DatosFiltro(string id_busqueda) {
         List<string> datosFiltro = new List<string>();
         int cont = 0;
@@ -68,7 +76,10 @@ public class ConstruirFiltro : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
-                    listaFiltros.CargarFiltro(datos);
+                    //*****utilizar los datos en este lugar si los necesitas al ejecutar el programa*****
+                    //****Comentar el  listaFiltros.CargarFiltro(datos) si se necesita utilizar los datos en en el start y utilizar ' listaFiltros.CargarFiltroId'
+                    //listaFiltros.CargarFiltroId(datos,"1");
+					listaFiltros.CargarFiltro(datos);
 					aux = datos;
                 }
                 else
@@ -99,14 +110,33 @@ public class ConstruirFiltro : MonoBehaviour
     {
 
         public List<Filtro> filtros;
-
+        /// <summary>
+        /// Asigna a la variable'datos' todos los datos de la tabla 
+        /// </summary>
+        /// <param name="datos"></param> variable por valor
         public void CargarFiltro(List<string> datos)
         {
             foreach (Filtro filtro in filtros)
             {
-
+					datos.Add(filtro.id);
                     datos.Add(filtro.nombre);
 
+            }
+        }
+		/// <summary>
+		/// Asigna a la variable 'datos' los datos de la tabla filtrados por 'id_busqueda'
+		/// </summary>
+		/// <param name="datos"></param> variable por valor
+		/// <param name="id_busqueda"></param> variable por referencia	
+		public void CargarFiltroId(List<string> datos,string id_busqueda)
+        {
+            foreach (Filtro filtro in filtros)
+            {
+					if(id_busqueda==filtro.id)
+					{
+						datos.Add(filtro.id);
+						datos.Add(filtro.nombre);
+					}
             }
         }
     }

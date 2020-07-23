@@ -13,14 +13,22 @@ public class ConstruirEquipoesp : MonoBehaviour
     public string URL;
     public string Id_Foranea;
 	private List<string> aux = new List<string>();
-	
+
+    /// <summary>
+    /// Rescata el Id del proyecto
+    /// Ejecuta una corutina para traer lo datos de la API
+    /// </summary>
     void Start()
     {
         Id_Foranea = DatosScena.Id_proyecto;
         StartCoroutine(EquipoespOnReponse(Id_Foranea));
     }
 
-	
+    /// <summary>
+    /// Filtra los datos por la varibale id_busqueda que es el ID de la tabla Equipov y los retorna en una variable List
+    /// </summary>
+    /// <param name="id_busqueda"></param> id de la tabla
+    /// <returns></returns>
     public List<string> DatosEquipoesp(string id_busqueda) {
         List<string> datosEquipoesp = new List<string>();
         int cont = 0;
@@ -46,8 +54,14 @@ public class ConstruirEquipoesp : MonoBehaviour
         }
         return datosEquipoesp;
     }
-	
-	
+
+    /// <summary>
+    /// Corutina que extrae los datos del servidor por medio de la URL y los trae en formato Json
+    /// en la corrutina se trabaja con las clases [System.Serializable] para organizar y manejar los datos en funciones
+    /// 
+    /// </summary>
+    /// <param name="Id_Foranea"></param>
+    /// <returns></returns>
     private IEnumerator EquipoespOnReponse(string Id_Foranea)
     {
         List<string> datos = new List<string>();
@@ -69,6 +83,9 @@ public class ConstruirEquipoesp : MonoBehaviour
 
                 if (Cantidad != 0)
                 {
+					//*****utilizar los datos en este lugar si los necesitas al ejecutar el programa*****
+                    //****Comentar el   listaEquipoesps.CargarEquipoesp(datos) si se necesita utilizar los datos en en el start y utilizar '   listaEquipoesps.CargarEquipoespId'
+                    //  listaEquipoesps.CargarEquipoespID(datos,"1");
                     listaEquipoesps.CargarEquipoesp(datos);
 					aux = datos;
                 }
@@ -110,12 +127,15 @@ public class ConstruirEquipoesp : MonoBehaviour
     {
 
         public List<Equipoesp> equipoesps;
-
+        /// <summary>
+        /// Asigna a la variable'datos' todos los datos de la tabla 
+        /// </summary>
+        /// <param name="datos"></param> variable por valor
         public void CargarEquipoesp(List<string> datos)
         {
             foreach (Equipoesp equipoesp in equipoesps)
             {
-
+					datos.Add(equipoesp.idEquipoV);
                     datos.Add(equipoesp.potencia);
                     datos.Add(equipoesp.voltaje);
                     datos.Add(equipoesp.sistema);
@@ -134,6 +154,36 @@ public class ConstruirEquipoesp : MonoBehaviour
 
             }
         }
+		
+	 /// <summary>
+     /// Asigna a la variable 'datos' los datos de la tabla filtrados por 'id_busqueda'
+     /// </summary>
+     /// <param name="datos"></param> variable por valor
+     /// <param name="id_busqueda"></param> variable por referencia
+		public void CargarEquipoespId(List<string> datos,string id_busqueda)
+        {
+            foreach (Equipoesp equipoesp in equipoesps)
+            {
+					if(equipoesp.idEquipoV== id_busqueda)
+					{
+						datos.Add(equipoesp.idEquipoV);
+						datos.Add(equipoesp.potencia);
+						datos.Add(equipoesp.voltaje);
+						datos.Add(equipoesp.sistema);
+						datos.Add(equipoesp.enfEntrada1);
+						datos.Add(equipoesp.enfEntrada2);
+						datos.Add(equipoesp.enfSalida1);
+						datos.Add(equipoesp.enfSalida2);
+						datos.Add(equipoesp.tipo);
+						datos.Add(equipoesp.Hz);
+						datos.Add(equipoesp.CSensible);
+						datos.Add(equipoesp.CLatente);
+						datos.Add(equipoesp.ESensible);
+						datos.Add(equipoesp.ELatente);
+						datos.Add(equipoesp.caudal);
+					}
 
+            }
+        }
     }
 }

@@ -56,8 +56,8 @@ public class ConstruirAmbiente : MonoBehaviour {
                     Vector2[] Coordenada = Coordenada2.ToArray();
                     altura = altura2[0];
                     //En la lista datos estan cargados todos los campos
-                    //*****utilizar los datos en este lugar si los necesitas al ejecutar el programa*****
-                    ScriptAmbCont.EnterData(Coordenada, altura);
+                    //*****utilizar los datos en este lugar si los necesitas al iniciar el programa*****
+                           ScriptAmbCont.EnterData(Coordenada, altura);
                     //
                 }
                 else {

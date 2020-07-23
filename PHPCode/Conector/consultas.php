@@ -17,32 +17,30 @@ class Ambiente extends DB{
     }
 }
 
-/*
-
 class Ducto extends DB{
     
-    function obtenerDucto($Id_foraneo){
+    function obtenerDucto(){
         $query = $this->connect()->query('SELECT * FROM ducto');  
         return $query;
     }
 }
 class Ductoex extends DB{
     
-    function obtenerDuctoex($Id_foraneo){
+    function obtenerDuctoex(){
         $query = $this->connect()->query('SELECT * FROM ductoex');  
         return $query;
     }
 }
 class Ductopass extends DB{
     
-    function obtenerDuctopass($Id_foraneo){
+    function obtenerDuctopass(){
         $query = $this->connect()->query('SELECT * FROM ductopass');  
         return $query;
     }
 }
 class Equipoesp extends DB{
     
-    function obtenerEquipoesp($Id_foraneo){
+    function obtenerEquipoesp(){
         $query = $this->connect()->query('SELECT * FROM equipoesp');  
         return $query;
     }
@@ -50,20 +48,20 @@ class Equipoesp extends DB{
 class Equipov extends DB{
     
     function obtenerEquipov($Id_foraneo){
-        $query = $this->connect()->query('SELECT * FROM equipov');  
+        $query = $this->connect()->query('SELECT * FROM equipov WHERE idProyecto='.$Id_foraneo);  
         return $query;
     }
 }
 class Espfiltro extends DB{
     
-    function obtenerEspfiltro($Id_foraneo){
+    function obtenerEspfiltro(){
         $query = $this->connect()->query('SELECT * FROM espfiltro');  
         return $query;
     }
 }
 class Filtro extends DB{
     
-    function obtenerFiltro($Id_foraneo){
+    function obtenerFiltro(){
         $query = $this->connect()->query('SELECT * FROM filtro');  
         return $query;
     }
@@ -71,7 +69,7 @@ class Filtro extends DB{
 
 class Item extends DB{
     
-    function obtenerItem($Id_foraneo){
+    function obtenerItem(){
         $query = $this->connect()->query('SELECT * FROM item');  
         return $query;
     }
@@ -79,14 +77,14 @@ class Item extends DB{
 
 class Metradoex extends DB{
     
-    function obtenerMetradoex($Id_foraneo){
+    function obtenerMetradoex(){
         $query = $this->connect()->query('SELECT * FROM metradoex');  
         return $query;
     }
 }
 class Rejilla extends DB{
     
-    function obtenerRejilla($Id_foraneo){
+    function obtenerRejilla(){
         $query = $this->connect()->query('SELECT * FROM rejilla');  
         return $query;
     }
@@ -94,11 +92,10 @@ class Rejilla extends DB{
 
 class Multiple extends DB{
     
-    function obtenerMultiple($Id_foraneo){
+    function obtenerMultiple(){
         $query = $this->connect()->query('SELECT * FROM multiple ');  
         return $query;
     }
 }
-*/
 
 ?>
