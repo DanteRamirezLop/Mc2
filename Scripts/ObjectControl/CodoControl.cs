@@ -72,15 +72,18 @@ public class CodoControl : ObjectControlMain
         atreferencia = refer;
         refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
         PositionFromReference();
+        if (atreferencia != null)
+        {
+            Debug.Log("got it");
+            angulo = new Vector2(90, 0);
+            this.mesh.Change(angulo, getPAncho(), getPAlto());
+        }
     }
 
     public override void setAdReference(GameObject refer)
     {
         adreferencia = refer;
-        if (angulo == Vector2.zero)
-            angulo = new Vector2(90, 0);
-        this.mesh.Change(angulo, getPAncho(), getPAlto());
-
+        //this.mesh.Change(angulo, getPAncho(), getPAlto());
     }
 
     protected override void ColliderInspectState()

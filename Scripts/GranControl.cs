@@ -29,7 +29,7 @@ public class GranControl : MonoBehaviour
     {
         if (grab != null && operationState == 1)
         {
-            grab.transform.position = GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 3);
+            grab.transform.position = GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 5);
         }
         if (Input.GetMouseButtonDown(0))
         {
