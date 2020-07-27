@@ -58,9 +58,9 @@ public class UnionControl : ObjectControlMain
             case 2:
                 return this.transform.rotation * Quaternion.Euler(0, -90, 0);
             case 3:
-                return this.transform.rotation * Quaternion.Euler(90, 0, 0);
-            case 4:
                 return this.transform.rotation * Quaternion.Euler(-90, 0, 0);
+            case 4:
+                return this.transform.rotation * Quaternion.Euler(90, 0, 0);
             default:
                 return this.transform.rotation;
         }
@@ -77,7 +77,7 @@ public class UnionControl : ObjectControlMain
         foreach (var pulsar in referencias)
         {
             if (pulsar != null)
-                adreferencia.GetComponent<ObjectControlMain>().PulsoColision(modo);
+                pulsar.GetComponent<ObjectControlMain>().PulsoColision(modo);
         }
     }
     public override void setAdReference(GameObject refer)
@@ -162,5 +162,4 @@ public class UnionControl : ObjectControlMain
             this.colisiones[i].GetComponent<MiniColision>().SetConexion(i);
         ColliderInspectState();
     }
-
 }

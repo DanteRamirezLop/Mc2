@@ -39,8 +39,9 @@ public class DuctoMesh : MonoBehaviour
 
     public void ReCreator(float largo)
     {
-        if (largo == ultAlto)
+        if (largo == ultLargo)
             return;
+        ultLargo = largo;
         VertexMoveLong();
         lmesh.RecalculateBounds();
         ParaInspector();
@@ -49,7 +50,10 @@ public class DuctoMesh : MonoBehaviour
     {
         if (ancho == ultAncho && alto == ultAlto)
             return;
+        ultAncho = ancho;
+        ultAlto = alto;
         VertexMoveArea();
+        VertexMoveLong();
         lmesh.RecalculateBounds();
         ParaInspector();
     }
@@ -113,7 +117,6 @@ public class DuctoMesh : MonoBehaviour
             nVertex[i] = nVertex[i-8];
         lmesh.vertices = nVertex;
     }
-
     private void VertexMoveLong()
     {
         Vector3[] nVertex = lmesh.vertices;

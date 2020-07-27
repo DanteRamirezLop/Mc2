@@ -97,12 +97,12 @@ public class EquipoControl : ObjectControlMain
     }
     public override double getAlto()
     {
-        return 0;
+        return 6;
     }
 
     public override double getAncho()
     {
-        return 0;
+        return 6;
     }
 
     protected override void ColliderInspectState()

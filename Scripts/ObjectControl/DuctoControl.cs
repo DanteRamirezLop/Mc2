@@ -6,7 +6,7 @@ public class DuctoControl : ObjectControlMain
 {
     private DuctoMesh mesh;
 
-    private double longitud = 1; //esta en metros
+    private double longitud; //esta en metros
     private int paso { get; set; }//a que ambiente se dirige, tiene un tipo distinto de guardado
     private bool dibujar { get; set; } //si en autocad se dibuja, usualmente en false
     //nota, las coordenadas van directo al transform
@@ -50,6 +50,7 @@ public class DuctoControl : ObjectControlMain
     {
         alto = 6;
         ancho = 6;
+        longitud = 2;
         if (!TryGetComponent(typeof(DuctoMesh), out Component c))
         {
             gameObject.AddComponent(typeof(DuctoMesh));
@@ -60,7 +61,8 @@ public class DuctoControl : ObjectControlMain
     public void Refresh()
     {
         this.mesh.ReCreator((float)longitud);
-        this.mesh.ReCreator((float)ancho, (float)alto);
+        this.mesh.ReCreator(getPAncho(), getPAlto());
+        Debug.Log("an: " + getPAncho() + "al:" + getPAlto());
     }
     public void setAlto(double alto)
     {
@@ -80,6 +82,7 @@ public class DuctoControl : ObjectControlMain
         atreferencia = refer;
         refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
         PositionFromReference();
+        Refresh();
     }
 
     public override void setAdReference(GameObject refer)

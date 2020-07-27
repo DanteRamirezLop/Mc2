@@ -31,14 +31,14 @@ if($_GET['variable']== 'proyecto'){
 
 if($_GET['variable']== 'ambiente'){
 	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
+	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
         $ambiente = new Ambiente();
         $ambientes= array();
         $ambientes["ambientes"] = array();
 		
-        $res = $ambiente->obtenerAmbiente($Id_foraneo);
+        $res = $ambiente->obtenerAmbiente();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
@@ -55,6 +55,7 @@ if($_GET['variable']== 'ambiente'){
 					'flujo'=> $row['flujo'],
 					'cfm'=> $row['cfm'],
 					'coordenada'=> $row['coordenada'],
+					
 					
                 );
                 array_push($ambientes["ambientes"], $item);
@@ -86,6 +87,13 @@ if($_GET['variable']== 'ducto'){
                     'longitud'=> $row['longitud'],
 					'paso'=> $row['paso'],
 					'dibujar'=> $row['dibujar'],
+				    //--------
+					'idDucto2'=> $row['idDucto'],
+                    'ccx'=> $row['ccx'],
+					'ccy'=> $row['ccy'],
+					'ccz'=> $row['ccz'],
+					'paso2'=> $row['paso'],
+					'dibujar2'=> $row['dibujar'],
 					
                 );
                 array_push($ductos["ductos"], $item);
@@ -136,97 +144,22 @@ if($_GET['variable']== 'ductoex'){
             echo json_encode(array('mensaje' => 'No hay elementos'));
         }
 }
-if($_GET['variable']== 'ductopass'){
+
+if($_GET['variable']== 'equipo'){
 	
 	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
-        $ductopass = new Ductopass();
-        $ductopasss= array();
-        $ductopasss["ductopasss"] = array();
+        $equipo = new Equipo();
+        $equipos= array();
+        $equipos["equipos"] = array();
 		
-        $res = $ductopass->obtenerDuctopass();
+        $res = $equipo->obtenerEquipo();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
                 $item=array(
- 
-                    'idDucto'=> $row['idDucto'],
-                    'ccx'=> $row['ccx'],
-					'ccy'=> $row['ccy'],
-					'ccz'=> $row['ccz'],
-					'paso'=> $row['paso'],
-					'dibujar'=> $row['dibujar'],
-					
-                );
-                array_push($ductopasss["ductopasss"], $item);
-            }
-        
-            echo json_encode($ductopasss);
-
-        }else{
-            echo json_encode(array('mensaje' => 'No hay elementos'));
-        }
-}
-if($_GET['variable']== 'equipoesp'){
-	
-	   // $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
-	    //echo($Id_foraneo);
-	
-        $equipoesp = new Equipoesp();
-        $equipoesps= array();
-        $equipoesps["equipoesps"] = array();
-		
-		//$res = $equipoesp->obtenerEquipoesp($Id_foraneo);
-        $res = $equipoesp->obtenerEquipoesp();
-        if($res->rowCount()){
-            while ($row = $res->fetch(PDO::FETCH_ASSOC)){
-    
-                $item=array(
- 
-                    'idEquipoV'=> $row['idEquipoV'],
-                    'potencia'=> $row['potencia'],
-					'voltaje'=> $row['voltaje'],
-					'sistema'=> $row['sistema'],
-					'enfEntrada1'=> $row['enfEntrada1'],
-					'enfEntrada2'=> $row['enfEntrada2'],
-					'enfSalida1'=> $row['enfSalida1'],
-					'enfSalida2'=> $row['enfSalida2'],
-					'tipo'=> $row['tipo'],
-					'Hz'=> $row['Hz'],
-					'CSensible'=> $row['CSensible'],
-				    'CLatente'=> $row['CLatente'],
-					'ESensible'=> $row['ESensible'],
-					'ELatente'=> $row['ELatente'],
-					'caudal'=> $row['caudal'],
-					
-                );
-                array_push($equipoesps["equipoesps"], $item);
-            }
-        
-            echo json_encode($equipoesps);
-
-        }else{
-            echo json_encode(array('mensaje' => 'No hay elementos'));
-        }
-}
-
-if($_GET['variable']== 'equipov'){
-	
-	    $Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
-	    //echo($Id_foraneo);
-	
-        $equipov = new Equipov();
-        $equipovs= array();
-        $equipovs["equipovs"] = array();
-		
-        $res = $equipov->obtenerEquipov($Id_foraneo);
-        if($res->rowCount()){
-            while ($row = $res->fetch(PDO::FETCH_ASSOC)){
-    
-                $item=array(
- 
-                    'id'=> $row['id'],
+				    'id'=> $row['id'],
                     'idProyecto'=> $row['idProyecto'],
 					'codigo'=> $row['codigo'],
 					'tipo'=> $row['tipo'],
@@ -241,12 +174,28 @@ if($_GET['variable']== 'equipov'){
 				    'ccx'=> $row['ccx'],
 					'ccy'=> $row['ccy'],
 					'ccz'=> $row['ccz'],
+					//------
+                    'idEquipoV'=> $row['idEquipoV'],
+                    'potencia'=> $row['potencia'],
+					'voltaje'=> $row['voltaje'],
+					'sistema'=> $row['sistema'],
+					'enfEntrada1'=> $row['enfEntrada1'],
+					'enfEntrada2'=> $row['enfEntrada2'],
+					'enfSalida1'=> $row['enfSalida1'],
+					'enfSalida2'=> $row['enfSalida2'],
+					'tipo2'=> $row['tipo'],
+					'Hz'=> $row['Hz'],
+					'CSensible'=> $row['CSensible'],
+				    'CLatente'=> $row['CLatente'],
+					'ESensible'=> $row['ESensible'],
+					'ELatente'=> $row['ELatente'],
+					'caudal'=> $row['caudal'],
 					
                 );
-                array_push($equipovs["equipovs"], $item);
+                array_push($equipos["equipos"], $item);
             }
         
-            echo json_encode($equipovs);
+            echo json_encode($equipos);
 
         }else{
             echo json_encode(array('mensaje' => 'No hay elementos'));
@@ -269,7 +218,7 @@ if($_GET['variable']== 'espfiltro'){
     
                 $item=array(
  
-                    'idEquipo'=> $row['idEquipo'],
+                    'idEquip'=> $row['idEquip'],
                     'idFiltro'=> $row['idFiltro'],					
                 );
                 array_push($espfiltros["espfiltros"], $item);

@@ -11,8 +11,8 @@ class Proyecto extends DB{
 
 class Ambiente extends DB{
     
-    function obtenerAmbiente($Id_foraneo){
-        $query = $this->connect()->query('SELECT a. id ,a. idProyecto, a. nAmbiente, a. largo, a. ancho, a. altura, a. area, a. recambios, a. flujo, a. cfm, a. coordenada FROM ambiente a INNER JOIN proyecto p ON a.idProyecto = p.id WHERE p.id ='.$Id_foraneo);  
+    function obtenerAmbiente(){
+        $query = $this->connect()->query('SELECT * FROM ambiente');  
         return $query;
     }
 }
@@ -20,10 +20,12 @@ class Ambiente extends DB{
 class Ducto extends DB{
     
     function obtenerDucto(){
-        $query = $this->connect()->query('SELECT * FROM ducto');  
-        return $query;
+        //$query = $this->connect()->query('SELECT * FROM ducto JOIN ductopass ON ducto.id = ductopass.idDucto INNER JOIN ductoex ON ductoex.idDucto = ductopass.idDucto');  
+        $query = $this->connect()->query('SELECT * FROM ducto INNER JOIN ductopass ON ducto.id = ductopass.idDucto');  
+		return $query;
     }
 }
+
 class Ductoex extends DB{
     
     function obtenerDuctoex(){
@@ -31,24 +33,11 @@ class Ductoex extends DB{
         return $query;
     }
 }
-class Ductopass extends DB{
+
+class Equipo extends DB{
     
-    function obtenerDuctopass(){
-        $query = $this->connect()->query('SELECT * FROM ductopass');  
-        return $query;
-    }
-}
-class Equipoesp extends DB{
-    
-    function obtenerEquipoesp(){
-        $query = $this->connect()->query('SELECT * FROM equipoesp');  
-        return $query;
-    }
-}
-class Equipov extends DB{
-    
-    function obtenerEquipov($Id_foraneo){
-        $query = $this->connect()->query('SELECT * FROM equipov WHERE idProyecto='.$Id_foraneo);  
+    function obtenerEquipo(){
+        $query = $this->connect()->query('SELECT * FROM equipov INNER JOIN equipoesp ON equipov.id = equipoesp.idEquipoV');  
         return $query;
     }
 }
