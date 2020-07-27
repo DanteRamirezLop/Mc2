@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using System.IO;
 using UnityEngine.Networking;
 
-//using UnityEngine.CoreModule;
-
 public class ListarMenu : MonoBehaviour {
 
     public string URL;
@@ -31,18 +29,14 @@ public class ListarMenu : MonoBehaviour {
 
             yield return req.SendWebRequest();
 
-           //if(www.isNetworkError || www.isHttpError)
            if (!string.IsNullOrEmpty(req.error))
            { 
                 Debug.Log(req.error);
            }
            else {
 
-             // Debug.Log("entron");
             ListaProyectos listaProyectos = JsonUtility.FromJson<ListaProyectos>(req.downloadHandler.text);
             string ArchivoProyectos = JsonUtility.ToJson(listaProyectos);
-            //PlayerPrefs.SetString("KeySaveProyectos", ArchivoProyectos);// esta de mas
-
             Cantidad = listaProyectos.proyectos.Count;
 
             float posRang = 0.0f;
@@ -99,9 +93,8 @@ public class ListarMenu : MonoBehaviour {
           {
               if (count == pos) 
               {
-                  //Debug.Log(proyecto.nombre);
-                  Texto.GetComponent<Text>().text = proyecto.nombre; 
-                  BotonClon.GetComponent<Cargar>().Cod_id = proyecto.id;
+                  Texto.GetComponent<Text>().text = proyecto.nombre;
+                  BotonClon.GetComponent<Cargar>().IdProyecto = proyecto.id; 
               }
               count++;
           }

@@ -1,108 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.IO;
-using UnityEngine.Networking;
-using System;
 
-public class ConstruirFiltro : MonoBehaviour
-{
-
-    public string URL;
-    public string Id_Foranea;
-    private List<string> aux = new List<string>();
-
-    /// <summary>
-    /// Rescata el Id del proyecto
-    /// Ejecuta una corutina para traer lo datos de la API
-    /// </summary>
-    void Start()
-    {
-        Id_Foranea = DatosScena.Id_proyecto;
-        StartCoroutine(FiltroOnReponse(Id_Foranea));
-    }
-
-    /// <summary>
-    /// Filtra los datos por la varibale id_busqueda que es el ID de la tabla Equipov y los retorna en una variable List
-    /// </summary>
-    /// <param name="id_busqueda"></param> id de la tabla
-    /// <returns></returns>
-    public List<string> DatosFiltroId(string id_busqueda) {
-        List<string> datosFiltro = new List<string>();
-        int cont = 0;
-        int varAux = 0 ;
-        bool bandera = false;
-
-        foreach (string item in aux)
-        {
-            if (varAux == cont)
-            {
-                if (id_busqueda == item){
-                    bandera = true;
-                }else
-                    bandera = false;
-                varAux = varAux + 2;
-            }
-
-            if (bandera) {
-                datosFiltro.Add(item);
-            }
-            cont++;
-            
-        }
-        return datosFiltro;
-    }
-	
-	public List<string> DatosFiltro() {
-        List<string> datosFiltro = new List<string>(aux);
-
-        return datosFiltro;
-    }
-	
-    private IEnumerator FiltroOnReponse(string Id_Foranea)
-    {
-         List<string> datos = new List<string>();
-		//using (UnityWebRequest req = UnityWebRequest.Get(URL + "ducto/" + Id_Foranea))
-        using (UnityWebRequest req = UnityWebRequest.Get(URL + "filtro"))
-        {
-            yield return req.SendWebRequest();
-
-            if (!string.IsNullOrEmpty(req.error))
-            {
-                Debug.Log(req.error);
-
-            }
-            else
-            {
-                int Cantidad;
-                ListaFiltro listaFiltros = JsonUtility.FromJson<ListaFiltro>(req.downloadHandler.text);
-                Cantidad = listaFiltros.filtros.Count;
-
-                if (Cantidad != 0)
-                {
-                    //*****utilizar los datos en este lugar si los necesitas al ejecutar el programa*****
-                    //****Comentar el  listaFiltros.CargarFiltro(datos) si se necesita utilizar los datos en en el start y utilizar ' listaFiltros.CargarFiltroId'
-                    //listaFiltros.CargarFiltroId(datos,"1");
-					listaFiltros.CargarFiltro(datos);
-					aux = datos;
-                }
-                else
-                {
-                    Debug.Log("No hay ductos");
-                }
-            }
-        }
-    } 
-    
-    
-    
+public class ConstruirFiltro : MonoBehaviour{} 
+       
     [System.Serializable]
     public class Filtro
     {
         public string id;
         public string nombre;
-
 
         public override string ToString()
         {
@@ -125,24 +32,6 @@ public class ConstruirFiltro : MonoBehaviour
             {
 					datos.Add(filtro.id);
                     datos.Add(filtro.nombre);
-
-            }
-        }
-		/// <summary>
-		/// Asigna a la variable 'datos' los datos de la tabla filtrados por 'id_busqueda'
-		/// </summary>
-		/// <param name="datos"></param> variable por valor
-		/// <param name="id_busqueda"></param> variable por referencia	
-		public void CargarFiltroId(List<string> datos,string id_busqueda)
-        {
-            foreach (Filtro filtro in filtros)
-            {
-					if(id_busqueda==filtro.id)
-					{
-						datos.Add(filtro.id);
-						datos.Add(filtro.nombre);
-					}
             }
         }
     }
-}
