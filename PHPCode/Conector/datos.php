@@ -15,8 +15,9 @@ if($_GET['variable']== 'proyecto'){
     
                 $item=array(
  
-                    'id'=> $row['id'],
+                    'id'=> (int)$row['id'],
                     'nombre'=> $row['nombre'],
+					'estado'=> false, // extra
                 );
                 array_push($proyectos["proyectos"], $item);
             }
@@ -44,19 +45,18 @@ if($_GET['variable']== 'ambiente'){
     
                 $item=array(
  
-                    'id'=> $row['id'],
-                    'idProyecto'=> $row['idProyecto'],
+                    'id'=>(int) $row['id'],
+                    'idProyecto'=>(int) $row['idProyecto'],
 					'nAmbiente'=> $row['nAmbiente'],
-					'largo'=> $row['largo'],
-					'ancho'=> $row['ancho'],
-					'altura'=> $row['altura'],
-					'area'=> $row['area'],
-					'recambios'=> $row['altura'],
-					'flujo'=> $row['flujo'],
-					'cfm'=> $row['cfm'],
+					'largo'=> (double)$row['largo'],
+					'ancho'=> (double)$row['ancho'],
+					'altura'=> (double)$row['altura'],
+					'area'=> (double)$row['area'],
+					'recambios'=> (double)$row['altura'],
+					'flujo'=> (double)$row['flujo'],
+					'cfm'=> (double)$row['cfm'],
 					'coordenada'=> $row['coordenada'],
-					
-					
+					'estado'=> false, // extra
                 );
                 array_push($ambientes["ambientes"], $item);
             }
@@ -83,17 +83,24 @@ if($_GET['variable']== 'ducto'){
     
                 $item=array(
  
-                    'id'=> $row['id'],
-                    'longitud'=> $row['longitud'],
-					'paso'=> $row['paso'],
-					'dibujar'=> $row['dibujar'],
+                    'id'=> (int)$row['id'],
+                    'longitud'=> (double)$row['longitud'],
+					'paso'=> (int)$row['paso'],
+					'dibujar'=> (int)$row['dibujar'],
 				    //--------
-					'idDucto2'=> $row['idDucto'],
-                    'ccx'=> $row['ccx'],
-					'ccy'=> $row['ccy'],
-					'ccz'=> $row['ccz'],
-					'paso2'=> $row['paso'],
-					'dibujar2'=> $row['dibujar'],
+					'idDucto'=> (int)$row['idDucto'],
+                    'tipo'=> (int)$row['tipo'],
+					'nombre'=> $row['nombre'],
+					'dimA'=> (double)$row['dimA'],
+					'dimB'=>(double) $row['dimB'],
+                    'flujoCFM'=> (double)$row['flujoCFM'],
+					'damAb100'=> (double)$row['damAb100'],
+					'damCer10'=>(double) $row['damCer10'],
+                    'damCer50'=> (double)$row['damCer50'],
+                    'tranRec'=>(double) $row['tranRec'],
+					'conVen'=> (double)$row['conVen'],
+					'lumAli'=> (double)$row['lumAli'],
+					'estado'=> false, // extra
 					
                 );
                 array_push($ductos["ductos"], $item);
@@ -105,40 +112,34 @@ if($_GET['variable']== 'ducto'){
             echo json_encode(array('mensaje' => 'No hay elementos'));
         }
 }
-
-if($_GET['variable']== 'ductoex'){
+if($_GET['variable']== 'ductopass'){
 	
 	    //$Id_foraneo=$_GET['variable2']; //utilizar solo en las consultas complejas
 	    //echo($Id_foraneo);
 	
-        $ductoex = new Ductoex();
-        $ductoexs= array();
-        $ductoexs["ductoexs"] = array();
+        $ductopass = new Ductopass();
+        $ductopasss= array();
+        $ductopasss["ductopasss"] = array();
 		
-        $res = $ductoex->obtenerDuctoex();
+        $res = $ductopass->obtenerDuctopass();
         if($res->rowCount()){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
                 $item=array(
  
-                    'idDucto'=> $row['idDucto'],
-                    'tipo'=> $row['tipo'],
-					'nombre'=> $row['nombre'],
-					'dimA'=> $row['dimA'],
-					'dimB'=> $row['dimB'],
-                    'flujoCFM'=> $row['flujoCFM'],
-					'damAb100'=> $row['damAb100'],
-					'damCer10'=> $row['damCer10'],
-                    'damCer50'=> $row['damCer50'],
-                    'tranRec'=> $row['tranRec'],
-					'conVen'=> $row['conVen'],
-					'lumAli'=> $row['lumAli'],
+                    'idDucto'=> (int)$row['idDucto'],
+                    'ccx'=> (float)$row['ccx'],
+					'ccy'=> (float)$row['ccy'],
+					'ccz'=> (float)$row['ccz'],
+					'paso'=> (int)$row['paso'],
+					'dibujar'=> (int)$row['dibujar'],
+					'estado'=> false, // extra
 					
                 );
-                array_push($ductoexs["ductoexs"], $item);
+                array_push($ductopasss["ductopasss"], $item);
             }
         
-            echo json_encode($ductoexs);
+            echo json_encode($ductopasss);
 
         }else{
             echo json_encode(array('mensaje' => 'No hay elementos'));
@@ -159,37 +160,38 @@ if($_GET['variable']== 'equipo'){
             while ($row = $res->fetch(PDO::FETCH_ASSOC)){
     
                 $item=array(
-				    'id'=> $row['id'],
-                    'idProyecto'=> $row['idProyecto'],
+				    'id'=> (int)$row['id'],
+                    'idProyecto'=> (int)$row['idProyecto'],
 					'codigo'=> $row['codigo'],
-					'tipo'=> $row['tipo'],
-					'velocidadIny'=> $row['velocidadIny'],
-					'velocidadExt'=> $row['velocidadExt'],
-					'porcentajeIny'=> $row['porcentajeIny'],
-					'porcentajeExt'=> $row['porcentajeExt'],
-					'calculo'=> $row['calculo'],
-					'vinculo'=> $row['vinculo'],
+					'tipo'=> (int)$row['tipo'],
+					'velocidadIny'=> (double)$row['velocidadIny'],
+					'velocidadExt'=> (double)$row['velocidadExt'],
+					'porcentajeIny'=> (double)$row['porcentajeIny'],
+					'porcentajeExt'=> (double)$row['porcentajeExt'],
+					'calculo'=> (int)$row['calculo'],
+					'vinculo'=> (int)$row['vinculo'],
 					'nivel'=> $row['nivel'],
-					'idAmbiente'=> $row['idAmbiente'],
-				    'ccx'=> $row['ccx'],
-					'ccy'=> $row['ccy'],
-					'ccz'=> $row['ccz'],
+					'idAmbiente'=> (int)$row['idAmbiente'],
+				    'ccx'=> (float)$row['ccx'],
+					'ccy'=> (float)$row['ccy'],
+					'ccz'=> (float)$row['ccz'],
 					//------
-                    'idEquipoV'=> $row['idEquipoV'],
-                    'potencia'=> $row['potencia'],
-					'voltaje'=> $row['voltaje'],
-					'sistema'=> $row['sistema'],
-					'enfEntrada1'=> $row['enfEntrada1'],
-					'enfEntrada2'=> $row['enfEntrada2'],
-					'enfSalida1'=> $row['enfSalida1'],
-					'enfSalida2'=> $row['enfSalida2'],
+                    'idEquipoV'=> (int)$row['idEquipoV'],
+                    'potencia'=> (double)$row['potencia'],
+					'voltaje'=> (double)$row['voltaje'],
+					'sistema'=> (int)$row['sistema'],
+					'enfEntrada1'=> (double)$row['enfEntrada1'],
+					'enfEntrada2'=> (double)$row['enfEntrada2'],
+					'enfSalida1'=> (double)$row['enfSalida1'],
+					'enfSalida2'=> (double)$row['enfSalida2'],
 					'tipo2'=> $row['tipo'],
-					'Hz'=> $row['Hz'],
-					'CSensible'=> $row['CSensible'],
-				    'CLatente'=> $row['CLatente'],
-					'ESensible'=> $row['ESensible'],
-					'ELatente'=> $row['ELatente'],
-					'caudal'=> $row['caudal'],
+					'Hz'=> (double)$row['Hz'],
+					'CSensible'=> (double)$row['CSensible'],
+				    'CLatente'=> (double)$row['CLatente'],
+					'ESensible'=> (double)$row['ESensible'],
+					'ELatente'=> (double)$row['ELatente'],
+					'caudal'=> (double)$row['caudal'],
+					'estado'=> false, // extra
 					
                 );
                 array_push($equipos["equipos"], $item);
@@ -218,8 +220,9 @@ if($_GET['variable']== 'espfiltro'){
     
                 $item=array(
  
-                    'idEquip'=> $row['idEquip'],
-                    'idFiltro'=> $row['idFiltro'],					
+                    'idEquip'=>(int) $row['idEquip'],
+                    'idFiltro'=> (int)$row['idFiltro'],
+					'estado'=> false, // extra					
                 );
                 array_push($espfiltros["espfiltros"], $item);
             }
@@ -246,8 +249,9 @@ if($_GET['variable']== 'filtro'){
     
                 $item=array(
  
-                    'id'=> $row['id'],
+                    'id'=> (int)$row['id'],
                     'nombre'=> $row['nombre'],
+					'estado'=> false, // extra
                 );
                 array_push($filtros["filtros"], $item);
             }
@@ -276,10 +280,11 @@ if($_GET['variable']== 'item'){
     
                 $item2=array(
  
-                    'id'=> $row['id'],
-                    'idItem'=> $row['idItem'],
-					'idEquipo'=> $row['idEquipo'],
-					'conexion'=> $row['conexion'],
+                    'id'=>(int)$row['id'],
+                    'idItem'=> (int)$row['idItem'],
+					'idEquipo'=>(int)$row['idEquipo'],
+					'conexion'=>(int)$row['conexion'],
+					'estado'=> false, // extra
 					
                 );
                 array_push($items["items"], $item2);
@@ -308,12 +313,13 @@ if($_GET['variable']== 'metradoex'){
     
                 $item=array(
  
-                    'id'=> $row['id'],
-                    'idEquipo'=> $row['idEquipo'],
-					'dima'=> $row['dima'],
-					'dimb'=> $row['dimb'],
-					'tipo'=> $row['tipo'],
-					'multi'=> $row['multi'],
+                    'id'=> (int)$row['id'],
+                    'idEquipo'=> (int)$row['idEquipo'],
+					'dima'=>(int) $row['dima'],
+					'dimb'=> (int)$row['dimb'],
+					'tipo'=> (int)$row['tipo'],
+					'multi'=> (double)$row['multi'],
+					'estado'=> false, // extra
 					
                 );
                 array_push($metradoexs["metradoexs"], $item);
@@ -341,9 +347,10 @@ if($_GET['variable']== 'rejilla'){
     
                 $item=array(
  
-                    'id'=> $row['id'],
+                    'id'=> (int)$row['id'],
 					'nombre'=> $row['nombre'],
-					'cfm'=> $row['cfm'],
+					'cfm'=> (double)$row['cfm'],
+					'estado'=> false, // extra
                 );
                 array_push($rejillas["rejillas"], $item);
             }
@@ -370,9 +377,10 @@ if($_GET['variable']== 'multiple'){
     
                 $item=array(
  
-                    'id'=> $row['id'],
-					'giroX'=> $row['giroX'],
-					'giroY'=> $row['giroY'],
+                    'id'=> (int)$row['id'],
+					'giroX'=> (float)$row['giroX'],
+					'giroY'=> (float)$row['giroY'],
+					'estado'=> false, // extra
 					
                 );
                 array_push($multiples["multiples"], $item);

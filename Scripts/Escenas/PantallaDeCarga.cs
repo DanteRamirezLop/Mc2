@@ -66,16 +66,16 @@ public class PantallaDeCarga : MonoBehaviour {
         Color c = imageDeCarga.color;
         c.a = 0.0f;
 
-        List<string> ambiente = new List<string>();
-        List<string> ducto = new List<string>();
-        List<string> ductoex = new List<string>();
-        List<string> equipo = new List<string>();
-        List<string> filtro = new List<string>();
-        List<string> espfiltro = new List<string>();
-        List<string> item = new List<string>();
-        List<string> metradoex = new List<string>();
-        List<string> multiple = new List<string>();
-        List<string> rejilla = new List<string>();
+        List<Ambiente> ambiente = new List<Ambiente>();
+        List<Ducto> ducto = new List<Ducto>();
+        List<Ductopass> ductopass = new List<Ductopass>();
+        List<Equipo> equipo = new List<Equipo>();
+        List<Filtro> filtro = new List<Filtro>();
+        List<Espfiltro> espfiltro = new List<Espfiltro>();
+        List<Item> item = new List<Item>();
+        List<Metradoex> metradoex = new List<Metradoex>();
+        List<Multiple> multiple = new List<Multiple>();
+        List<Rejilla> rejilla = new List<Rejilla>();
 
         //Mientras no esté totalmente visible va aumentando su visibilidad
         while(c.a < 1)
@@ -112,24 +112,24 @@ public class PantallaDeCarga : MonoBehaviour {
             else
             {
                 ListaDucto listaDucto = JsonUtility.FromJson<ListaDucto>(reqDucto.downloadHandler.text);
-                listaDucto.CargarDucto(ducto);
+                listaDucto.ObtenerDucto(ducto);
                 DatosScena.Ducto = ducto;
                 txtInfo.text = txtInfo.text + "Ducto (CARGADO) \n";
             }
         }
 
-        using (UnityWebRequest reqDuctoex = UnityWebRequest.Get(URL + "ductoex"))
+        using (UnityWebRequest reqDuctopass = UnityWebRequest.Get(URL + "ductopass"))
         {
-            yield return reqDuctoex.SendWebRequest();
-            if (!string.IsNullOrEmpty(reqDuctoex.error))
+            yield return reqDuctopass.SendWebRequest();
+            if (!string.IsNullOrEmpty(reqDuctopass.error))
             {
-                Debug.Log(reqDuctoex.error);
+                Debug.Log(reqDuctopass.error);
             }
             else
             {
-                ListaDuctoex listaDuctoex = JsonUtility.FromJson<ListaDuctoex>(reqDuctoex.downloadHandler.text);
-                listaDuctoex.CargarDuctoex(ductoex);
-                DatosScena.Ductoex = ductoex;
+                ListaDuctopass listaDuctopass = JsonUtility.FromJson<ListaDuctopass>(reqDuctopass.downloadHandler.text);
+                listaDuctopass.CargarDuctopass(ductopass);
+                DatosScena.Ductopass = ductopass;
                 txtInfo.text = txtInfo.text + "Ductoex (CARGADO) \n";
             }
         }

@@ -21,15 +21,15 @@ class Ducto extends DB{
     
     function obtenerDucto(){
         //$query = $this->connect()->query('SELECT * FROM ducto JOIN ductopass ON ducto.id = ductopass.idDucto INNER JOIN ductoex ON ductoex.idDucto = ductopass.idDucto');  
-        $query = $this->connect()->query('SELECT * FROM ducto INNER JOIN ductopass ON ducto.id = ductopass.idDucto');  
+        $query = $this->connect()->query('SELECT * FROM ducto INNER JOIN ductoex ON ducto.id = ductoex.idDucto');  
 		return $query;
     }
 }
 
-class Ductoex extends DB{
+class Ductopass extends DB{
     
-    function obtenerDuctoex(){
-        $query = $this->connect()->query('SELECT * FROM ductoex');  
+    function obtenerDuctopass(){
+        $query = $this->connect()->query('SELECT * FROM ductopass');  
         return $query;
     }
 }

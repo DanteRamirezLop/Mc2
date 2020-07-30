@@ -9,16 +9,16 @@ public class DatosScena : MonoBehaviour {
 
     //Dato del proyecto para accesar en la siguiente escena
     public static string Id_proyecto;
-    public static List<string> Ambiente;
-    public static List<string> Ducto;
-    public static List<string> Ductoex;
-    public static List<string> Equipo; 
-    public static List<string> Filtro;  
-    public static List<string> Espfiltro;  
-    public static List<string> Item;  
-    public static List<string> Metradoex;  
-    public static List<string> Multiple;  
-    public static List<string> Rejilla;  
+    public static List<Ambiente> Ambiente;
+    public static List<Ducto> Ducto;
+    public static List<Ductopass> Ductopass;
+    public static List<Equipo> Equipo;
+    public static List<Filtro> Filtro;
+    public static List<Espfiltro> Espfiltro;
+    public static List<Item> Item;
+    public static List<Metradoex> Metradoex;
+    public static List<Multiple> Multiple;
+    public static List<Rejilla> Rejilla;  
 
     /// <summary>
     /// Evita que el objeto sea destruido al pasar de escena (Singleton)

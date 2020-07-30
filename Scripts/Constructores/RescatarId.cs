@@ -12,8 +12,12 @@ public class RescatarId : MonoBehaviour {
 
         //Realizar una prueba
         //Probando las listas de DatosScena
-        foreach (string item in DatosScena.Ductoex) {
-            Debug.Log(item);
+
+        foreach (Rejilla atributo in DatosScena.Rejilla)
+        {
+            Debug.Log("-------");
+            Debug.Log(atributo.nombre);
+            Debug.Log(atributo.estado);
         }
 	}
 

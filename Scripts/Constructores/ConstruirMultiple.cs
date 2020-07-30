@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
-public class ConstruirMultiple : MonoBehaviour{}
     
     [System.Serializable]
     public class Multiple
     {
-        public string id;
-        public string giroX;
-        public string giroY;
+        public int id;
+        public float giroX;
+        public float giroY;
+        public bool estado;
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}", id, giroX, giroY);
+            return string.Format("{0},{1},{2},{3}", id, giroX, giroY,estado);
         }
     }
 
@@ -22,17 +21,16 @@ public class ConstruirMultiple : MonoBehaviour{}
     public class ListaMultiple
     {
         public List<Multiple> multiples;
+        
         /// <summary>
         /// Asigna a la variable'datos' todos los datos de la tabla 
         /// </summary>
         /// <param name="datos"></param> variable por valor
-        public void CargarMultiple(List<string> datos)
+        public void CargarMultiple(List<Multiple> datos)
         {
-            foreach (Multiple multiple in multiples)
+            foreach (Multiple atributo in multiples)
             {
-                    datos.Add(multiple.id);
-					datos.Add(multiple.giroX);
-                    datos.Add(multiple.giroY);
+                datos.Add(atributo);
             }
         }
 		

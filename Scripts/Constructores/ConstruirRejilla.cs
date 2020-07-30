@@ -3,34 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class ConstruirRejilla : MonoBehaviour{}
-
     [System.Serializable]
     public class Rejilla{
         public string id;
         public string nombre;
         public string cfm;
+        public bool estado;
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2}", id, nombre, cfm);
+            return string.Format("{0},{1},{2},{3}", id, nombre, cfm,estado);
         }
     }
 
     [System.Serializable]
     public class ListaRejilla{
         public List<Rejilla> rejillas;
+        
         /// <summary>
         /// Asigna a la variable'datos' todos los datos de la tabla 
         /// </summary>
         /// <param name="datos"></param> variable por valor
-        public void CargarRejilla(List<string> datos)
+        public void CargarRejilla(List<Rejilla> datos)
         {
-            foreach (Rejilla rejilla in rejillas)
+            foreach (Rejilla atributo in rejillas)
             {
-					datos.Add(rejilla.id);
-                    datos.Add(rejilla.nombre);
-                    datos.Add(rejilla.cfm);
+                datos.Add(atributo);
             }
         }
     }

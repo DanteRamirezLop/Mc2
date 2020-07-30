@@ -2,36 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
-public class ConstruirFiltro : MonoBehaviour{} 
        
     [System.Serializable]
     public class Filtro
     {
-        public string id;
+        public int id;
         public string nombre;
+        public bool estado;
 
         public override string ToString()
         {
-            return string.Format("{0},{1}", id, nombre);
+            return string.Format("{0},{1},{2}", id, nombre,estado);
         }
     }
 
     [System.Serializable]
     public class ListaFiltro
     {
-
         public List<Filtro> filtros;
+
         /// <summary>
         /// Asigna a la variable'datos' todos los datos de la tabla 
         /// </summary>
         /// <param name="datos"></param> variable por valor
-        public void CargarFiltro(List<string> datos)
+        public void CargarFiltro(List<Filtro> datos)
         {
-            foreach (Filtro filtro in filtros)
+            foreach (Filtro atributo in filtros)
             {
-					datos.Add(filtro.id);
-                    datos.Add(filtro.nombre);
+                datos.Add(atributo);
             }
         }
     }
