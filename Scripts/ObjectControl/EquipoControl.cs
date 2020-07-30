@@ -168,4 +168,9 @@ public class EquipoControl : ObjectControlMain
         rotacion = x.GetRotations();
         GetComponent<MeshRenderer>().material = x.material;
     }
+
+    public override int getTipo()
+    {
+        return 0;
+    }
 }

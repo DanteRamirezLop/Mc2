@@ -162,4 +162,9 @@ public class UnionControl : ObjectControlMain
             this.colisiones[i].GetComponent<MiniColision>().SetConexion(i);
         ColliderInspectState();
     }
+
+    public override int getTipo()
+    {
+        return 3;
+    }
 }

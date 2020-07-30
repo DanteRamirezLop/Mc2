@@ -11,7 +11,6 @@ public class PanelOpc : MonoBehaviour
     private void Start()
     {
         //Debug.Log("max: " + this.GetComponent<RectTransform>().rect.width);
-        HideHalf(true);
     }
     public void HideHalf(bool hide)
     {
@@ -20,14 +19,18 @@ public class PanelOpc : MonoBehaviour
         {
             //a.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, a.sizeDelta.x / 2);
             //a.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0, a.sizeDelta.x / 2);
-            a.offsetMax = new Vector2(0.5f, 1);
             //a.sizeDelta = new Vector2(a.sizeDelta.x / 2, a.sizeDelta.y);
-            Debug.Log("Halt");
+            a.offsetMax = new Vector2(Screen.width * -1 + 200, 0);
+            //Debug.Log("Halt");
         }
         else
         {
-            a.sizeDelta = new Vector2(a.rect.xMax, a.sizeDelta.y);
+            a.offsetMax = new Vector2(0, 0);
+            //a.sizeDelta = new Vector2(a.rect.xMax, a.sizeDelta.y);
         }
+        lblAmbiente.SetActive(!hide);
+        dropAmbiente.SetActive(!hide);
+        btnAmbiente.SetActive(!hide);
     }
     
 }

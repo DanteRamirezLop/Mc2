@@ -100,4 +100,9 @@ public class CodoControl : ObjectControlMain
     {
         this.mesh.ChangeLayer(layer);
     }
+
+    public override int getTipo()
+    {
+        return 2;
+    }
 }

@@ -16,6 +16,7 @@ public class GranControl : MonoBehaviour
     public GameObject union;
     public GameObject equipo;
     public EquipoCanvas cEquipo;
+    public GameObject Opciones;
     // Start is called before the first frame update
     void Start()
     {
@@ -104,6 +105,7 @@ public class GranControl : MonoBehaviour
     private void HideInspector()
     {
         cEquipo.gameObject.SetActive(false);
+        Opciones.GetComponent<PanelOpc>().HideHalf(false);
     }
 
     private void BringInspector()
@@ -114,6 +116,7 @@ public class GranControl : MonoBehaviour
             cEquipo.gameObject.SetActive(true);
             cEquipo.target = (EquipoControl)a;
             cEquipo.Exploit();
+            Opciones.GetComponent<PanelOpc>().HideHalf(true);
         }
     }
 

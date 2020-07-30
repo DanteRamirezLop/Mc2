@@ -63,6 +63,11 @@ public abstract class ObjectControlMain : MonoBehaviour
     protected abstract void ColliderInspectState();
     protected abstract void ColliderConnectState();
     public abstract void ChangeLayer(int layer);
+    /// <summary>
+    /// Es para identificar la clase hija, lo veo mas facil que un enum
+    /// </summary>
+    /// <returns>0 si es un equipo, 1 si es un ducto, 2 si es un codo, 3 si es un multiple, 4 si es una rejilla</returns>
+    public abstract int getTipo();
     public void setId(int id)
     {
         this.id = id;

@@ -104,4 +104,9 @@ public class DuctoControl : ObjectControlMain
     {
         this.mesh.ChangeLayer(layer);
     }
+
+    public override int getTipo()
+    {
+        return 1;
+    }
 }

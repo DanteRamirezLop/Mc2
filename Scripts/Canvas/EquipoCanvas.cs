@@ -47,6 +47,8 @@ public class EquipoCanvas : MonoBehaviour
     public Toggle EL;
     public Toggle ET;
 
+    public GameObject controlador;
+
     private bool antiFlow = false;
     /// <summary>
     /// Saca los datos de codigo, a que calculo pertenece y el tipo del equipo (iny o ext)
@@ -322,5 +324,11 @@ public class EquipoCanvas : MonoBehaviour
         ToggleCalentamiento(CT);
 
         Debug.Log("Exploited");
+    }
+    public void Close()
+    {
+        if (controlador != null)
+            controlador.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 }
