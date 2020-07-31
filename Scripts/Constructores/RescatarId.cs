@@ -13,10 +13,11 @@ public class RescatarId : MonoBehaviour {
         //Realizar una prueba
         //Probando las listas de DatosScena
 
-        foreach (Rejilla atributo in DatosScena.Rejilla)
+        foreach (Ducto atributo in DatosScena.Ducto)
         {
             Debug.Log("-------");
-            Debug.Log(atributo.nombre);
+            Debug.Log(atributo.idItem);
+            Debug.Log(atributo.longitud);
             Debug.Log(atributo.estado);
         }
 	}

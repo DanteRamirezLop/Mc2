@@ -4,15 +4,16 @@ using UnityEngine;
 using System.IO;
 
     [System.Serializable]
-    public class Rejilla{
-        public string id;
+    public class Rejilla:Item
+    {
+       // public string id; //no se utiliza por que se repite nen idItem
         public string nombre;
         public string cfm;
         public bool estado;
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2},{3}", id, nombre, cfm,estado);
+            return string.Format("{0},{1},{2},{3},{4},{5},{6}",id,idItem,idEquipo,conexion, this.nombre, this.cfm,this.estado);
         }
     }
 

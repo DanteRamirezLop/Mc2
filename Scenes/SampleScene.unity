@@ -4294,7 +4294,7 @@ MonoBehaviour:
   tiempo: 2
   txtCargando: {fileID: 173853634}
   txtInfo: {fileID: 385511684}
-  URL: http://localhost:8080/Conector/
+  URL: http://localhost:8080/Listar/
 --- !u!114 &1351466434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4650,7 +4650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fda8728c01ee14ba84998d9e56047c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  URL: http://localhost:8080/Conector/
+  URL: http://localhost:8080/Listar/
   PrefabButtonCarg: {fileID: 8751706723458832249, guid: a1937728cd144be43b76bab4d1de2b0b,
     type: 3}
   PrefabButtonElim: {fileID: 1685565513138370, guid: 1ff654f58ab7f7c47b6379ab16296843,

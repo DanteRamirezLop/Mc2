@@ -4,16 +4,16 @@ using UnityEngine;
 using System.IO;
     
     [System.Serializable]
-    public class Multiple
+    public class Multiple:Item
     {
-        public int id;
+        //public int id; //no se utiliza por que se repite en idItem
         public float giroX;
         public float giroY;
         public bool estado;
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2},{3}", id, giroX, giroY,estado);
+            return string.Format("{0},{1},{2},{3},{4},{5},{6}", id, idItem, idEquipo, conexion, this.giroX, this.giroY, this.estado);
         }
     }
 

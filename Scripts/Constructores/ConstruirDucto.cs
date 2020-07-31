@@ -4,13 +4,13 @@ using UnityEngine;
 using System.IO;
 
     [System.Serializable]
-    public class Ducto
+    public class Ducto:Item
     {
-        public int id;
+        //public int id;// se repite en idItem de la tabla item
         public double longitud;
         public int paso;
         public int dibujar;
-        public int idDucto;
+        //public int idDucto; // se repite en id de la tabla ducto
         public int tipo;
         public string nombre;
         public double dimA;
@@ -26,8 +26,8 @@ using System.IO;
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16}",
-            id, longitud, paso, dibujar,idDucto, tipo, nombre, dimA, dimB, flujoCFM, damAb100, damCer10, damCer50, tranRec, conVen, lumAli,estado);
+            return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18}",
+            id, idItem, idEquipo, conexion,this.longitud, this.paso, this.dibujar, this.tipo, this.nombre, this.dimA, this.dimB, this.flujoCFM, this.damAb100, this.damCer10, this.damCer50, this.tranRec, this.conVen, this.lumAli, this.estado);
         }
     }
 

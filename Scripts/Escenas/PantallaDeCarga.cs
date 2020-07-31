@@ -176,7 +176,7 @@ public class PantallaDeCarga : MonoBehaviour {
                 txtInfo.text = txtInfo.text + "Espfiltro (CARGADO) \n";
             }
         }
-
+        /*
         using (UnityWebRequest reqItem = UnityWebRequest.Get(URL + "item"))
         {
             yield return reqItem.SendWebRequest();
@@ -189,7 +189,7 @@ public class PantallaDeCarga : MonoBehaviour {
                 DatosScena.Item = item;
                 txtInfo.text = txtInfo.text + "Item (CARGADO) \n";
             }
-        }
+        }*/
 
         using (UnityWebRequest reqMetradoex = UnityWebRequest.Get(URL + "metradoex"))
         {

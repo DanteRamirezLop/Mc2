@@ -17,7 +17,7 @@ public class Equipo
     public int calculo;
     public int vinculo;
     public string nivel;
-    public int idAmbiente;
+    //public int idAmbiente; //se repite en id
     public float ccx;
     public float ccy;
     public float ccz;
@@ -29,7 +29,7 @@ public class Equipo
     public double enfEntrada2;
     public double enfSalida1;
     public double enfSalida2;
-    public string tipo2;//cambien tipo por tipo2
+    public string tipo2;//cambien tipo por tipo2 por que en la tabla equipov ya habia un atributo tipo
     public double Hz;
     public double CSensible;
     public double CLatente;
@@ -40,8 +40,8 @@ public class Equipo
 
     public override string ToString()
     {
-        return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30}"
-            ,id, idProyecto, codigo, tipo, velocidadIny, velocidadExt, porcentajeIny, porcentajeExt, calculo, vinculo, nivel, idAmbiente, ccx, ccy, ccz, idEquipoV, potencia, voltaje, sistema, enfEntrada1, enfEntrada2, enfSalida1, enfSalida2, tipo2, Hz, CSensible, CLatente, ESensible, ELatente, caudal,estado);
+        return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29}"
+            ,id, idProyecto, codigo, tipo, velocidadIny, velocidadExt, porcentajeIny, porcentajeExt, calculo, vinculo, nivel, ccx, ccy, ccz, idEquipoV, potencia, voltaje, sistema, enfEntrada1, enfEntrada2, enfSalida1, enfSalida2, tipo2, Hz, CSensible, CLatente, ESensible, ELatente, caudal,estado);
     }
 }
 
