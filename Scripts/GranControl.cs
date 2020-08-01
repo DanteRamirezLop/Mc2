@@ -18,6 +18,7 @@ public class GranControl : MonoBehaviour
     public GameObject equipo;
     public MultiCanvas canvasControl;
     public GameObject Opciones;
+    private CamaraDedicada cam;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class GranControl : MonoBehaviour
         operationState = 0;
         grab = null;
         equipoEnUso = null;
+        cam = GetComponent<CamaraDedicada>();
     }
 
     // Update is called once per frame
@@ -57,6 +59,11 @@ public class GranControl : MonoBehaviour
             switch (operationState)
             {
                 case 1:
+                    if (grab != null)
+                    {
+                        //no olvidar el DestroyOrder
+                        Destroy(grab);
+                    }
                     break;
                 default:
                     break;
@@ -109,6 +116,7 @@ public class GranControl : MonoBehaviour
     {
         canvasControl.SetGrab(null);
         Opciones.GetComponent<PanelOpc>().HideHalf(false);
+        cam.setAvailable(true);
     }
 
     private void BringInspector()
@@ -116,6 +124,7 @@ public class GranControl : MonoBehaviour
         grab = grab.transform.parent.gameObject;
         canvasControl.SetGrab(grab);
         Opciones.GetComponent<PanelOpc>().HideHalf(true);
+        cam.setAvailable(false);
     }
 
     private void BringCreate()

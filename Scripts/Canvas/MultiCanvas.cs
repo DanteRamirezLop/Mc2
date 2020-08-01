@@ -55,16 +55,20 @@ public class MultiCanvas : MonoBehaviour
     {
         Refresh();
         EquipoControl ec = grabbed.GetComponent<EquipoControl>();
-        texto.GetComponent<Text>().text = "Nombre: " + ec.codigo;
+        texto.GetComponent<Text>().text = "Nombre: " + ec.equip.codigo;
         textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
         textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
         textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
         textoSac[0].GetComponent<Text>().text = "Tipo: " + ec.GetTipoEsp();
         textoSac[1].GetComponent<Text>().text = "CFM real: " + ec.CFMreal();
-        if (ec.calculo)
-            textoSac[2].GetComponent<Text>().text = "Equipo de aire acondicionado";
-        else
+        if (ec.equip.calculo)
             textoSac[2].GetComponent<Text>().text = "Equipo de ventilación";
+        else
+        {
+            textoSac[2].GetComponent<Text>().text = "Equipo de aire acondicionado";
+            textoSac[2].GetComponent<RectTransform>().sizeDelta = new Vector2(200, 20);
+            textoSac[2].GetComponent<RectTransform>().SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 10, 200);
+        }
         ReOrderElements();
     }
     private void Refresh()
@@ -106,5 +110,25 @@ public class MultiCanvas : MonoBehaviour
                 break;
         }
         this.gameObject.SetActive(false);
+    }
+    public void RefreshData()
+    {
+        if (grabbed != null)
+        {
+            switch (grabbed.GetComponent<ObjectControlMain>().getTipo())
+            {
+                case 0:
+                    EquipoOrden();
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

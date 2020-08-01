@@ -12,6 +12,7 @@ public class CamaraDedicada : MonoBehaviour
     public float speed;
     public float sensitivity;
     public float caliber;
+    private bool available;
 
     public GameObject ambiente; //para pruebas
     // Start is called before the first frame update
@@ -22,6 +23,7 @@ public class CamaraDedicada : MonoBehaviour
         this.caliber = 500;
         this.cuadrante = null;
         transicion = new Transicion();
+        this.available = true;
     }
 
     // Update is called once per frame
@@ -34,6 +36,8 @@ public class CamaraDedicada : MonoBehaviour
             this.transform.rotation = transicion.SlerpTransRotation();
             return;
         }
+        if (!available)
+            return;
         if (cuadrante != null)
         {
             Direccionales();
@@ -150,5 +154,13 @@ public class CamaraDedicada : MonoBehaviour
         this.cuadrante = cuadrante;
         centro = cuadrante[0] + cuadrante[1] + cuadrante[2] + cuadrante[3];
         centro /= 4;
+    }
+    /// <summary>
+    /// Activa o desactiva la camara
+    /// </summary>
+    /// <param name="avail">true para habilitar, false deshabilitar</param>
+    public void setAvailable(bool avail)
+    {
+        this.available = avail;
     }
 }

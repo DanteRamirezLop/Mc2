@@ -15,32 +15,7 @@ public class EquipoControl : ObjectControlMain
 
     public Equipo equip;
     //parte de la tabla equipov
-    public int idProyecto { get; set; }
-    public string codigo { get; set; }
-    public int tipo { get; set; } //inyeccion, extraccion, ambos
-    public double velocidadIny { get; set; }
-    public double velocidadExt { get; set; }
-    public double porcentajeIny { get; set; }
-    public double porcentajeExt { get; set; }
-    public bool calculo { get; set; } //aire acondicionado o ventilacion
-    public int vinculo { get; set; }
-    public string nivel { get; set; }
-    public int idAmbiente { get; set; }
     //parte de la tabla equipoesp
-    public double potencia { get; set; }
-    public double voltaje { get; set; }
-    public bool sistema { get; set; }
-    public double enfEntrada1 { get; set; }
-    public double enfEntrada2 { get; set; }
-    public double enfSalida1 { get; set; }
-    public double enfSalida2 { get; set; }
-    private string tipoEsp;
-    public double Hz { get; set; }
-    public double CSensible { get; set; }
-    public double CLatente { get; set; }
-    public double ESensible { get; set; }
-    public double ELatente { get; set; }
-    public double caudal { get; set; }
 
     void OnEnable()
     {
@@ -67,7 +42,7 @@ public class EquipoControl : ObjectControlMain
         colision[1].AddComponent(typeof(BoxCollider));
         colision[1].AddComponent(typeof(MiniColision));
         colision[1].GetComponent<MiniColision>().SetConexion(1);
-        tipoEsp = "";
+        equip.tipo2 = "";
         CambiarMesh();
         ColliderInspectState();
     }
@@ -155,20 +130,20 @@ public class EquipoControl : ObjectControlMain
     }
     public string GetTipoEsp()
     {
-        return this.tipoEsp;
+        return this.equip.tipo2;
     }
     public void SetTipoEsp(string tipoEsp)
     {
-        this.tipoEsp = tipoEsp;
+        this.equip.tipo2 = tipoEsp;
         CambiarMesh();
     }
     public double getAutoPotencia()
     {
-        return (CSensible + CLatente) / 11000 ;
+        return (equip.CSensible + equip.CLatente) / 11000 ;
     }
     private void CambiarMesh()
     {
-        EquipoData x = coleccionRefer.GetComponent<ColeccionEquipo>().GetData(tipoEsp);
+        EquipoData x = coleccionRefer.GetComponent<ColeccionEquipo>().GetData(equip.tipo2);
         lmesh.vertices = x.mesh.vertices;
         lmesh.triangles = x.mesh.triangles;
         lmesh.uv = x.mesh.uv;
