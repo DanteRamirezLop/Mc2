@@ -9,17 +9,19 @@ public class GranControl : MonoBehaviour
     // Poner en la camara
     // 0 sin accion, 1 preparado para construir, 2 preparado para mover, 3 preparado para remover
     private int operationState;
+    private Camera cachedCamera;
     private GameObject grab;
     private GameObject equipoEnUso;
     public GameObject codo;
     public GameObject ducto;
     public GameObject union;
     public GameObject equipo;
-    public EquipoCanvas cEquipo;
+    public MultiCanvas canvasControl;
     public GameObject Opciones;
     // Start is called before the first frame update
     void Start()
     {
+        cachedCamera = this.GetComponent<Camera>();
         operationState = 0;
         grab = null;
         equipoEnUso = null;
@@ -71,6 +73,7 @@ public class GranControl : MonoBehaviour
             case 0:
                 grab = GameObject.Instantiate(equipo);
                 equipoEnUso = grab;
+                equipoEnUso.GetComponent<EquipoControl>().InitOrder();
                 break;
             case 1:
                 grab = GameObject.Instantiate(ducto);
@@ -104,20 +107,15 @@ public class GranControl : MonoBehaviour
 
     private void HideInspector()
     {
-        cEquipo.gameObject.SetActive(false);
+        canvasControl.SetGrab(null);
         Opciones.GetComponent<PanelOpc>().HideHalf(false);
     }
 
     private void BringInspector()
     {
         grab = grab.transform.parent.gameObject;
-        if (grab.TryGetComponent(typeof(EquipoControl), out Component a))
-        {
-            cEquipo.gameObject.SetActive(true);
-            cEquipo.target = (EquipoControl)a;
-            cEquipo.Exploit();
-            Opciones.GetComponent<PanelOpc>().HideHalf(true);
-        }
+        canvasControl.SetGrab(grab);
+        Opciones.GetComponent<PanelOpc>().HideHalf(true);
     }
 
     private void BringCreate()
@@ -128,7 +126,7 @@ public class GranControl : MonoBehaviour
         {
             if (grab.TryGetComponent(typeof(EquipoControl), out Component e))
             {
-                grab.SendMessage("ChangeLayer", 9);
+                grab.GetComponent<ObjectControlMain>().ChangeLayer(9);
                 grab = null;
                 operationState = 0;
                 if (equipoEnUso != null)
@@ -138,10 +136,10 @@ public class GranControl : MonoBehaviour
             GameObject target = GetRayObject();
             if (target != null)
             {
-                grab.SendMessage("SetConexion", target.GetComponent<MiniColision>().GetConexion());
-                //en caso sea un multiple el proceso debe ser diferente
-                grab.SendMessage("SetReferencia", target.transform.parent.gameObject);
-                grab.SendMessage("ChangeLayer", 9);
+                ObjectControlMain min = grab.GetComponent<ObjectControlMain>();
+                min.SetConexion(target.GetComponent<MiniColision>().GetConexion());
+                min.SetReferencia(target.transform.parent.gameObject);
+                min.ChangeLayer(9);
                 grab = null;
                 if (equipoEnUso != null)
                     equipoEnUso.GetComponent<EquipoControl>().PulsoColision(false);
@@ -160,7 +158,7 @@ public class GranControl : MonoBehaviour
     {
         if (EventSystem.current.IsPointerOverGameObject())
             return null;
-        Ray rayo = this.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        Ray rayo = cachedCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(rayo, out hit, 50f, LayerMask.GetMask("Placed")))
             return hit.transform.gameObject;

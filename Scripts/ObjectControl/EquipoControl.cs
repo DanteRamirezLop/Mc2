@@ -12,6 +12,8 @@ public class EquipoControl : ObjectControlMain
     private GameObject[] adRefers;
     public GameObject coleccionRefer;
     private Mesh lmesh;
+
+    public Equipo equip;
     //parte de la tabla equipov
     public int idProyecto { get; set; }
     public string codigo { get; set; }
@@ -68,6 +70,13 @@ public class EquipoControl : ObjectControlMain
         tipoEsp = "";
         CambiarMesh();
         ColliderInspectState();
+    }
+    public override void InitOrder()
+    {
+        equip = new Equipo();
+        DatosScena.Equipo = new List<Equipo>();
+        DatosScena.Equipo.Add(equip);
+        //DatosScena.Equipo[0].ccx = 1;
     }
     public override Quaternion getRotation(int target)
     {
@@ -172,5 +181,16 @@ public class EquipoControl : ObjectControlMain
     public override int getTipo()
     {
         return 0;
+    }
+
+    public override double CFMreal()
+    {
+        double ret = 0;
+        foreach (var item in adRefers)
+        {
+            if (item != null)
+                ret += item.GetComponent<ObjectControlMain>().CFMreal();
+        }
+        return ret;
     }
 }

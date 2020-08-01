@@ -109,4 +109,17 @@ public class DuctoControl : ObjectControlMain
     {
         return 1;
     }
+
+    public override double CFMreal()
+    {
+        if (this.adreferencia != null)
+            return adreferencia.GetComponent<ObjectControlMain>().CFMreal();
+        else
+            return 0;
+    }
+
+    public override void InitOrder()
+    {
+        throw new System.NotImplementedException();
+    }
 }

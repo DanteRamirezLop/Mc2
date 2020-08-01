@@ -241,6 +241,7 @@ public class EquipoCanvas : MonoBehaviour
         }
         else
             CTotal.text = (target.CSensible + target.CLatente) + "";
+        CambioPotencia(true);
     }
     public void ChangeCEnfriamiento()
     {

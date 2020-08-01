@@ -76,4 +76,6 @@ public abstract class ObjectControlMain : MonoBehaviour
     {
         return this.id;
     }
+    public abstract double CFMreal();
+    public abstract void InitOrder();
 }
