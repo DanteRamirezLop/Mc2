@@ -8,7 +8,7 @@ using System.IO;
     {
        // public string id; //no se utiliza por que se repite nen idItem
         public string nombre;
-        public string cfm;
+        public double cfm;
         public bool estado;
 
         public override string ToString()

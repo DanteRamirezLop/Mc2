@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class RejillaControl : ObjectControlMain
 {
+    public Rejilla rejilla;
     public override double CFMreal()
     {
-        throw new System.NotImplementedException();
+        return rejilla.cfm;
     }
 
     public override void ChangeLayer(int layer)
