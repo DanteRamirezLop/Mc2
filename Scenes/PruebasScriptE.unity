@@ -3303,15 +3303,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equipos:
-  - mesh: {fileID: -2432090755550338912, guid: 1751b436ba5791142a64405b98ace1c1, type: 3}
+  - mesh: {fileID: 2376520882770368170, guid: 716cd05d15fc56241af92dd9d4699c67, type: 3}
+    meshRotation: {x: -90, y: 0, z: 0}
     offsets:
     - {x: 0, y: 0, z: 4.7}
     - {x: 0, y: 0, z: -1.3}
     rotation:
     - {x: 0, y: 0, z: 0}
     - {x: 0, y: 180, z: 0}
-    material: {fileID: -3033667219593020291, guid: 1751b436ba5791142a64405b98ace1c1, type: 3}
-    textura: {fileID: 2800000, guid: 67d7083c407c1ee49bee2b21a0d53754, type: 3}
+    material: {fileID: -876546973899608171, guid: 716cd05d15fc56241af92dd9d4699c67, type: 3}
+    textura: {fileID: 2800000, guid: c4722b6a89706484b9b0bfbde1f3634e, type: 3}
     nombre: none
 --- !u!4 &369375445
 Transform:
@@ -17913,7 +17914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e3f5b18274f32ce45a7094c73cfcc4f1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3314904569558359247, guid: e3f5b18274f32ce45a7094c73cfcc4f1, type: 3}
       propertyPath: m_LocalRotation.x

@@ -7,6 +7,7 @@ using UnityEngine.Networking.Types;
 public class EquipoControl : ObjectControlMain
 {
     public Vector3[] offset;
+    private GameObject eqMesh;
     public Quaternion[] rotacion;
     private GameObject[] colision;
     private GameObject[] adRefers;
@@ -21,15 +22,19 @@ public class EquipoControl : ObjectControlMain
     {
         adRefers = new GameObject[2];
         offset = new Vector3[2];
+        this.eqMesh = new GameObject("Mesh");
+        eqMesh.transform.SetParent(this.transform);
+        eqMesh.transform.localPosition = Vector3.zero;
+        //eqMesh.transform.localRotation = Quaternion.Euler(-90, 90, 90);
         if (!TryGetComponent(typeof(MeshFilter), out Component c))
         {
-            gameObject.AddComponent(typeof(MeshFilter));
+            eqMesh.AddComponent(typeof(MeshFilter));
         }
         if (!TryGetComponent(typeof(MeshRenderer), out Component d))
         {
-            gameObject.AddComponent(typeof(MeshRenderer));
+            eqMesh.AddComponent(typeof(MeshRenderer));
         }
-        lmesh = GetComponent<MeshFilter>().mesh;
+        lmesh = eqMesh.GetComponent<MeshFilter>().mesh;
         colision = new GameObject[2];
         colision[0] = new GameObject("colision");
         colision[0].transform.SetParent(this.transform);
@@ -92,14 +97,16 @@ public class EquipoControl : ObjectControlMain
     protected override void ColliderInspectState()
     {
         colision[0].transform.localPosition = Vector3.zero;
-        colision[0].GetComponent<BoxCollider>().center = GetComponent<MeshFilter>().mesh.bounds.center;
-        colision[0].GetComponent<BoxCollider>().size = GetComponent<MeshFilter>().mesh.bounds.size;
+        colision[0].transform.localRotation = eqMesh.transform.localRotation;
+        colision[0].GetComponent<BoxCollider>().center = eqMesh.GetComponent<MeshFilter>().mesh.bounds.center;
+        colision[0].GetComponent<BoxCollider>().size = eqMesh.GetComponent<MeshFilter>().mesh.bounds.size;
         colision[1].SetActive(false);
     }
 
     protected override void ColliderConnectState()
     {
         colision[0].transform.localPosition = offset[0];
+        colision[0].transform.localRotation = Quaternion.identity;
         colision[0].GetComponent<BoxCollider>().center = Vector3.zero;
         colision[0].GetComponent<BoxCollider>().size = new Vector3(2, 2, 1);
         colision[0].SetActive(this.adRefers[0] == null);
@@ -144,13 +151,14 @@ public class EquipoControl : ObjectControlMain
     private void CambiarMesh()
     {
         EquipoData x = coleccionRefer.GetComponent<ColeccionEquipo>().GetData(equip.tipo2);
+        eqMesh.transform.localRotation = Quaternion.Euler(x.meshRotation);
         lmesh.vertices = x.mesh.vertices;
         lmesh.triangles = x.mesh.triangles;
         lmesh.uv = x.mesh.uv;
         lmesh.RecalculateBounds();
         offset = x.offsets;
         rotacion = x.GetRotations();
-        GetComponent<MeshRenderer>().material = x.material;
+        eqMesh.GetComponent<MeshRenderer>().material = x.material;
     }
 
     public override int getTipo()
