@@ -9,6 +9,8 @@ public class CodoControl : ObjectControlMain
     public Vector2 angulo;
     public double anchopr;
     public double altopr;
+
+    
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -104,5 +106,18 @@ public class CodoControl : ObjectControlMain
     public override int getTipo()
     {
         return 2;
+    }
+
+    public override double CFMreal()
+    {
+        if (this.adreferencia != null)
+            return adreferencia.GetComponent<ObjectControlMain>().CFMreal();
+        else
+            return 0;
+    }
+
+    public override void InitOrder()
+    {
+        throw new NotImplementedException();
     }
 }

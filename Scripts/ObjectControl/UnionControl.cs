@@ -10,6 +10,8 @@ public class UnionControl : ObjectControlMain
     public GameObject[] colisiones;
     public GameObject colMain;
     private GameObject[] referencias;
+
+    public Multiple union;
     //acerca de la union: 0 derecha, 1 adelante, 2 izquierda, 3 arriba, 4 abajo
     public override void ChangeLayer(int layer)
     {
@@ -166,5 +168,24 @@ public class UnionControl : ObjectControlMain
     public override int getTipo()
     {
         return 3;
+    }
+
+    public override double CFMreal()
+    {
+        double ret = 0;
+        foreach (var item in referencias)
+        {
+            if (item != null)
+                ret += item.GetComponent<ObjectControlMain>().CFMreal();
+        }
+        return ret;
+    }
+
+    public override void InitOrder()
+    {
+        if (DatosScena.Multiple == null)
+            DatosScena.Multiple = new List<Multiple>();
+        this.union = new Multiple();
+        DatosScena.Multiple.Add(union);
     }
 }

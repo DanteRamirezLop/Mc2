@@ -57,9 +57,9 @@ public class EquipoCanvas : MonoBehaviour
     {
         if (target == null)
             return;
-        target.codigo = codigo.text;
-        target.tipo = tipo.value;
-        target.calculo = calculo.value == 1;
+        target.equip.codigo = codigo.text;
+        target.equip.tipo = tipo.value;
+        target.equip.calculo = calculo.value == 1;
         Debug.Log("main change");
     }
     public void CambioVelocidad()
@@ -67,32 +67,32 @@ public class EquipoCanvas : MonoBehaviour
         if (target == null)
             return;
         if (Double.TryParse(velocidadIny.text, out double temp))
-            target.velocidadIny = temp;
+            target.equip.velocidadIny = temp;
         else
         {
             velocidadIny.text = "0";
-            target.velocidadIny = 0;
+            target.equip.velocidadIny = 0;
         }
         if (Double.TryParse(velocidadExt.text, out temp))
-            target.velocidadExt = temp;
+            target.equip.velocidadExt = temp;
         else
         {
             velocidadExt.text = "0";
-            target.velocidadExt = 0;
+            target.equip.velocidadExt = 0;
         }
         if (Double.TryParse(porcentajeIny.text, out temp))
-            target.porcentajeIny = temp;
+            target.equip.porcentajeIny = temp;
         else
         {
             porcentajeIny.text = "0";
-            target.porcentajeIny = 0;
+            target.equip.porcentajeIny = 0;
         }
         if (Double.TryParse(porcentajeExt.text, out temp))
-            target.porcentajeExt = temp;
+            target.equip.porcentajeExt = temp;
         else
         {
             porcentajeExt.text = "0";
-            target.porcentajeExt = 0;
+            target.equip.porcentajeExt = 0;
         }
         Debug.Log("vel change");
     }
@@ -102,18 +102,18 @@ public class EquipoCanvas : MonoBehaviour
         {
             if (espPotencia.isOn)
             {
-                target.potencia = -1;
+                target.equip.potencia = -1;
                 potencia.text = target.getAutoPotencia() + "";
             }
         }
         else
         {
             if (Double.TryParse(potencia.text, out double temp))
-                target.potencia = temp;
+                target.equip.potencia = temp;
             else
             {
                 potencia.text = "0";
-                target.potencia = 0;
+                target.equip.potencia = 0;
             }
             espPotencia.isOn = false;
         }
@@ -121,27 +121,27 @@ public class EquipoCanvas : MonoBehaviour
     public void CambioEsp()
     {
         if (Double.TryParse(voltaje.text, out double temp))
-            target.voltaje = temp;
+            target.equip.voltaje = temp;
         else
         {
             voltaje.text = "0";
-            target.voltaje = 0;
+            target.equip.voltaje = 0;
         }
         if (Double.TryParse(Hz.text, out temp))
-            target.Hz = temp;
+            target.equip.Hz = temp;
         else
         {
             Hz.text = "0";
-            target.Hz = 0;
+            target.equip.Hz = 0;
         }
         if (Double.TryParse(caudal.text, out temp))
-            target.caudal = temp;
+            target.equip.caudal = temp;
         else
         {
             caudal.text = "0";
-            target.caudal = 0;
+            target.equip.caudal = 0;
         }
-        target.sistema = sistema.value == 1;
+        target.equip.sistema = sistema.value == 1;
     }
     public void ChangeTipoEquipo()
     {
@@ -150,33 +150,33 @@ public class EquipoCanvas : MonoBehaviour
     public void ChangeEnfriamiento()
     {
         if (Double.TryParse(enfEntrada1.text, out double temp))
-            target.enfEntrada1 = temp;
+            target.equip.enfEntrada1 = temp;
         else
         {
-            enfEntrada1.text = target.enfEntrada1 + "";
-            target.enfEntrada1 = 0;
+            enfEntrada1.text = target.equip.enfEntrada1 + "";
+            target.equip.enfEntrada1 = 0;
         }
         if (Double.TryParse(enfEntrada2.text, out temp))
-            target.enfEntrada2 = temp;
+            target.equip.enfEntrada2 = temp;
         else
         {
-            enfEntrada2.text = target.enfEntrada2 + "";
-            target.enfEntrada2 = 0;
+            enfEntrada2.text = target.equip.enfEntrada2 + "";
+            target.equip.enfEntrada2 = 0;
         }
 
         if (Double.TryParse(enfSalida1.text, out temp))
-            target.enfSalida1 = temp;
+            target.equip.enfSalida1 = temp;
         else
         {
-            enfSalida1.text = target.enfSalida1 + "";
-            target.enfSalida1 = 0;
+            enfSalida1.text = target.equip.enfSalida1 + "";
+            target.equip.enfSalida1 = 0;
         }
         if (Double.TryParse(enfSalida2.text, out temp))
-            target.enfSalida2 = temp;
+            target.equip.enfSalida2 = temp;
         else
         {
-            enfSalida2.text = target.enfSalida2 + "";
-            target.enfSalida2 = 0;
+            enfSalida2.text = target.equip.enfSalida2 + "";
+            target.equip.enfSalida2 = 0;
         }
     }
     public void ToggleEnfriamiento(Toggle tg)
@@ -214,64 +214,65 @@ public class EquipoCanvas : MonoBehaviour
     public void ChangeCCalentamiento()
     {
         if (Double.TryParse(CSensible.text,out double temp))
-            target.CSensible = temp;
+            target.equip.CSensible = temp;
         else
         {
             CSensible.text = "0";
-            target.CSensible = 0;
+            target.equip.CSensible = 0;
         }
         if (Double.TryParse(CLatente.text,out temp))
-            target.CLatente = temp;
+            target.equip.CLatente = temp;
         else
         {
             CLatente.text = "0";
-            target.CLatente = 0;
+            target.equip.CLatente = 0;
         }
         if (!Double.TryParse(CTotal.text,out temp))
             CTotal.text = "0";
         if (CS.isOn)
         {
-            target.CSensible = temp - target.CLatente;
-            CSensible.text = target.CSensible + "";
+            target.equip.CSensible = temp - target.equip.CLatente;
+            CSensible.text = target.equip.CSensible + "";
         }
         else if (CL.isOn)
         {
-            target.CLatente = temp - target.CSensible;
-            CLatente.text = target.CLatente + "";
+            target.equip.CLatente = temp - target.equip.CSensible;
+            CLatente.text = target.equip.CLatente + "";
         }
         else
-            CTotal.text = (target.CSensible + target.CLatente) + "";
+            CTotal.text = (target.equip.CSensible + target.equip.CLatente) + "";
+        CambioPotencia(true);
     }
     public void ChangeCEnfriamiento()
     {
         if (Double.TryParse(ESensible.text,out double temp))
-            target.ESensible = temp;
+            target.equip.ESensible = temp;
         else
         {
             ESensible.text = "0";
-            target.ESensible = 0;
+            target.equip.ESensible = 0;
         }
         if (Double.TryParse(ELatente.text,out temp))
-            target.ELatente = temp;
+            target.equip.ELatente = temp;
         else
         {
             ELatente.text = "0";
-            target.ELatente = 0;
+            target.equip.ELatente = 0;
         }
         if (!Double.TryParse(ETotal.text,out temp))
             ETotal.text = "0";
         if (ES.isOn)
         {
-            target.ESensible = temp - target.ELatente;
-            ESensible.text = target.ESensible + "";
+            target.equip.ESensible = temp - target.equip.ELatente;
+            ESensible.text = target.equip.ESensible + "";
         }
         else if (EL.isOn)
         {
-            target.ELatente = temp - target.ESensible;
-            ELatente.text = target.ELatente + "";
+            target.equip.ELatente = temp - target.equip.ESensible;
+            ELatente.text = target.equip.ELatente + "";
         }
         else
-            ETotal.text = (target.ESensible + target.ELatente) + "";
+            ETotal.text = (target.equip.ESensible + target.equip.ELatente) + "";
     }
 
     /// <summary>
@@ -281,44 +282,44 @@ public class EquipoCanvas : MonoBehaviour
     {
         if (target == null)
             return;
-        codigo.text = target.codigo;
-        if (target.calculo)
+        codigo.text = target.equip.codigo;
+        if (target.equip.calculo)
             calculo.value = 1;
         else
             calculo.value = 0;
-        tipo.value = target.tipo;
+        tipo.value = target.equip.tipo;
 
-        velocidadIny.text = "" + target.velocidadIny;
-        velocidadExt.text = "" + target.velocidadExt;
-        porcentajeIny.text = "" + target.porcentajeIny;
-        porcentajeExt.text = "" + target.porcentajeExt;
+        velocidadIny.text = "" + target.equip.velocidadIny;
+        velocidadExt.text = "" + target.equip.velocidadExt;
+        porcentajeIny.text = "" + target.equip.porcentajeIny;
+        porcentajeExt.text = "" + target.equip.porcentajeExt;
 
-        if (target.potencia < 0)
+        if (target.equip.potencia < 0)
             potencia.text = target.getAutoPotencia() + "";
         else
-            potencia.text = "" + target.potencia;
-        espPotencia.isOn = target.potencia < 0;
-        if (target.sistema)
+            potencia.text = "" + target.equip.potencia;
+        espPotencia.isOn = target.equip.potencia < 0;
+        if (target.equip.sistema)
             sistema.value = 1;
         else
             sistema.value = 0;
-        voltaje.text = target.voltaje + "";
-        Hz.text = target.Hz + "";
-        caudal.text = target.caudal + "";
+        voltaje.text = target.equip.voltaje + "";
+        Hz.text = target.equip.Hz + "";
+        caudal.text = target.equip.caudal + "";
         //caution: el tipo de sistema es algo complicado, por el hecho que lo antiguo viene puesto.... y algo mas
         tipoEsp.value = tipoEsp.options.FindIndex(option => option.text == target.GetTipoEsp());
 
-        enfEntrada1.text = target.enfEntrada1 + "";
-        enfEntrada2.text = target.enfEntrada2 + "";
-        enfSalida1.text = target.enfSalida1 + "";
-        enfSalida2.text = target.enfSalida2 + "";
+        enfEntrada1.text = target.equip.enfEntrada1 + "";
+        enfEntrada2.text = target.equip.enfEntrada2 + "";
+        enfSalida1.text = target.equip.enfSalida1 + "";
+        enfSalida2.text = target.equip.enfSalida2 + "";
 
-        CSensible.text = target.CSensible + "";
-        CLatente.text = target.CLatente + "";
-        CTotal.text = (target.CSensible + target.CLatente) + "";
-        ESensible.text = target.ESensible + "";
-        ELatente.text = target.ELatente + "";
-        ETotal.text = (target.ESensible + target.ELatente) + "";
+        CSensible.text = target.equip.CSensible + "";
+        CLatente.text = target.equip.CLatente + "";
+        CTotal.text = (target.equip.CSensible + target.equip.CLatente) + "";
+        ESensible.text = target.equip.ESensible + "";
+        ELatente.text = target.equip.ELatente + "";
+        ETotal.text = (target.equip.ESensible + target.equip.ELatente) + "";
 
         ToggleEnfriamiento(ET);
         ToggleCalentamiento(CT);
@@ -329,6 +330,7 @@ public class EquipoCanvas : MonoBehaviour
     {
         if (controlador != null)
             controlador.SetActive(true);
+        controlador.SendMessage("RefreshData");
         this.gameObject.SetActive(false);
     }
 }

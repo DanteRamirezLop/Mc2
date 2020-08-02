@@ -9,12 +9,12 @@ public class Equipo
     public int id;
     public int idProyecto;
     public string codigo;
-    public int tipo;
+    public int tipo; //inyeccion, extraccion, ambos
     public double velocidadIny;
     public double velocidadExt;
     public double porcentajeIny;
     public double porcentajeExt;
-    public int calculo;
+    public bool calculo; //aire acondicionado o ventilacion
     public int vinculo;
     public string nivel;
     //public int idAmbiente; //se repite en id
@@ -24,7 +24,7 @@ public class Equipo
     public int idEquipoV;
     public double potencia;
     public double voltaje;
-    public int sistema;
+    public bool sistema;
     public double enfEntrada1;
     public double enfEntrada2;
     public double enfSalida1;
