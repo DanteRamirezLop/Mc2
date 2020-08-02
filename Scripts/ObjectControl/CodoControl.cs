@@ -9,8 +9,9 @@ public class CodoControl : ObjectControlMain
     public Vector2 angulo;
     public double anchopr;
     public double altopr;
+    private Multiple codo;
 
-    
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -118,6 +119,9 @@ public class CodoControl : ObjectControlMain
 
     public override void InitOrder()
     {
-        throw new NotImplementedException();
+        if (DatosScena.Multiple == null)
+            DatosScena.Multiple = new List<Multiple>();
+        this.codo = new Multiple();
+        DatosScena.Multiple.Add(codo);
     }
 }

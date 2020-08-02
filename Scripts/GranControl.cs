@@ -80,7 +80,6 @@ public class GranControl : MonoBehaviour
             case 0:
                 grab = GameObject.Instantiate(equipo);
                 equipoEnUso = grab;
-                equipoEnUso.GetComponent<EquipoControl>().InitOrder();
                 break;
             case 1:
                 grab = GameObject.Instantiate(ducto);
@@ -92,6 +91,7 @@ public class GranControl : MonoBehaviour
                 grab = GameObject.Instantiate(union);
                 break;
         }
+        grab.GetComponent<ObjectControlMain>().InitOrder();
         grab.SetActive(true);
         grab.SendMessage("ChangeLayer", 8);
         if (equipoEnUso != null)

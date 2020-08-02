@@ -5,16 +5,14 @@ using UnityEngine;
 public class AmbienteControl : MonoBehaviour
 {
     private Vector3[] Cuadrante;
-    public int IdProyecto { get; set; }
-    public string NAmbiente { get; set; }
-    public double Largo { get; set; }
-    public double Ancho { get; set; }
-    public double Alto { get; set; }
-    public double Area { get; set; }
-    public double Recambios { get; set; }
-    public double Flujo { get; set; }
-    public double CFM { get; set; }
 
+    private List<RejillaControl> rejillas;
+    private Ambiente ambiente;
+
+    private void Awake()
+    {
+        rejillas = new List<RejillaControl>();
+    }
     void Start()
     {
         if (Cuadrante == null)
@@ -27,9 +25,17 @@ public class AmbienteControl : MonoBehaviour
             gameObject.AddComponent(typeof(AmbienteMesh));
         }
     }
+    public void InitOrder()
+    {
+        if (DatosScena.Ambiente == null)
+            DatosScena.Ambiente = new List<Ambiente>();
+        this.ambiente = new Ambiente();
+        DatosScena.Ambiente.Add(this.ambiente);
+    }
+
     private void Beta()
     {
-            GetComponent<AmbienteMesh>().Creator(new Vector2[] {
+        GetComponent<AmbienteMesh>().Creator(new Vector2[] {
             new Vector2(0,0),
             new Vector2(1f,0),
             new Vector2(1f,0.5f),
