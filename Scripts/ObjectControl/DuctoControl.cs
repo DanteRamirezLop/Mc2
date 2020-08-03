@@ -10,12 +10,12 @@ public class DuctoControl : ObjectControlMain
     private AmbienteControl amb; //solo si hay un paso
     //solo para formulas, el usuario las cambia
 
-    public override double getAlto()
+    public override double getAlto(GameObject rebote)
     {
         return this.ducto.dimA;
     }
 
-    public override double getAncho()
+    public override double getAncho(GameObject rebote)
     {
         return this.ducto.dimB;
     }

@@ -84,12 +84,12 @@ public class EquipoControl : ObjectControlMain
     {
         Debug.Log("Nope");
     }
-    public override double getAlto()
+    public override double getAlto(GameObject rebote)
     {
         return 6;
     }
 
-    public override double getAncho()
+    public override double getAncho(GameObject rebote)
     {
         return 6;
     }
