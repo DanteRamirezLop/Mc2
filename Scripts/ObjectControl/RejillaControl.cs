@@ -5,10 +5,15 @@ using UnityEngine;
 public class RejillaControl : ObjectControlMain
 {
     public Rejilla rejilla;
+    public GameObject caja;
+    public GameObject semicaja;
     private GameObject colision;
+    private float cachedAncho;
     private void OnEnable()
     {
         colision = new GameObject("colision");
+        colision.AddComponent(typeof(MiniColision));
+        colision.GetComponent<MiniColision>().SetConexion(0);
         colision.transform.SetParent(this.transform);
         colision.transform.localPosition = Vector3.zero;
         colision.AddComponent(typeof(BoxCollider));
@@ -24,39 +29,43 @@ public class RejillaControl : ObjectControlMain
         colision.layer = layer;
     }
 
-    public override double getAncho()
+    public override double getAncho(GameObject rebote)
     {
         if (this.atreferencia.TryGetComponent(typeof(ObjectControlMain), out Component c))
         {
-            if (((ObjectControlMain)c).getAncho() > 0)
+            if (((ObjectControlMain)c).getAncho(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)c).getAncho();
+                return ((ObjectControlMain)c).getAncho(this.gameObject);
             }
         }
+        if (this.adreferencia == rebote)
+            return 6;
         if (this.adreferencia.TryGetComponent(typeof(ObjectControlMain), out Component d))
         {
-            if (((ObjectControlMain)d).getAncho() > 0)
+            if (((ObjectControlMain)d).getAncho(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)d).getAncho();
+                return ((ObjectControlMain)d).getAncho(this.gameObject);
             }
         }
         return 6;
     }
 
-    public override double getAlto()
+    public override double getAlto(GameObject rebote)
     {
         if (this.atreferencia.TryGetComponent(typeof(ObjectControlMain), out Component c))
         {
-            if (((ObjectControlMain)c).getAlto() > 0)
+            if (((ObjectControlMain)c).getAlto(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)c).getAlto();
+                return ((ObjectControlMain)c).getAlto(this.gameObject);
             }
         }
+        if (this.adreferencia == rebote)
+            return 6;
         if (this.adreferencia.TryGetComponent(typeof(ObjectControlMain), out Component d))
         {
-            if (((ObjectControlMain)d).getAlto() > 0)
+            if (((ObjectControlMain)d).getAlto(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)d).getAlto();
+                return ((ObjectControlMain)d).getAlto(this.gameObject);
             }
         }
         return 6;
@@ -74,7 +83,7 @@ public class RejillaControl : ObjectControlMain
 
     public override Vector3 getUbi(int target)
     {
-        return this.transform.position;
+        return this.transform.position + this.transform.forward * this.cachedAncho /2;
     }
 
     public override void InitOrder()
@@ -87,21 +96,48 @@ public class RejillaControl : ObjectControlMain
 
     public override void setAdReference(GameObject refer)
     {
-        throw new System.NotImplementedException();
+        adreferencia = refer;
     }
 
     public override void SetReferencia(GameObject refer)
     {
-        throw new System.NotImplementedException();
+        atreferencia = refer;
+        ObjectControlMain cached = refer.GetComponent<ObjectControlMain>();
+        cached.setAdReference(this.gameObject);
+        cachedAncho = cached.getPAncho();
+        this.transform.localScale = new Vector3(cached.getPAncho(), cached.getPAlto(), cached.getPAncho());
+        PositionFromReference();
+        ReDoPosition(cached.getPAncho());
+    }
+    private void ReDoPosition(float ancho)
+    {
+        if (atreferencia.GetComponent<ObjectControlMain>().getTipo() == 3) {
+            this.transform.Rotate(new Vector3(-90, 0, 0));
+            this.caja.SetActive(false);
+            this.semicaja.SetActive(true);
+        }
+        else
+        {
+            this.transform.Translate(Vector3.forward * ancho / 2);
+            this.caja.SetActive(true);
+            this.semicaja.SetActive(false);
+        }
     }
 
     protected override void ColliderConnectState()
     {
-        throw new System.NotImplementedException();
+        if (atreferencia.GetComponent<ObjectControlMain>().getTipo() == 3)
+            colision.SetActive(false);
+        else
+        {
+            colision.GetComponent<BoxCollider>().size = new Vector3(1, 1, 0.5f);
+            colision.GetComponent<BoxCollider>().center = new Vector3(0, 0, 0.75f);
+        }
     }
 
     protected override void ColliderInspectState()
     {
         colision.GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
     }
+
 }

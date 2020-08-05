@@ -35,15 +35,15 @@ public abstract class ObjectControlMain : MonoBehaviour
     }
     public abstract void SetReferencia(GameObject refer);
     public abstract void setAdReference(GameObject refer);
-    public abstract double getAncho();
-    public abstract double getAlto();
-    protected float getPAlto()
+    public abstract double getAncho(GameObject rebote);
+    public abstract double getAlto(GameObject rebote);
+    public float getPAlto()
     {
-        return (float)metroAPulgada(getAlto());
+        return (float)metroAPulgada(getAlto(this.gameObject));
     }
-    protected float getPAncho()
+    public float getPAncho()
     {
-        return (float)metroAPulgada(getAncho());
+        return (float)metroAPulgada(getAncho(this.gameObject));
     }
     public abstract Vector3 getUbi(int target);
     public abstract Quaternion getRotation(int target);

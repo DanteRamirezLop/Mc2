@@ -40,6 +40,7 @@ public class MultiCanvas : MonoBehaviour
                     EquipoOrden();
                     break;
                 case 1:
+                    DuctoOrden();
                     break;
                 case 2:
                     break;
@@ -49,6 +50,13 @@ public class MultiCanvas : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void DuctoOrden()
+    {
+        Refresh();
+        DuctoControl dc = grabbed.GetComponent<DuctoControl>();
+
     }
 
     private void EquipoOrden()
@@ -101,6 +109,10 @@ public class MultiCanvas : MonoBehaviour
                 e.Exploit();
                 break;
             case 1:
+                cDucto.SetActive(true);
+                DuctoCanvas d = cDucto.GetComponent<DuctoCanvas>();
+                d.target = grabbed.GetComponent<DuctoControl>();
+                d.Exploit();
                 break;
             case 2:
                 break;

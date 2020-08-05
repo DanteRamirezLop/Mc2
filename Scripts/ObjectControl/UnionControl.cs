@@ -21,32 +21,32 @@ public class UnionControl : ObjectControlMain
         }
     }
 
-    public override double getAlto()
+    public override double getAlto(GameObject rebote)
     {
         double ret = 6;
         if (this.atreferencia != null)
-            if (ret < atreferencia.GetComponent<ObjectControlMain>().getAlto())
-                ret = atreferencia.GetComponent<ObjectControlMain>().getAlto();
+            if (ret < atreferencia.GetComponent<ObjectControlMain>().getAlto(this.gameObject))
+                ret = atreferencia.GetComponent<ObjectControlMain>().getAlto(this.gameObject);
         foreach (var refer in referencias)
         {
-            if (refer != null)
-                if (ret < refer.GetComponent<ObjectControlMain>().getAlto())
-                    ret = refer.GetComponent<ObjectControlMain>().getAlto();
+            if (refer != null && refer != rebote)
+                if (ret < refer.GetComponent<ObjectControlMain>().getAlto(this.gameObject))
+                    ret = refer.GetComponent<ObjectControlMain>().getAlto(this.gameObject);
         }
         return ret;
     }
 
-    public override double getAncho()
+    public override double getAncho(GameObject rebote)
     {
         double ret = 6;
         if (this.atreferencia != null)
-            if (ret < atreferencia.GetComponent<ObjectControlMain>().getAncho())
-                ret = atreferencia.GetComponent<ObjectControlMain>().getAncho();
+            if (ret < atreferencia.GetComponent<ObjectControlMain>().getAncho(this.gameObject))
+                ret = atreferencia.GetComponent<ObjectControlMain>().getAncho(this.gameObject);
         foreach (var refer in referencias)
         {
-            if (refer != null)
-                if (ret < refer.GetComponent<ObjectControlMain>().getAncho())
-                    ret = refer.GetComponent<ObjectControlMain>().getAncho();
+            if (refer != null && refer != rebote)
+                if (ret < refer.GetComponent<ObjectControlMain>().getAncho(this.gameObject))
+                    ret = refer.GetComponent<ObjectControlMain>().getAncho(this.gameObject);
         }
         return ret;
     }

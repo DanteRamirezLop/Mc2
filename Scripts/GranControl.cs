@@ -16,6 +16,7 @@ public class GranControl : MonoBehaviour
     public GameObject ducto;
     public GameObject union;
     public GameObject equipo;
+    public GameObject rejilla;
     public MultiCanvas canvasControl;
     public GameObject Opciones;
     private CamaraDedicada cam;
@@ -75,6 +76,10 @@ public class GranControl : MonoBehaviour
     }
     public void Creador(int a)
     {
+        if (grab != null)
+        {
+            Destroy(grab);
+        }
         switch (a)
         {
             case 0:
@@ -89,6 +94,9 @@ public class GranControl : MonoBehaviour
                 break;
             case 3:
                 grab = GameObject.Instantiate(union);
+                break;
+            case 4:
+                grab = GameObject.Instantiate(rejilla);
                 break;
         }
         grab.GetComponent<ObjectControlMain>().InitOrder();

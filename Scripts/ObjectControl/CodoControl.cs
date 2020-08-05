@@ -6,9 +6,6 @@ using UnityEngine;
 public class CodoControl : ObjectControlMain
 {
     private CodoMesh mesh;
-    public Vector2 angulo;
-    public double anchopr;
-    public double altopr;
     private Multiple codo;
 
 
@@ -22,39 +19,43 @@ public class CodoControl : ObjectControlMain
         mesh = GetComponent<CodoMesh>();
     }
 
-    public override double getAncho()
+    public override double getAncho(GameObject rebote)
     {
         if (this.atreferencia.TryGetComponent(typeof (ObjectControlMain), out Component c))
         {
-            if (((ObjectControlMain)c).getAncho() > 0)
+            if (((ObjectControlMain)c).getAncho(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)c).getAncho();
+                return ((ObjectControlMain)c).getAncho(this.gameObject);
             }
         }
+        if (adreferencia == rebote)
+            return 6;
         if (this.adreferencia.TryGetComponent(typeof (ObjectControlMain), out Component d))
         {
-            if (((ObjectControlMain)d).getAncho() > 0)
+            if (((ObjectControlMain)d).getAncho(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)d).getAncho();
+                return ((ObjectControlMain)d).getAncho(this.gameObject);
             }
         }
         return 6;
     }
 
-    public override double getAlto()
+    public override double getAlto(GameObject rebote)
     {
         if (this.atreferencia.TryGetComponent(typeof(ObjectControlMain), out Component c))
         {
-            if (((ObjectControlMain)c).getAlto() > 0)
+            if (((ObjectControlMain)c).getAlto(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)c).getAlto();
+                return ((ObjectControlMain)c).getAlto(this.gameObject);
             }
         }
+        if (adreferencia == rebote)
+            return 6; 
         if (this.adreferencia.TryGetComponent(typeof(ObjectControlMain), out Component d))
         {
-            if (((ObjectControlMain)d).getAlto() > 0)
+            if (((ObjectControlMain)d).getAlto(this.gameObject) > 0)
             {
-                return ((ObjectControlMain)d).getAlto();
+                return ((ObjectControlMain)d).getAlto(this.gameObject);
             }
         }
         return 6;
@@ -75,12 +76,6 @@ public class CodoControl : ObjectControlMain
         atreferencia = refer;
         refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
         PositionFromReference();
-        if (atreferencia != null)
-        {
-            Debug.Log("got it");
-            angulo = new Vector2(90, 0);
-            this.mesh.Change(angulo, getPAncho(), getPAlto());
-        }
     }
 
     public override void setAdReference(GameObject refer)
@@ -123,5 +118,7 @@ public class CodoControl : ObjectControlMain
             DatosScena.Multiple = new List<Multiple>();
         this.codo = new Multiple();
         DatosScena.Multiple.Add(codo);
+        codo.giroX = 90;
+        codo.giroY = 0;
     }
 }

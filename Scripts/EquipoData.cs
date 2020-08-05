@@ -5,6 +5,7 @@ using UnityEngine;
 public class EquipoData
 {
     public Mesh mesh;
+    public Vector3 meshRotation;
     public Vector3[] offsets;
     public Vector3[] rotation;
     public Material material;
