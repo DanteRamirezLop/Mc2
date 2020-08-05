@@ -15,11 +15,22 @@ public class DatosScena : MonoBehaviour {
     public static List<Equipo> Equipo;
     public static List<Filtro> Filtro;
     public static List<Espfiltro> Espfiltro;
-    public static List<Item> Item;
+    //public static List<Item> Item;
     public static List<Metradoex> Metradoex;
     public static List<Multiple> Multiple;
     public static List<Rejilla> Rejilla;  
 
+    /*
+    public RegistroAmbiente ScriptA;
+    public RegistroDucto ScriptD;
+    public RegistroDuctopass ScriptDP;
+    public RegistroEquipo ScriptE;
+    public RegistroFiltro ScriptF;
+    public RegistroEspfiltro ScriptEF;
+    public RegistroMetradoex ScriptME;
+    public RegistroMultiple ScriptMU;
+    public RegistroRejilla ScriptR;
+    */
     /// <summary>
     /// Evita que el objeto sea destruido al pasar de escena (Singleton)
     /// </summary>
@@ -37,4 +48,55 @@ public class DatosScena : MonoBehaviour {
             Destroy(this);
         }
     }
+/*
+    public void InsertarBD() 
+    {
+        foreach (Ambiente items in Ambiente) 
+        {
+            if (items.id == 0 && items.estado==true)
+                ScriptA.Registrar(items);
+        }
+        foreach (Ducto items in Ducto)
+        {
+            if (items.id == 0 && items.estado == true)
+                ScriptD.Registrar(items);
+        }
+        foreach (Ductopass items in Ductopass)
+        {
+            if (items.idDucto == 0 && items.estado == true)
+                ScriptDP.Registrar(items);
+        }
+        foreach (Equipo items in Equipo)
+        {
+            if (items.id == 0 && items.estado == true)
+                ScriptE.Registrar(items);
+        }
+        foreach (Filtro items in Filtro)
+        {
+            if (items.id == 0 && items.estado == true)
+                ScriptF.Registrar(items);
+        }
+        foreach (Espfiltro items in Espfiltro)
+        {
+            if (items.idEquip == 0 && items.estado == true)
+                ScriptEF.Registrar(items);
+        }
+        foreach (Metradoex items in Metradoex)
+        {
+            if (items.id == 0 && items.estado == true)
+                ScriptME.Registrar(items);
+        }
+        foreach (Multiple items in Multiple)
+        {
+            if (items.id == 0 && items.estado == true)
+                ScriptMU.Registrar(items);
+        }
+        foreach (Rejilla items in Rejilla)
+        {
+            if (items.id == 0 && items.estado == true)
+                ScriptR.Registrar(items);
+        }
+    
+    }
+    */
 }
