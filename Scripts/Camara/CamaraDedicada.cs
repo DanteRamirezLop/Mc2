@@ -36,17 +36,17 @@ public class CamaraDedicada : MonoBehaviour
             this.transform.rotation = transicion.SlerpTransRotation();
             return;
         }
-        if (!available)
-            return;
         if (cuadrante != null)
         {
-            Direccionales();
-            if (Input.GetKey(KeyCode.LeftControl))
-                DesplazarCamara();
             if (Input.GetMouseButton(1))
                 ControlMouse();
             if (Input.mouseScrollDelta.y != 0f)
                 MoverAdelante();
+            if (!available)
+                return;
+            Direccionales();
+            if (Input.GetKey(KeyCode.LeftControl))
+                DesplazarCamara();
         }
         else
         {

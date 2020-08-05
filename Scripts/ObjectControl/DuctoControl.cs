@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,9 +47,11 @@ public class DuctoControl : ObjectControlMain
 
     public void Refresh()
     {
+        if (ducto.longitud < 0.5)
+            ducto.longitud = 0.5;
         this.mesh.ReCreator((float)ducto.longitud);
         this.mesh.ReCreator(getPAncho(), getPAlto());
-        Debug.Log("an: " + getPAncho() + "al:" + getPAlto());
+        //Debug.Log("an: " + getPAncho() + "al:" + getPAlto());
     }
     public void setAlto(double alto)
     {
@@ -110,5 +113,70 @@ public class DuctoControl : ObjectControlMain
             DatosScena.Ducto = new List<Ducto>();
         this.ducto = new Ducto();
         DatosScena.Ducto.Add(this.ducto);
+    }
+
+    public double DiametroEquivalente()
+    {
+        return 1.3 * (Math.Pow(ducto.dimA * ducto.dimB, 0.625) /
+            Math.Pow(ducto.dimA + ducto.dimB, 0.25));
+    }
+    public double CaidaPresionUnitaria()
+    {
+        return 0.109136 * Math.Pow(CFMreal(), 1.9) / Math.Pow(DiametroEquivalente(), 5.02);
+    }
+
+    public double CaidaPresionPiso()
+    {
+        return CaidaPresionUnitaria() / 100 * (ducto.longitud / 0.3048);
+    }
+    public double Velocidad()
+    {
+        return CFMreal() / (ducto.dimA * ducto.dimB / 144);
+    }
+    public double HV()
+    {
+        return Math.Pow(Velocidad() / 4005, 2);
+    }
+    public double CaidaPresionH2O()
+    {
+        double dif = 0;
+        double rt = 0;
+        double multi = 0;
+        double codo = 0;
+        if (adreferencia != null)
+        {
+            switch (adreferencia.GetComponent<ObjectControlMain>().getTipo())
+            {
+                case 1:
+                    break;
+                case 2:
+                    codo = 1;
+                    break;
+                case 3:
+                    multi = 1;
+                    break;
+                case 4:
+                    if (ducto.tipo == 0)
+                        dif = 1;
+                    else
+                        rt = 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+        return HV() * codo * 0.32 + multi * 0.16 + ducto.damCer50 * 0.2 + ducto.damCer10 * 0.52 +
+                ducto.damAb100 * 29 + ducto.tranRec * 0.8 + ducto.conVen * 0.2 + dif * 0.016 +
+                0.06 * rt + ducto.lumAli * 0.07;
+    }
+    public double PerdidaTotal()
+    {
+        double caida1 = CaidaPresionPiso();
+        double caida2 = CaidaPresionH2O();
+        if (double.IsNaN(caida1) || double.IsInfinity(caida1))
+            caida1 = 0;
+        if (Double.IsNaN(caida2) || double.IsInfinity(caida2))
+            caida2 = 0;
+        return caida1 + caida2;
     }
 }

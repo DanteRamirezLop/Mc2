@@ -19,6 +19,7 @@ public class MultiCanvas : MonoBehaviour
     private void Awake()
     {
         cEquipo.GetComponent<EquipoCanvas>().controlador = this.gameObject;
+        cDucto.GetComponent<DuctoCanvas>().controlador = this.gameObject;
         textoSac = new List<GameObject>();
     }
     public void SetGrab(GameObject gr)
@@ -27,6 +28,7 @@ public class MultiCanvas : MonoBehaviour
         {
             this.gameObject.SetActive(false);
             cEquipo.SetActive(false);
+            cDucto.SetActive(false);
             //hide here
             grabbed = null;
         }
@@ -56,7 +58,24 @@ public class MultiCanvas : MonoBehaviour
     {
         Refresh();
         DuctoControl dc = grabbed.GetComponent<DuctoControl>();
-
+        texto.GetComponent<Text>().text = $"Nombre : {dc.ducto.nombre}";
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac[0].GetComponent<Text>().text = $"Flujo CFM: {dc.CFMreal()}";
+        textoSac[1].GetComponent<Text>().text = $"Diametro equivalente: {dc.DiametroEquivalente()}";
+        textoSac[2].GetComponent<Text>().text = $"Caida presión UNIT[in/100fts]: {dc.CaidaPresionUnitaria()}";
+        textoSac[3].GetComponent<Text>().text = $"Caida presión PISO[in H2O]: {dc.CaidaPresionUnitaria()}";
+        textoSac[4].GetComponent<Text>().text = $"Velocidad [fpm]: {dc.Velocidad()}";
+        textoSac[5].GetComponent<Text>().text = $"HV: {dc.HV()}";
+        textoSac[6].GetComponent<Text>().text = $"Caida presion UNIT [in H2O]: {dc.CaidaPresionH2O()}";
+        textoSac[7].GetComponent<Text>().text = $"Perdida total [in H2O]: {dc.PerdidaTotal()}";
+        ReOrderElements();
     }
 
     private void EquipoOrden()

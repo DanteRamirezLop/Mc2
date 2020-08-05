@@ -59,11 +59,15 @@ public class GranControl : MonoBehaviour
         {
             switch (operationState)
             {
+                case 0:
+                    HideInspector();
+                    break;
                 case 1:
                     if (grab != null)
                     {
                         //no olvidar el DestroyOrder
                         Destroy(grab);
+                        HideInspector();
                     }
                     break;
                 default:
