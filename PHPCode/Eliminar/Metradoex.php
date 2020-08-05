@@ -6,7 +6,7 @@
 	$sql ="DELETE FROM metradoex WHERE id= '".$id."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso";
+		echo "Eliminacion exitoso - metradoex";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

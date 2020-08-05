@@ -7,37 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class RegistroMetradoex : MonoBehaviour {
 
-    //public Text id;
-    public InputField idEquipo;
-    public InputField dima;
-    public InputField dimb;
-    public InputField tipo;
-    public InputField multi;
-
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+    public void Registrar(Metradoex datos)
     {
-        if (idEquipo.text != "" && dima.text != "" && dimb.text != "" && tipo.text != "" && multi.text != "")
-        {
-            //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(idEquipo.text, dima.text, dimb.text, tipo.text, multi.text));
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
     }
 
-    private IEnumerator RegistraBD(string idEquipo, string dima, string dimb, string tipo, string multi)
+
+    private IEnumerator RegistraBD(Metradoex datos)
     {
         WWWForm form = new WWWForm();
-        form.AddField("idEquipo", idEquipo);
-        form.AddField("dima", dima);
-        form.AddField("dimb", dimb);
-        form.AddField("tipo", tipo);
-        form.AddField("multi", multi);
+        form.AddField("idEquipo", datos.idEquipo.ToString());
+        form.AddField("dima", datos.dima.ToString());
+        form.AddField("dimb", datos.dimb.ToString());
+        form.AddField("tipo", datos.tipo.ToString());
+        form.AddField("multi", datos.multi.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Metradoex.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Metradoex.php", form))
         {
             yield return www.SendWebRequest();
 

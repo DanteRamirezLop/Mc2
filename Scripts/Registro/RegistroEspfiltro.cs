@@ -7,31 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class RegistroEspfiltro : MonoBehaviour {
 
-    public InputField idEquipo;
-    public InputField idFiltro;
-
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+    public void Registrar(Espfiltro datos)
     {
-        if ( idEquipo.text != "" && idFiltro.text != "" )
-        {
-            //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(idEquipo.text,idFiltro.text));
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
     }
 
-    private IEnumerator RegistraBD(string idEquipo, string idFiltro )
+
+    private IEnumerator RegistraBD(Espfiltro datos)
     {
         WWWForm form = new WWWForm();
-        form.AddField("idEquipo", idEquipo);
-        form.AddField("idFiltro", idFiltro);
+        form.AddField("idEquip", datos.idEquip.ToString());
+        form.AddField("idFiltro", datos.idFiltro.ToString());
 
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Espfiltro.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Espfiltro.php", form))
         {
             yield return www.SendWebRequest();
 

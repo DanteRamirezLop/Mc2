@@ -7,31 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class RegistroMultiple : MonoBehaviour {
 
-    //public Text id;
-    public InputField giroX;
-    public InputField giroY;
-
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+    public void Registrar(Multiple datos)
     {
-        if (giroX.text != "" && giroY.text != "")
-        {
-            //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(giroX.text, giroY.text));
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
     }
 
-    private IEnumerator RegistraBD(string giroX, string giroY)
+
+    private IEnumerator RegistraBD(Multiple datos)
     {
         WWWForm form = new WWWForm();
-        form.AddField("giroX", giroX);
-        form.AddField("giroY", giroY);
+        form.AddField("giroX", datos.giroX.ToString());
+        form.AddField("giroY", datos.giroY.ToString());
+		//-----------
+		form.AddField("idItem", datos.idItem.ToString());
+        form.AddField("idEquipo", datos.idEquipo.ToString());
+        form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Multiple.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Multiple.php", form))
         {
             yield return www.SendWebRequest();
 

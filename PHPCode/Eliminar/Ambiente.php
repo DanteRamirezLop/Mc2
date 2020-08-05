@@ -3,10 +3,10 @@
 
 	 $id = $_POST["id"];
 	 	
-     $sql = "DELETE FROM ambiente WHERE id= '".$id."'";
+     $sql = "DELETE FROM ambiente WHERE id ='".$id."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "MENSAJE API: Eliminacion exitoso en la BD";
+		echo "MENSAJE API: Eliminacion exitoso en la BD - Ambiente";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

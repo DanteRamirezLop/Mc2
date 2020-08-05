@@ -7,30 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class RegistroFiltro : MonoBehaviour {
 
-   // public Text id;
-    public InputField nombre;
-
-
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+    public void Registrar(Filtro datos)
     {
-        if (nombre.text != "")
-        {
-            //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(nombre.text));
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
     }
 
-    private IEnumerator RegistraBD(string nombre)
+
+    private IEnumerator RegistraBD(Filtro datos)
     {
         WWWForm form = new WWWForm();
-        form.AddField("nombre", nombre);
+        form.AddField("nombre", datos.nombre);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Filtro.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Filtro.php", form))
         {
             yield return www.SendWebRequest();
 

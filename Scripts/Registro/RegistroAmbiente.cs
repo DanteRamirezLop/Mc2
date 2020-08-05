@@ -7,63 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class RegistroAmbiente : MonoBehaviour {
 
-    //public Text id;
-    public Text idProyecto;
-    public InputField nAmbiente;
-    public InputField largo;
-    public InputField ancho;
-    public InputField altura;
-    //public InputField area;
-    public InputField recambios;
-    public InputField flujo;
-    public InputField cfm;
-    public Text coordenada;
-
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+     public void Registrar(Ambiente datos)
     {
-        if (idProyecto.text != "" && nAmbiente.text != "" && largo.text != "" && ancho.text != "" && altura.text != "" && recambios.text != "" && flujo.text != "" && cfm.text != "" && coordenada.text != "")
-        {
-            //validar que solo se ingrese numeros o texto
-
-            string area = "0"; //calcular el area
-            StartCoroutine(RegistraBD(idProyecto.text, nAmbiente.text, largo.text, ancho.text, altura.text, area, recambios.text, flujo.text, cfm.text,coordenada.text));
-            //LimpiarCampos();
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
+        Debug.Log("----2---");
     }
 
-    private void LimpiarCampos(){
-        idProyecto.text = "";
-        nAmbiente.text = "";
-        largo.text = "";
-        ancho.text = "";
-        altura.text = "";
-        // area.text = "";
-        recambios.text = "";
-        flujo.text = "";
-        cfm.text = "";
-        coordenada.text = "";
-    }
-
-    private IEnumerator RegistraBD(string idProyecto, string nAmbiente, string largo, string ancho, string altura, string area, string recambios, string flujo, string cfm, string coordenada)
+    private IEnumerator RegistraBD(Ambiente datos)
     {
+        Debug.Log("----3---");
         WWWForm form = new WWWForm();
-        form.AddField("idProyecto", idProyecto);
-        form.AddField("nAmbiente", nAmbiente);
-        form.AddField("largo", largo);
-        form.AddField("ancho", ancho);
-        form.AddField("altura", altura);
-        form.AddField("area", area);
-        form.AddField("recambios", recambios);
-        form.AddField("flujo", flujo);
-        form.AddField("cfm", cfm);
-        form.AddField("coordenada", coordenada);
+        form.AddField("idProyecto", datos.idProyecto.ToString());
+        form.AddField("nAmbiente", datos.nAmbiente.ToString());
+        form.AddField("largo", datos.largo.ToString());
+        form.AddField("ancho", datos.ancho.ToString());
+        form.AddField("altura", datos.altura.ToString());
+        form.AddField("area", datos.area.ToString());
+        form.AddField("recambios", datos.recambios.ToString());
+        form.AddField("flujo", datos.flujo.ToString());
+        form.AddField("cfm", datos.cfm.ToString());
+        form.AddField("coordenada", datos.coordenada.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Ambiente.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Ambiente.php", form))
         {
             yield return www.SendWebRequest();
 

@@ -8,27 +8,10 @@ using UnityEngine.SceneManagement;
 public class RegistrarProyecto : MonoBehaviour {
 
     public InputField nombre;
-    public GameObject Panel_msj;
 
     public void Registrar()
     {
-        if (nombre.text != "")
-        {
-            //Debug.Log("Correcto");
-            StartCoroutine(RegistraBD(nombre.text));
-            Debug.Log("proyecto creado");
-            SceneManager.LoadScene("SampleScene");
-            //LimpiarCampos();
-        }
-        else
-        {
-            Panel_msj.SetActive(true);
-        }
-    }
-
-    private void LimpiarCampos()
-    {
-        nombre.text = "";
+        StartCoroutine(RegistraBD(nombre.text));
     }
 
     private IEnumerator RegistraBD(string nombre)
@@ -36,7 +19,7 @@ public class RegistrarProyecto : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("nombre",nombre);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Proyecto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Proyecto.php", form))
         {
             yield return www.SendWebRequest();
 

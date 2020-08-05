@@ -6,7 +6,7 @@
 	$sql ="DELETE FROM item WHERE id= '".$id."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso";
+		echo "Eliminarcion exitoso Item";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

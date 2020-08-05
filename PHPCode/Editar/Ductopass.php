@@ -6,9 +6,9 @@
 	 $ccy =$_POST["ccy"];
 	 $ccz =$_POST["ccz"];
 	 $paso =$_POST["paso"];
-	 $dibujar =$_POST["dibujar"];
+	 $dibujar =(int)$_POST["dibujar"];
 	 
-	$sql ="UPDATE ductoPASS SET ccx='".$ccx."','ccy=".$ccy."','ccz=".$ccz."','paso=".$paso."','dibujar=".$dibujar."' WHERE idDucto='".$idDucto ."'";
+	$sql ="UPDATE ductoPASS SET ccx='".$ccx."',ccy='".$ccy."',ccz='".$ccz."',paso='".$paso."',dibujar='".$dibujar."' WHERE idDucto='".$idDucto ."'";
 	
 	if($conn->query($sql)===TRUE){
 		echo "Registro exitoso";

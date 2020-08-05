@@ -13,8 +13,8 @@
 	 $cfm =$_POST["cfm"];
 	 $coordenada =$_POST["coordenada"];
 	 
-	$sql = "UPDATE ambiente SET 
-	idProyecto='".$idProyecto."','nAmbiente=".$nAmbiente."','largo=".$largo."','ancho=".$ancho."','altura=".$altura."','area=".$area."','recambios=".$recambios."','flujo=".$flujo."','cfm=".$cfm."','coordenada=".$coordenada.
+	$sql = "UPDATE ambiente SET  
+	idProyecto='".$idProyecto."',nAmbiente='".$nAmbiente."',largo='".$largo."',ancho='".$ancho."',altura='".$altura."',area='".$area."',recambios='".$recambios."',flujo='".$flujo."',cfm='".$cfm."',coordenada='".$coordenada.
 	"' WHERE id= '".$id. "'";
 	
 	if($conn->query($sql)===TRUE){

@@ -5,7 +5,7 @@
 	 $idEquipo =$_POST["idEquipo"];
 	 $dima =$_POST["dima"];
 	 $dimb =$_POST["dimb"];
-	 $tipo =$_POST["tipo"];
+	 $tipo =(int)$_POST["tipo"];
 	 $multi =$_POST["multi"];
 	 
 	$sql ="INSERT INTO metradoex (idEquipo,dima,dimb,tipo,multi) 

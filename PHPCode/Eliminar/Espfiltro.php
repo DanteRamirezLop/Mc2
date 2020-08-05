@@ -2,12 +2,12 @@
      include_once 'Conexion.php';	 
 	 
 	 $idEquip = $_POST["idEquip"];
-	 //$idFiltro =$_POST["idFiltro"];
+	 $idFiltro =$_POST["idFiltro"];
 	 
-	$sql ="DELETE FROM espfiltro WHERE idEquip= '".$idEquip."'";
+	$sql ="DELETE FROM espfiltro WHERE idEquip= '".$idEquip."' AND idFiltro='".$idFiltro."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso";
+		echo "Eliminacion exitoso - Espfiltro";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

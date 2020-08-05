@@ -7,7 +7,7 @@
 	$sql ="UPDATE espfiltro SET idFiltro='".$idFiltro."' WHERE idEquip='".$idEquip."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso";
+		echo "Registro exitoso Espfiltro";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

@@ -9,9 +9,9 @@ using System.IO;
         //public int id;// se repite en idItem de la tabla item
         public double longitud;
         public int paso;
-        public int dibujar;
+        public int dibujar;//bool
         //public int idDucto; // se repite en id de la tabla ducto
-        public int tipo;
+        public int tipo;//bool
         public string nombre;
         public double dimA;
         public double dimB;

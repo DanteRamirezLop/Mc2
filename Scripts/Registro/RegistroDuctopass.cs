@@ -7,38 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class RegistroDuctopass : MonoBehaviour {
 
-    //public Text idDucto;
-    public InputField ccx;
-    public InputField ccy;
-    public InputField ccz;
-    public InputField paso;
-	public InputField dibujar;
-
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+    public void Registrar(Ductopass datos)
     {
-        if (ccx.text != "" && ccy.text != "" && ccz.text != "" && paso.text != "" && dibujar.text != "")
-        {
-            //validar que solo se ingrese numeros o texto
-
-            StartCoroutine(RegistraBD(ccx.text, ccy.text, ccz.text, paso.text, dibujar.text));
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
     }
 
-    private IEnumerator RegistraBD(string ccx, string ccy, string ccz, string paso, string dibujar)
+
+    private IEnumerator RegistraBD(Ductopass datos)
     {
         WWWForm form = new WWWForm();
-        form.AddField("ccx", ccx);
-        form.AddField("ccy", ccy);
-        form.AddField("ccz", ccz);
-        form.AddField("paso", paso);
-        form.AddField("dibujar", dibujar);
+        form.AddField("idDucto", datos.idDucto.ToString());
+        form.AddField("ccx", datos.ccx.ToString());
+        form.AddField("ccy", datos.ccy.ToString());
+        form.AddField("ccz", datos.ccz.ToString());
+        form.AddField("paso", datos.paso.ToString());
+        form.AddField("dibujar", datos.dibujar.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Ductopass.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Ductopass.php", form))
         {
             yield return www.SendWebRequest();
 

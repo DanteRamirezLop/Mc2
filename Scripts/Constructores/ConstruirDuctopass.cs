@@ -11,7 +11,7 @@ using System.IO;
         public float ccy;
         public float ccz;
         public int paso;
-        public int dibujar;
+        public int dibujar;// boll
         public bool estado;
 
         public override string ToString()

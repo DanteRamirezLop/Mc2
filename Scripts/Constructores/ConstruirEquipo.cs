@@ -17,11 +17,11 @@ public class Equipo
     public bool calculo; //aire acondicionado o ventilacion
     public int vinculo;
     public string nivel;
-    //public int idAmbiente; //se repite en id
+    public int idAmbiente; 
     public float ccx;
     public float ccy;
     public float ccz;
-    public int idEquipoV;
+    //public int idEquipoV;//se repite en id
     public double potencia;
     public double voltaje;
     public bool sistema;
@@ -41,7 +41,7 @@ public class Equipo
     public override string ToString()
     {
         return string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29}"
-            ,id, idProyecto, codigo, tipo, velocidadIny, velocidadExt, porcentajeIny, porcentajeExt, calculo, vinculo, nivel, ccx, ccy, ccz, idEquipoV, potencia, voltaje, sistema, enfEntrada1, enfEntrada2, enfSalida1, enfSalida2, tipo2, Hz, CSensible, CLatente, ESensible, ELatente, caudal,estado);
+            ,id, idProyecto, codigo, tipo, velocidadIny, velocidadExt, porcentajeIny, porcentajeExt, calculo, vinculo, nivel,idAmbiente, ccx, ccy, ccz, potencia, voltaje, sistema, enfEntrada1, enfEntrada2, enfSalida1, enfSalida2, tipo2, Hz, CSensible, CLatente, ESensible, ELatente, caudal,estado);
     }
 }
 

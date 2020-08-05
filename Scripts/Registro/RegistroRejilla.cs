@@ -7,31 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class RegistroRejilla : MonoBehaviour {
 
-    //public InputField id;
-    public InputField nombre;
-    public InputField cfm;
-
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+    public void Registrar(Rejilla datos)
     {
-        if (nombre.text != "" && cfm.text != "")
-        {
-            //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(nombre.text, cfm.text));
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
     }
 
-    private IEnumerator RegistraBD(string nombre, string cfm)
+    private IEnumerator RegistraBD(Rejilla datos)
     {
         WWWForm form = new WWWForm();
-        form.AddField("nombre", nombre);
-        form.AddField("cfm", cfm);
+        form.AddField("nombre", datos.nombre.ToString());
+        form.AddField("cfm", datos.cfm.ToString());
+		//-----------
+		form.AddField("idItem", datos.idItem.ToString());
+        form.AddField("idEquipo", datos.idEquipo.ToString());
+        form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Rejilla.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Rejilla.php", form))
         {
             yield return www.SendWebRequest();
 

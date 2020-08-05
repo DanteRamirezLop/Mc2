@@ -5,10 +5,10 @@
 	 $idEquipo =$_POST["idEquipo"];
 	 $dima =$_POST["dima"];
 	 $dimb =$_POST["dimb"];
-	 $tipo =$_POST["tipo"];
+	 $tipo =(int)$_POST["tipo"];
 	 $multi =$_POST["multi"];
 	 
-	$sql ="UPDATE metradoex SET idEquipo='".$idEquipo."','dima=".$dima."','dimb=".$dimb."','tipo=".$tipo."','multi=".$multi."' WHERE id='". $id."'";
+	$sql ="UPDATE metradoex SET idEquipo='".$idEquipo."',dima='".$dima."',dimb='".$dimb."',tipo='".$tipo."',multi='".$multi."' WHERE id='". $id."'";
 	
 	if($conn->query($sql)===TRUE){
 		echo "Registro exitoso";

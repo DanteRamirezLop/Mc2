@@ -7,33 +7,37 @@ using UnityEngine.SceneManagement;
 
 public class RegistroDucto : MonoBehaviour {
 
-    //public Text id;
-	public InputField longitud;
-    public InputField paso;
-    public InputField dibujar;
 
-    public GameObject Panel_msj;
-    
-    public void RegistrarAmbiente()
+    public void Registrar(Ducto datos)
     {
-        if (longitud.text != "" && paso.text != "" && dibujar.text != "")
-        {
-            //validar que solo se ingrese numeros o texto
-            StartCoroutine(RegistraBD(longitud.text, paso.text, dibujar.text));
-            SceneManager.LoadScene("EscenaConstruccion");
-        }else {
-            Panel_msj.SetActive(true);
-        }
+		StartCoroutine(RegistraBD(datos));
     }
 
-    private IEnumerator RegistraBD(string longitud, string paso, string dibujar)
+    private IEnumerator RegistraBD(Ducto datos)
     {
         WWWForm form = new WWWForm();
-        form.AddField("longitud", longitud);
-        form.AddField("paso", paso);
-        form.AddField("dibujar", dibujar);
+        form.AddField("id", datos.id.ToString());
+        form.AddField("longitud", datos.longitud.ToString());
+        form.AddField("paso", datos.paso.ToString());
+        form.AddField("dibujar", datos.dibujar.ToString());
+		//-------------
+		form.AddField("tipo", datos.tipo.ToString());
+        form.AddField("nombre", datos.nombre.ToString());
+        form.AddField("dimA", datos.dimA.ToString());
+        form.AddField("dimB", datos.dimB.ToString());
+        form.AddField("flujoCFM", datos.flujoCFM.ToString());
+        form.AddField("damAb100", datos.damAb100.ToString());
+        form.AddField("damCer10", datos.damCer10.ToString());
+        form.AddField("damCer50", datos.damCer50.ToString());
+        form.AddField("tranRec", datos.tranRec.ToString());
+        form.AddField("conVen", datos.conVen.ToString());
+		form.AddField("lumAli", datos.lumAli.ToString());
+		//-----------
+		form.AddField("idItem", datos.idItem.ToString());
+        form.AddField("idEquipo", datos.idEquipo.ToString());
+        form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registro/Ducto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Ducto.php", form))
         {
             yield return www.SendWebRequest();
 

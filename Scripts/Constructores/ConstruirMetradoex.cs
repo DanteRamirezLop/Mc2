@@ -10,7 +10,7 @@ using System.IO;
         public int idEquipo;
         public int dima;
         public int dimb;
-        public int tipo;
+        public int tipo;// bool
         public double multi;
         public bool estado;
 
