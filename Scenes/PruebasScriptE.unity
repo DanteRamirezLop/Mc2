@@ -285,7 +285,19 @@ MonoBehaviour:
   m_Group: {fileID: 180261590}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: GetAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &20693547 stripped
 GameObject:
@@ -2471,7 +2483,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &228480201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2517,6 +2529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc98ce05afc3f6e4a972f69f29e33002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
   tgDerecha: {fileID: 1247146712}
   tgIzquierda: {fileID: 623660237}
   tgArriba: {fileID: 1339920712}
@@ -2524,6 +2537,7 @@ MonoBehaviour:
   tgOtro: {fileID: 19581509}
   inputEjeX: {fileID: 2143207399}
   inputEjeY: {fileID: 595879872}
+  controlador: {fileID: 0}
 --- !u!1 &230654137
 GameObject:
   m_ObjectHideFlags: 0
@@ -6389,10 +6403,10 @@ MonoBehaviour:
     calculo: 0
     vinculo: 0
     nivel: 
+    idAmbiente: 0
     ccx: 0
     ccy: 0
     ccz: 0
-    idEquipoV: 0
     potencia: 0
     voltaje: 0
     sistema: 0
@@ -8280,7 +8294,19 @@ MonoBehaviour:
   m_Group: {fileID: 180261590}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: GetAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &649449672
 GameObject:
@@ -8932,7 +8958,19 @@ MonoBehaviour:
   m_Group: {fileID: 180261590}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: GetAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &659637944
 GameObject:
@@ -15209,6 +15247,14 @@ MonoBehaviour:
   conexion: 0
   atreferencia: {fileID: 0}
   adreferencia: {fileID: 0}
+  codo:
+    id: 0
+    idItem: 0
+    idEquipo: 0
+    conexion: 0
+    giroX: 0
+    giroY: 0
+    estado: 0
 --- !u!1 &1109714550
 GameObject:
   m_ObjectHideFlags: 0
@@ -16523,7 +16569,19 @@ MonoBehaviour:
   m_Group: {fileID: 180261590}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: GetAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &1254426808
 GameObject:
@@ -16662,7 +16720,7 @@ MonoBehaviour:
   cDucto: {fileID: 2099133960}
   cMultiple: {fileID: 0}
   cRejilla: {fileID: 0}
-  cCodo: {fileID: 0}
+  cCodo: {fileID: 228480200}
 --- !u!1 &1271218036
 GameObject:
   m_ObjectHideFlags: 0
@@ -17635,7 +17693,19 @@ MonoBehaviour:
   m_Group: {fileID: 180261590}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: GetAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1341269540
 GameObject:
@@ -22147,7 +22217,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1724688031}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1724688031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31639,7 +31721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2426997514495882652
 MonoBehaviour:
   m_ObjectHideFlags: 0

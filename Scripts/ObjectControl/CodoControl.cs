@@ -6,7 +6,7 @@ using UnityEngine;
 public class CodoControl : ObjectControlMain
 {
     private CodoMesh mesh;
-    private Multiple codo;
+    public Multiple codo;
 
 
     // Start is called before the first frame update

@@ -20,6 +20,7 @@ public class MultiCanvas : MonoBehaviour
     {
         cEquipo.GetComponent<EquipoCanvas>().controlador = this.gameObject;
         cDucto.GetComponent<DuctoCanvas>().controlador = this.gameObject;
+        cCodo.GetComponent<CodoCanvas>().controlador = this.gameObject;
         textoSac = new List<GameObject>();
     }
     public void SetGrab(GameObject gr)
@@ -45,6 +46,7 @@ public class MultiCanvas : MonoBehaviour
                     DuctoOrden();
                     break;
                 case 2:
+                    CodoOrden();
                     break;
                 case 3:
                     break;
@@ -52,6 +54,16 @@ public class MultiCanvas : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void CodoOrden()
+    {
+        Refresh();
+        CodoControl cc = grabbed.GetComponent<CodoControl>();
+        texto.GetComponent<Text>().text = $"Eje horizontal : {cc.codo.giroX}";
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac[0].GetComponent<Text>().text = $"Eje Vertical : {cc.codo.giroY}";
+        ReOrderElements();
     }
 
     private void DuctoOrden()
@@ -134,6 +146,10 @@ public class MultiCanvas : MonoBehaviour
                 d.Exploit();
                 break;
             case 2:
+                cCodo.SetActive(true);
+                CodoCanvas c = cCodo.GetComponent<CodoCanvas>();
+                c.target = grabbed.GetComponent<CodoControl>();
+                c.Exploit();
                 break;
             case 3:
                 break;
@@ -152,8 +168,10 @@ public class MultiCanvas : MonoBehaviour
                     EquipoOrden();
                     break;
                 case 1:
+                    DuctoOrden();
                     break;
                 case 2:
+                    CodoOrden();
                     break;
                 case 3:
                     break;
