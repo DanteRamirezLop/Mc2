@@ -227,13 +227,13 @@ public class CodoMesh : MonoBehaviour
         ret[6] = p3.transform.position - this.transform.position;
         ret[7] = p4.transform.position - this.transform.position;
         Vector3 dir;
-        if (p1.transform.localPosition.x != 0)
+        if (DireccionAngulo() < 2 || DireccionAngulo() == 4)
         {
             dir = Vector3.up * (float)ultAltura / 2;
         }
         else
         {
-            dir = Vector3.up * (float)ultAncho / 2;
+            dir = Vector3.right * (float)ultAncho / 2;
         }
         for (int i = 0; i < 8; i++)
         {

@@ -51,8 +51,10 @@ public class CodoCanvas : MonoBehaviour
             target.codo.giroY = float.Parse(inputEjeY.text);
             inputEjeX.interactable = true;
             inputEjeY.interactable = true;
+            target.RefreshA();
             return;
         }
+        target.RefreshA();
         inputEjeX.text = target.codo.giroX + "";
         inputEjeY.text = target.codo.giroY + "";
         inputEjeX.interactable = false;

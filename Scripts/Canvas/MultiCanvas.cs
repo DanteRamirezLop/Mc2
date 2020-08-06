@@ -12,7 +12,6 @@ public class MultiCanvas : MonoBehaviour
     public GameObject boton;
     public GameObject cEquipo;
     public GameObject cDucto;
-    public GameObject cMultiple;
     public GameObject cRejilla;
     public GameObject cCodo;
 
@@ -30,6 +29,7 @@ public class MultiCanvas : MonoBehaviour
             this.gameObject.SetActive(false);
             cEquipo.SetActive(false);
             cDucto.SetActive(false);
+            cCodo.SetActive(false);
             //hide here
             grabbed = null;
         }
@@ -49,11 +49,27 @@ public class MultiCanvas : MonoBehaviour
                     CodoOrden();
                     break;
                 case 3:
+                    MultipleOrden();
+                    break;
+                case 4:
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private void MultipleOrden()
+    {
+        Refresh();
+        UnionControl uc = grabbed.GetComponent<UnionControl>();
+        boton.SetActive(false);
+        texto.GetComponent<Text>().text = $"CFM entrante: {uc.CFMreal()}";
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        
+        textoSac[0].GetComponent<Text>().text = $"CFM arriba : ";
+
+        ReOrderElements();
     }
 
     private void CodoOrden()
@@ -117,6 +133,7 @@ public class MultiCanvas : MonoBehaviour
             Destroy(textoSac[0]);
             textoSac.RemoveAt(0);
         }
+        boton.SetActive(true);
     }
     private void ReOrderElements()
     {
@@ -174,6 +191,9 @@ public class MultiCanvas : MonoBehaviour
                     CodoOrden();
                     break;
                 case 3:
+                    MultipleOrden();
+                    break;
+                case 4:
                     break;
                 default:
                     break;

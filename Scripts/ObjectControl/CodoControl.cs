@@ -76,6 +76,7 @@ public class CodoControl : ObjectControlMain
         atreferencia = refer;
         refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
         PositionFromReference();
+        RefreshB();
     }
 
     public override void setAdReference(GameObject refer)
@@ -111,7 +112,6 @@ public class CodoControl : ObjectControlMain
         else
             return 0;
     }
-
     public override void InitOrder()
     {
         if (DatosScena.Multiple == null)
@@ -120,5 +120,19 @@ public class CodoControl : ObjectControlMain
         DatosScena.Multiple.Add(codo);
         codo.giroX = 90;
         codo.giroY = 0;
+    }
+    /// <summary>
+    /// Actualiza el giro
+    /// </summary>
+    public void RefreshA()
+    {
+        mesh.Change(new Vector2(codo.giroX, codo.giroY));
+    }
+    /// <summary>
+    /// Actualiza el alto y ancho
+    /// </summary>
+    public void RefreshB()
+    {
+        mesh.Change(getPAncho(), getPAlto());
     }
 }
