@@ -18,7 +18,7 @@
 	"' WHERE id= '".$id. "'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "MENSAJE API: Modificacion exitosa";
+		echo "MENSAJE API: Modificacion exitosa -Ambiente";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

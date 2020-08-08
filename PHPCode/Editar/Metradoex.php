@@ -11,7 +11,7 @@
 	$sql ="UPDATE metradoex SET idEquipo='".$idEquipo."',dima='".$dima."',dimb='".$dimb."',tipo='".$tipo."',multi='".$multi."' WHERE id='". $id."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso";
+		echo "Modificacion exitosa - Metradoex";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

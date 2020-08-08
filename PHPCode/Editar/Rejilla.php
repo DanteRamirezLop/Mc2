@@ -12,7 +12,7 @@
 	$sql =" UPDATE rejilla SET nombre='".$nombre."',cfm='".$cfm."' WHERE id ='".$idItem."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso rejilla ";
+		echo "Modificacion exitoso rejilla ";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}
@@ -20,7 +20,7 @@
     $sql_2 ="UPDATE item SET idItem='".$idItem."',idEquipo='".$idEquipo."',conexion='".$conexion."' WHERE id='".$id."'";
 	
 	if($conn->query($sql_2)===TRUE){
-		echo "Registro exitoso item";
+		echo "Modificacion exitoso item";
 	}else{
 		echo "Error:".$sql_2."<br>".$conn->error;
 	}

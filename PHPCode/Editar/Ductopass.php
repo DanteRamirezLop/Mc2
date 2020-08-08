@@ -11,7 +11,7 @@
 	$sql ="UPDATE ductoPASS SET ccx='".$ccx."',ccy='".$ccy."',ccz='".$ccz."',paso='".$paso."',dibujar='".$dibujar."' WHERE idDucto='".$idDucto ."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso";
+		echo "Modificacion exitosa - Ductopass";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

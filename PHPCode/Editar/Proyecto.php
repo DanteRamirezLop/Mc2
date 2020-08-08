@@ -7,7 +7,7 @@
 	$sql ="UPDATE proyecto SET nombre='".$nombre ."' WHERE id ='".$id."'";	
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso";
+		echo "Modificacion exitoso- Proyecto";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}

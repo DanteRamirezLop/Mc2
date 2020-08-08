@@ -44,7 +44,7 @@
 	$sql_3 ="UPDATE item SET idItem='".$idItem."',idEquipo='".$idEquipo."',conexion='".$conexion."' WHERE id='".$id."'";
 	
 	if($conn->query($sql_3)===TRUE){
-		echo "Registro exitoso";
+		echo "Mdoficacion exitoso - item";
 	}else{
 		echo "Error:".$sql_3."<br>".$conn->error;
 	}

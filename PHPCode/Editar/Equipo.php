@@ -37,7 +37,7 @@
 	"' WHERE id='".$id."'";
 	
 	if($conn->query($sql)===TRUE){
-		echo "Registro exitoso equipov";
+		echo "Modificacion exitoso equipov";
 	}else{
 		echo "Error:".$sql."<br>".$conn->error;
 	}
@@ -46,7 +46,7 @@
 	"' WHERE idEquipoV= '".$id ."'";
 	
 	if($conn->query($sql_2)===TRUE){
-		echo "Registro exitoso equipoesp";
+		echo "Modificacion exitoso equipoesp";
 	}else{
 		echo "Error:".$sql_2."<br>".$conn->error;
 	}
