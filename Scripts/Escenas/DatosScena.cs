@@ -18,7 +18,8 @@ public class DatosScena : MonoBehaviour {
     //public static List<Item> Item;
     public static List<Metradoex> Metradoex;
     public static List<Multiple> Multiple;
-    public static List<Rejilla> Rejilla;  
+    public static List<Rejilla> Rejilla;
+    public static List<Eliminar> Eliminar = new List<Eliminar>();
 
     /*
     public RegistroAmbiente ScriptA;
