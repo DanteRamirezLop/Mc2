@@ -176,4 +176,9 @@ public class EquipoControl : ObjectControlMain
         }
         return ret;
     }
+
+    public override void PulsoRedimension()
+    {
+        Debug.Log("el pulso llego al equipo!");
+    }
 }

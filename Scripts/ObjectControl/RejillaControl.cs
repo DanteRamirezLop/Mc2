@@ -107,6 +107,7 @@ public class RejillaControl : ObjectControlMain
         cachedAncho = cached.getPAncho();
         this.transform.localScale = new Vector3(cached.getPAncho(), cached.getPAlto(), cached.getPAncho());
         PositionFromReference();
+        dependant = refer.GetComponent<ObjectControlMain>().getTipo() == 0 || refer.GetComponent<ObjectControlMain>().dependant;
         ReDoPosition(cached.getPAncho());
     }
     private void ReDoPosition(float ancho)
@@ -140,4 +141,19 @@ public class RejillaControl : ObjectControlMain
         colision.GetComponent<BoxCollider>().size = new Vector3(1, 1, 1);
     }
 
+    public override void PulsoRedimension()
+    {
+        PositionFromReference();
+        ObjectControlMain cached = atreferencia.GetComponent<ObjectControlMain>();
+        this.transform.localScale = new Vector3(cached.getPAncho(), cached.getPAlto(), cached.getPAncho());
+        ReDoPosition(cached.getPAncho());
+        if (this.adreferencia != null)
+        {
+            this.adreferencia.GetComponent<ObjectControlMain>().PulsoRedimension();
+        }
+        if (cached.dependant)
+        {
+            cached.PulsoRedimension();
+        }
+    }
 }

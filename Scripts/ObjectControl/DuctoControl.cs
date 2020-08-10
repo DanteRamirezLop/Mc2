@@ -51,19 +51,7 @@ public class DuctoControl : ObjectControlMain
             ducto.longitud = 0.5;
         this.mesh.ReCreator((float)ducto.longitud);
         this.mesh.ReCreator(getPAncho(), getPAlto());
-        //Debug.Log("an: " + getPAncho() + "al:" + getPAlto());
-    }
-    public void setAlto(double alto)
-    {
-        ducto.dimA = alto;
-    }
-    public void setAncho(double ancho)
-    {
-        ducto.dimB = ancho;
-    }
-    public void setLongitud(double longitud)
-    {
-        ducto.longitud = longitud;
+        PulsoRedimension();
     }
 
     public override void SetReferencia(GameObject refer)
@@ -178,5 +166,18 @@ public class DuctoControl : ObjectControlMain
         if (Double.IsNaN(caida2) || double.IsInfinity(caida2))
             caida2 = 0;
         return caida1 + caida2;
+    }
+
+    public override void PulsoRedimension()
+    {
+        PositionFromReference();
+        if (this.adreferencia != null)
+        {
+            this.adreferencia.GetComponent<ObjectControlMain>().PulsoRedimension();
+        }
+        if (atreferencia.GetComponent<ObjectControlMain>().dependant)
+        {
+            GetComponent<ObjectControlMain>().PulsoRedimension();
+        }
     }
 }

@@ -19,6 +19,7 @@ public class UnionControl : ObjectControlMain
         {
             col.layer = layer;
         }
+        colMain.layer = layer;
     }
 
     public override double getAlto(GameObject rebote)
@@ -86,19 +87,15 @@ public class UnionControl : ObjectControlMain
     {
         int con = refer.GetComponent<ObjectControlMain>().conexion;
         referencias[con] = refer;
-        Debug.Log("alto: " + getPAlto() + " ancho: " + getPAncho());
-        this.mesh.Change(getPAncho(), getPAlto());
-        ChangeColision();
+        PulsoRedimension();
     }
 
     public override void SetReferencia(GameObject refer)
     {
         atreferencia = refer;
         refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
-        Debug.Log("alto: " + getPAlto() + " ancho: " + getPAncho());
-        this.mesh.Change(getPAncho(), getPAlto());
-        ChangeColision();
-        PositionFromReference();
+        dependant = refer.GetComponent<ObjectControlMain>().getTipo() == 0 || refer.GetComponent<ObjectControlMain>().dependant;
+        PulsoRedimension();
     }
 
     protected override void ColliderConnectState()
@@ -169,7 +166,20 @@ public class UnionControl : ObjectControlMain
     {
         return 3;
     }
-
+    /// <summary>
+    /// Devuelve los cfm de ciertas partes
+    /// </summary>
+    /// <param name="way">0 izquierda, 1 adelante, 2 derecha, 3 arriba, 4 abajo</param>
+    /// <returns></returns>
+    public double CFMSelectivo(int way)
+    {
+        if (this.referencias[way] != null)
+        {
+            return this.referencias[way].GetComponent<ObjectControlMain>().CFMreal();
+        }
+        return 0;
+        //requiere funcion adpulsocfm
+    }
     public override double CFMreal()
     {
         double ret = 0;
@@ -187,5 +197,23 @@ public class UnionControl : ObjectControlMain
             DatosScena.Multiple = new List<Multiple>();
         this.union = new Multiple();
         DatosScena.Multiple.Add(union);
+    }
+
+    public override void PulsoRedimension()
+    {
+        this.mesh.Change(getPAncho(), getPAlto());
+        ChangeColision();
+        PositionFromReference();
+        foreach (var item in referencias)
+        {
+            if (item != null)
+            {
+                item.GetComponent<ObjectControlMain>().PulsoRedimension();
+            }
+        }
+        if (atreferencia.GetComponent<ObjectControlMain>().dependant)
+        {
+            GetComponent<ObjectControlMain>().PulsoRedimension();
+        }
     }
 }

@@ -27,10 +27,6 @@ public class MultiCanvas : MonoBehaviour
         if (gr == null)
         {
             this.gameObject.SetActive(false);
-            cEquipo.SetActive(false);
-            cDucto.SetActive(false);
-            cCodo.SetActive(false);
-            //hide here
             grabbed = null;
         }
         else
@@ -57,6 +53,9 @@ public class MultiCanvas : MonoBehaviour
                     break;
             }
         }
+        cEquipo.SetActive(false);
+        cDucto.SetActive(false);
+        cCodo.SetActive(false);
     }
 
     private void MultipleOrden()
@@ -66,8 +65,16 @@ public class MultiCanvas : MonoBehaviour
         boton.SetActive(false);
         texto.GetComponent<Text>().text = $"CFM entrante: {uc.CFMreal()}";
         textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
         
-        textoSac[0].GetComponent<Text>().text = $"CFM arriba : ";
+        textoSac[0].GetComponent<Text>().text = $"CFM arriba : {uc.CFMSelectivo(3)}";
+        textoSac[1].GetComponent<Text>().text = $"CFM izquierda : {uc.CFMSelectivo(2)}";
+        textoSac[2].GetComponent<Text>().text = $"CFM delante : {uc.CFMSelectivo(1)}";
+        textoSac[3].GetComponent<Text>().text = $"CFM derecha : {uc.CFMSelectivo(0)}";
+        textoSac[4].GetComponent<Text>().text = $"CFM abajo : {uc.CFMSelectivo(4)}";
 
         ReOrderElements();
     }

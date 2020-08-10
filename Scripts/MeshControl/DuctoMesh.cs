@@ -126,6 +126,7 @@ public class DuctoMesh : MonoBehaviour
     }
     public void ParaInspector()
     {
+        colision.SetActive(true);
         colision.transform.localPosition = lmesh.bounds.center;
         colision.GetComponent<BoxCollider>().size = lmesh.bounds.size;
     }

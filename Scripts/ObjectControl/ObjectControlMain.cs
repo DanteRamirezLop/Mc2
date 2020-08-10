@@ -6,6 +6,7 @@ public abstract class ObjectControlMain : MonoBehaviour
 {
     public int id;
     public int conexion = 0;
+    public bool dependant;
     public GameObject atreferencia; //referencia atras, a quien esta conectado este item
     public GameObject adreferencia; //referencia adelante, dejar en desuso para las uniones multiples
     protected double metroAPulgada(double pulgada)
@@ -29,6 +30,7 @@ public abstract class ObjectControlMain : MonoBehaviour
             adreferencia.GetComponent<ObjectControlMain>().PulsoColision(modo);
         }
     }
+    public abstract void PulsoRedimension();
     public void SetConexion(int conexion)
     {
         this.conexion = conexion;

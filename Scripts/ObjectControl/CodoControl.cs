@@ -76,6 +76,7 @@ public class CodoControl : ObjectControlMain
         atreferencia = refer;
         refer.GetComponent<ObjectControlMain>().setAdReference(this.gameObject);
         PositionFromReference();
+        dependant = refer.GetComponent<ObjectControlMain>().getTipo() == 0 || refer.GetComponent<ObjectControlMain>().dependant;
         RefreshB();
     }
 
@@ -134,5 +135,19 @@ public class CodoControl : ObjectControlMain
     public void RefreshB()
     {
         mesh.Change(getPAncho(), getPAlto());
+    }
+
+    public override void PulsoRedimension()
+    {
+        RefreshB();
+        PositionFromReference();
+        if (this.adreferencia != null)
+        {
+            this.adreferencia.GetComponent<ObjectControlMain>().PulsoRedimension();
+        }
+        if (atreferencia.GetComponent<ObjectControlMain>().dependant)
+        {
+            GetComponent<ObjectControlMain>().PulsoRedimension();
+        }
     }
 }

@@ -7544,7 +7544,31 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: InputController
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 595879872}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.InputField, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: GetAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -16718,7 +16742,6 @@ MonoBehaviour:
   boton: {fileID: 2140472563}
   cEquipo: {fileID: 1497518686}
   cDucto: {fileID: 2099133960}
-  cMultiple: {fileID: 0}
   cRejilla: {fileID: 0}
   cCodo: {fileID: 228480200}
 --- !u!1 &1271218036
@@ -28454,7 +28477,31 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: InputController
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2143207399}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.InputField, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 228480202}
+        m_TargetAssemblyTypeName: CodoCanvas, Assembly-CSharp
+        m_MethodName: GetAngle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
