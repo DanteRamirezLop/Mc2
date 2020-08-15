@@ -20,6 +20,7 @@ public class MultiCanvas : MonoBehaviour
         cEquipo.GetComponent<EquipoCanvas>().controlador = this.gameObject;
         cDucto.GetComponent<DuctoCanvas>().controlador = this.gameObject;
         cCodo.GetComponent<CodoCanvas>().controlador = this.gameObject;
+        cRejilla.GetComponent<RejillaCanvas>().controlador = this.gameObject;
         textoSac = new List<GameObject>();
     }
     public void SetGrab(GameObject gr)
@@ -48,6 +49,7 @@ public class MultiCanvas : MonoBehaviour
                     MultipleOrden();
                     break;
                 case 4:
+                    RejillaOrden();
                     break;
                 default:
                     break;
@@ -56,6 +58,24 @@ public class MultiCanvas : MonoBehaviour
         cEquipo.SetActive(false);
         cDucto.SetActive(false);
         cCodo.SetActive(false);
+        cRejilla.SetActive(false);
+    }
+
+    private void RejillaOrden()
+    {
+        Refresh();
+        RejillaControl rc = grabbed.GetComponent<RejillaControl>();
+        texto.GetComponent<Text>().text = $"Nombre de la rejilla: {rc.rejilla.nombre}";
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+        textoSac.Add(GameObject.Instantiate(texto, this.gameObject.transform));
+
+        textoSac[0].GetComponent<Text>().text = $"CFM de la rejilla : {(rc.rejilla.cfm <= 0?rc.GetAmbiente().GetDefaultCFM():rc.rejilla.cfm)}";
+        textoSac[1].GetComponent<Text>().text = $"CFM total en tramo : {rc.CFMreal()}";
+        textoSac[2].GetComponent<Text>().text = $"CFM del ambiente : {rc.GetAmbiente().GetCFMTotal()}";
+        textoSac[3].GetComponent<Text>().text = $"CFM disponible : {rc.GetAmbiente().GetCFMDisponible()}";
+
     }
 
     private void MultipleOrden()
@@ -176,6 +196,10 @@ public class MultiCanvas : MonoBehaviour
                 c.Exploit();
                 break;
             case 3:
+                cRejilla.SetActive(true);
+                RejillaCanvas r = cRejilla.GetComponent<RejillaCanvas>();
+                r.target = grabbed.GetComponent<RejillaControl>();
+                r.Exploit();
                 break;
             default:
                 break;
@@ -201,6 +225,7 @@ public class MultiCanvas : MonoBehaviour
                     MultipleOrden();
                     break;
                 case 4:
+                    RejillaOrden();
                     break;
                 default:
                     break;

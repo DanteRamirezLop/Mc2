@@ -10,8 +10,7 @@ public class ElimiarAmbiente : MonoBehaviour {
 
     public void Eliminar(int id)
     {
-            StartCoroutine(RegistraBD(id));
-
+        StartCoroutine(RegistraBD(id));
     }
 
     private IEnumerator RegistraBD(int id)

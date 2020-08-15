@@ -216,4 +216,9 @@ public class UnionControl : ObjectControlMain
             GetComponent<ObjectControlMain>().PulsoRedimension();
         }
     }
+
+    public override AmbienteControl GetAmbiente()
+    {
+        return this.atreferencia.GetComponent<ObjectControlMain>().GetAmbiente();
+    }
 }

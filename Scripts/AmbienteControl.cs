@@ -78,4 +78,41 @@ public class AmbienteControl : MonoBehaviour
     {
         return this.Cuadrante;
     }
+    public void AddRejilla(RejillaControl rej)
+    {
+        this.rejillas.Add(rej);
+    }
+    public double GetVolumen()
+    {
+        if (ambiente.area > 0)
+            return ambiente.area * ambiente.altura;
+        else
+            return ambiente.altura * ambiente.ancho * ambiente.largo;
+    }
+    public double Getflujo()
+    {
+        if (ambiente.flujo > 0)
+            return ambiente.flujo;
+        return ambiente.recambios * GetVolumen();
+    }
+    public double GetCFMTotal()
+    {
+        if (ambiente.cfm > 0)
+            return ambiente.cfm;
+        return Getflujo() * 0.5885;
+    }
+    public double GetCFMDisponible()
+    {
+        double ret = GetCFMTotal();
+        foreach (var rej in rejillas)
+            ret -= rej.rejilla.cfm;
+        return ret;
+    }
+    public double GetDefaultCFM()
+    {
+        int ret = 0;
+        foreach (var rej in rejillas)
+            ret += rej.rejilla.cfm == 0?1:0;
+        return GetCFMDisponible() / ret;
+    }
 }

@@ -20,6 +20,8 @@ public class GranControl : MonoBehaviour
     public MultiCanvas canvasControl;
     public GameObject Opciones;
     private CamaraDedicada cam;
+
+    public AmbienteControl ambEnUso;
     // Start is called before the first frame update
     void Start()
     {

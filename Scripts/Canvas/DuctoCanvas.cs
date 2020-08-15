@@ -29,6 +29,8 @@ public class DuctoCanvas : MonoBehaviour
 
     public void DecimalControl(InputField delta)
     {
+        if (delta.text.LastIndexOf(".") == delta.text.Length - 1)
+            delta.text = delta.text.Substring(0, delta.text.Length - 1);
         if (delta.text.Equals("") || delta.text.Equals(".") || delta.text.Equals("0."))
             delta.text = "0";
     }

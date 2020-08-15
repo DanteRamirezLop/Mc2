@@ -14,6 +14,7 @@ public class EquipoControl : ObjectControlMain
     public GameObject coleccionRefer;
     private Mesh lmesh;
 
+    private AmbienteControl ambiente;
     public Equipo equip;
     //parte de la tabla equipov
     //parte de la tabla equipoesp
@@ -160,6 +161,10 @@ public class EquipoControl : ObjectControlMain
         rotacion = x.GetRotations();
         eqMesh.GetComponent<MeshRenderer>().material = x.material;
     }
+    public void SetAmbiente(AmbienteControl referencia)
+    {
+        this.ambiente = referencia;
+    }
 
     public override int getTipo()
     {
@@ -180,5 +185,10 @@ public class EquipoControl : ObjectControlMain
     public override void PulsoRedimension()
     {
         Debug.Log("el pulso llego al equipo!");
+    }
+
+    public override AmbienteControl GetAmbiente()
+    {
+        return this.ambiente;
     }
 }

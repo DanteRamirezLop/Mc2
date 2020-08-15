@@ -8,6 +8,10 @@ public class DuctoControl : ObjectControlMain
     private DuctoMesh mesh;
 
     public Ducto ducto;
+    public Ductopass dPass; //instanciar un clon nada mas
+    public GameObject continuacion;
+    public bool ghost;
+
     private AmbienteControl amb; //solo si hay un paso
     //solo para formulas, el usuario las cambia
 
@@ -49,7 +53,7 @@ public class DuctoControl : ObjectControlMain
     {
         if (ducto.longitud < 0.5)
             ducto.longitud = 0.5;
-        this.mesh.ReCreator((float)ducto.longitud);
+        this.mesh.ReCreator(dPass == null ?1: (float)ducto.longitud);
         this.mesh.ReCreator(getPAncho(), getPAlto());
         PulsoRedimension();
     }
@@ -167,7 +171,10 @@ public class DuctoControl : ObjectControlMain
             caida2 = 0;
         return caida1 + caida2;
     }
-
+    public void SetAmbiente(AmbienteControl referencia)
+    {
+        this.amb = referencia;
+    }
     public override void PulsoRedimension()
     {
         PositionFromReference();
@@ -179,5 +186,19 @@ public class DuctoControl : ObjectControlMain
         {
             GetComponent<ObjectControlMain>().PulsoRedimension();
         }
+    }
+
+    public override AmbienteControl GetAmbiente()
+    {
+        return ghost ? amb : atreferencia.GetComponent<ObjectControlMain>().GetAmbiente();
+    }
+    public GameObject InitDuctoPass(AmbienteControl amb)
+    {
+        dPass = new Ductopass();
+        DatosScena.Ductopass.Add(dPass);
+        this.amb = amb;
+        this.continuacion = GameObject.Instantiate(this.gameObject);
+        this.continuacion.GetComponent<DuctoControl>().ghost = true;
+        return this.continuacion;
     }
 }

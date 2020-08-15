@@ -16,7 +16,7 @@ public class EditarMultiple : MonoBehaviour {
     private IEnumerator RegistraBD(Multiple datos)
     {
         WWWForm form = new WWWForm();
-		 form.AddField("id", datos.id.ToString());
+		form.AddField("id", datos.id.ToString());
         form.AddField("giroX", datos.giroX.ToString());
         form.AddField("giroY", datos.giroY.ToString());
 		//-----------

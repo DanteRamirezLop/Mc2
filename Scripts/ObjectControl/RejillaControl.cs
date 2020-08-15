@@ -9,6 +9,7 @@ public class RejillaControl : ObjectControlMain
     public GameObject semicaja;
     private GameObject colision;
     private float cachedAncho;
+
     private void OnEnable()
     {
         colision = new GameObject("colision");
@@ -155,5 +156,14 @@ public class RejillaControl : ObjectControlMain
         {
             cached.PulsoRedimension();
         }
+    }
+
+    public override AmbienteControl GetAmbiente()
+    {
+        return this.atreferencia.GetComponent<ObjectControlMain>().GetAmbiente();
+    }
+    public void AmbienteInit()
+    {
+        GetAmbiente().AddRejilla(this);
     }
 }
