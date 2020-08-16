@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 using System;//-
 
 public class PantallaDeCarga : MonoBehaviour {
-    
+
     public static PantallaDeCarga Instancia { get; private set; }
 
     public Image imageDeCarga;
@@ -78,7 +78,7 @@ public class PantallaDeCarga : MonoBehaviour {
         List<Rejilla> rejilla = new List<Rejilla>();
 
         //Mientras no esté totalmente visible va aumentando su visibilidad
-        while(c.a < 1)
+        while (c.a < 1)
         {
             imageDeCarga.color = c;
             c.a += velocidadAparecer;
@@ -91,10 +91,10 @@ public class PantallaDeCarga : MonoBehaviour {
         using (UnityWebRequest reqAmbiente = UnityWebRequest.Get(URL + "ambiente"))
         {
             yield return reqAmbiente.SendWebRequest();
-            if (!string.IsNullOrEmpty(reqAmbiente.error)){
+            if (!string.IsNullOrEmpty(reqAmbiente.error)) {
                 Debug.Log(reqAmbiente.error);
             }
-            else{
+            else {
                 ListaAmbiente listaAmbiente = JsonUtility.FromJson<ListaAmbiente>(reqAmbiente.downloadHandler.text);
                 listaAmbiente.CargarAmbiente(ambiente);
                 DatosScena.Ambiente = ambiente;
@@ -137,10 +137,10 @@ public class PantallaDeCarga : MonoBehaviour {
         using (UnityWebRequest reqEquipo = UnityWebRequest.Get(URL + "equipo"))
         {
             yield return reqEquipo.SendWebRequest();
-            if (!string.IsNullOrEmpty(reqEquipo.error)){
+            if (!string.IsNullOrEmpty(reqEquipo.error)) {
                 Debug.Log(reqEquipo.error);
             }
-            else{
+            else {
                 ListaEquipo listaEquipo = JsonUtility.FromJson<ListaEquipo>(reqEquipo.downloadHandler.text);
                 listaEquipo.CargarEquipo(equipo);
                 DatosScena.Equipo = equipo;
@@ -151,10 +151,10 @@ public class PantallaDeCarga : MonoBehaviour {
         using (UnityWebRequest reqFiltro = UnityWebRequest.Get(URL + "filtro"))
         {
             yield return reqFiltro.SendWebRequest();
-            if (!string.IsNullOrEmpty(reqFiltro.error)){
+            if (!string.IsNullOrEmpty(reqFiltro.error)) {
                 Debug.Log(reqFiltro.error);
             }
-            else{
+            else {
                 ListaFiltro listaFiltro = JsonUtility.FromJson<ListaFiltro>(reqFiltro.downloadHandler.text);
                 listaFiltro.CargarFiltro(filtro);
                 DatosScena.Filtro = filtro;
@@ -169,7 +169,7 @@ public class PantallaDeCarga : MonoBehaviour {
             {
                 Debug.Log(reqEspfiltro.error);
             }
-            else{
+            else {
                 ListaEspfiltro listaEspfiltro = JsonUtility.FromJson<ListaEspfiltro>(reqEspfiltro.downloadHandler.text); //error
                 listaEspfiltro.CargarEspfiltro(espfiltro);
                 DatosScena.Espfiltro = espfiltro;
@@ -194,24 +194,24 @@ public class PantallaDeCarga : MonoBehaviour {
         using (UnityWebRequest reqMetradoex = UnityWebRequest.Get(URL + "metradoex"))
         {
             yield return reqMetradoex.SendWebRequest();
-            if (!string.IsNullOrEmpty(reqMetradoex.error)){
+            if (!string.IsNullOrEmpty(reqMetradoex.error)) {
                 Debug.Log(reqMetradoex.error);
             }
-            else{
-                ListaMetradoex listaMetradoex= JsonUtility.FromJson<ListaMetradoex>(reqMetradoex.downloadHandler.text);
+            else {
+                ListaMetradoex listaMetradoex = JsonUtility.FromJson<ListaMetradoex>(reqMetradoex.downloadHandler.text);
                 listaMetradoex.CargarMetradoex(metradoex);
                 DatosScena.Metradoex = metradoex;
                 txtInfo.text = txtInfo.text + "Metradoex (CARGADO) \n";
             }
         }
 
-        using (UnityWebRequest reqMultiple= UnityWebRequest.Get(URL + "multiple"))
+        using (UnityWebRequest reqMultiple = UnityWebRequest.Get(URL + "multiple"))
         {
             yield return reqMultiple.SendWebRequest();
-            if (!string.IsNullOrEmpty(reqMultiple.error)){
+            if (!string.IsNullOrEmpty(reqMultiple.error)) {
                 Debug.Log(reqMultiple.error);
             }
-            else{
+            else {
                 ListaMultiple listaMultiple = JsonUtility.FromJson<ListaMultiple>(reqMultiple.downloadHandler.text);
                 listaMultiple.CargarMultiple(multiple);
                 DatosScena.Multiple = multiple;
@@ -219,19 +219,19 @@ public class PantallaDeCarga : MonoBehaviour {
             }
         }
 
-         using (UnityWebRequest reqRejilla = UnityWebRequest.Get(URL + "rejilla")){
+        using (UnityWebRequest reqRejilla = UnityWebRequest.Get(URL + "rejilla")) {
             yield return reqRejilla.SendWebRequest();
-            if (!string.IsNullOrEmpty(reqRejilla.error)){
-                 Debug.Log(reqRejilla.error);
+            if (!string.IsNullOrEmpty(reqRejilla.error)) {
+                Debug.Log(reqRejilla.error);
             }
-            else{
+            else {
                 ListaRejilla listaRejillas = JsonUtility.FromJson<ListaRejilla>(reqRejilla.downloadHandler.text);
                 listaRejillas.CargarRejilla(rejilla);
                 DatosScena.Rejilla = rejilla;
                 txtInfo.text = txtInfo.text + "Rejillla (CARGADO) \n";
             }
         }
-        
+
         //Tiempo de carga
         while (ContadorTiempo <= tiempo)
         {
@@ -262,5 +262,5 @@ public class PantallaDeCarga : MonoBehaviour {
         txtCargando.gameObject.SetActive(false);
         txtInfo.gameObject.SetActive(false);
     }
-
+    
 }

@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 public class ListarMenu : MonoBehaviour {
 
     public string URL;
+    private List<GameObject> coleccionBotones;
     public GameObject PrefabButtonCarg;
     public GameObject PrefabButtonElim;
     public GameObject PrefabText;
@@ -19,9 +20,18 @@ public class ListarMenu : MonoBehaviour {
 
     void Start()
     {
-       StartCoroutine(ProyectoOnReponse());
+        coleccionBotones = new List<GameObject>();
+        RefreshProyectos();
     }
-
+    public void RefreshProyectos()
+    {
+        foreach (var item in coleccionBotones)
+        {
+            Destroy(item);
+        }
+        coleccionBotones.Clear();
+        StartCoroutine(ProyectoOnReponse());
+    }
     private IEnumerator ProyectoOnReponse()
     {
         using (UnityWebRequest req = UnityWebRequest.Get(URL + "proyecto"))
@@ -39,34 +49,39 @@ public class ListarMenu : MonoBehaviour {
                 string ArchivoProyectos = JsonUtility.ToJson(listaProyectos);
                 Cantidad = listaProyectos.proyectos.Count;
 
-                float posRang = 0.0f;
-                float posY = 30.0f;
+                float posY = 0.0f;
 
-                for (int i = 0; i < Cantidad; i++)
+                foreach (var pr in listaProyectos.proyectos)
                 {
-                    posRang = posY * (i + 1);
-                    CargarBotonEliminar(posRang);
-
-                    //----boton cargar-----
-                    GameObject BotonClon = Instantiate(PrefabButtonCarg, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
-                    BotonClon.transform.SetParent(Ancla.transform);
-                    BotonClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(320.0f, -posRang);
-
-                    //----- label-----
-                    GameObject TextoClon = Instantiate(PrefabText, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
-                    TextoClon.transform.SetParent(Ancla.transform);
-                    TextoClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(70.0f, -posRang); 
-                    listaProyectos.CargarText(TextoClon, i, BotonClon);
+                    CrearControles(posY,pr);
+                    posY += 35;
                 }
             }
         }
     }
-
-    private void CargarBotonEliminar(float posRang)
+    private void CrearControles(float ejey, Proyecto pr)
     {
-        GameObject BotonClon = Instantiate(PrefabButtonElim, Ancla.transform.position, Ancla.transform.rotation) as GameObject;
-        BotonClon.transform.SetParent(Ancla.transform);
-        BotonClon.GetComponent<RectTransform>().anchoredPosition = new Vector2(470.0f, -posRang);
+        GameObject textoClon = Instantiate(PrefabText);
+        PosisionarControles(textoClon, ejey, 5, RectTransform.Edge.Left);
+        textoClon.GetComponent<Text>().text = pr.nombre;
+
+        GameObject CargaClon = Instantiate(PrefabButtonCarg);
+        CargaClon.GetComponent<Cargar>().IdProyecto = pr.id;
+        PosisionarControles(CargaClon, ejey, 70, RectTransform.Edge.Right);
+        
+        GameObject EliminarClon = Instantiate(PrefabButtonElim);
+        PosisionarControles(EliminarClon, ejey, 10, RectTransform.Edge.Right);
+
+        coleccionBotones.Add(textoClon);
+        coleccionBotones.Add(CargaClon);
+        coleccionBotones.Add(EliminarClon);
+    }
+    private void PosisionarControles(GameObject control, float ejey, float ejex, RectTransform.Edge edge)
+    {
+        control.transform.SetParent(Ancla.transform);
+        RectTransform cached = control.GetComponent<RectTransform>();
+        cached.SetInsetAndSizeFromParentEdge(edge, ejex, cached.sizeDelta.x);
+        cached.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, ejey, 30);
     }
 
  

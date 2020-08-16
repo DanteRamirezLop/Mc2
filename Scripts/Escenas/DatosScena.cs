@@ -5,7 +5,7 @@ using UnityEngine;
 public class DatosScena : MonoBehaviour {
     //*****El nombre aporpiado deberia ser SingletonProyecto********
     //El valor de un campo estático se comparte entre las instancias, por lo que si se crea una nueva instancia de esta clase
-    private static DatosScena _instance; 
+    private static DatosScena _instance;
 
     //Dato del proyecto para accesar en la siguiente escena
     public static string Id_proyecto;
@@ -20,6 +20,8 @@ public class DatosScena : MonoBehaviour {
     public static List<Multiple> Multiple;
     public static List<Rejilla> Rejilla;
     public static List<Eliminar> Eliminar = new List<Eliminar>();
+
+    public static string escenaEdit = "PruebaCarga";
 
     /*
     public RegistroAmbiente ScriptA;
@@ -48,6 +50,10 @@ public class DatosScena : MonoBehaviour {
         {
             Destroy(this);
         }
+    }
+    public static void CargaProyecto(string idProyecto)
+    {
+        PantallaDeCarga.Instancia.CargarEscena(escenaEdit);
     }
 /*
     public void InsertarBD() 
