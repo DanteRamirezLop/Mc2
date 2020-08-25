@@ -22,7 +22,7 @@ public class RegistroMetradoex : MonoBehaviour {
         form.AddField("tipo", datos.tipo.ToString());
         form.AddField("multi", datos.multi.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Metradoex.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Metradoex.php", form))
         {
             yield return www.SendWebRequest();
 

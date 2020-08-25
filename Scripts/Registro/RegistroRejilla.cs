@@ -22,7 +22,7 @@ public class RegistroRejilla : MonoBehaviour {
         form.AddField("idEquipo", datos.idEquipo.ToString());
         form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Rejilla.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Rejilla.php", form))
         {
             yield return www.SendWebRequest();
 

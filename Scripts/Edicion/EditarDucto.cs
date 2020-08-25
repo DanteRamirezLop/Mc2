@@ -36,7 +36,7 @@ public class EditarDucto : MonoBehaviour {
         form.AddField("idEquipo", datos.idEquipo.ToString());
         form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Ducto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Ducto.php", form))
         {
             yield return www.SendWebRequest();
 

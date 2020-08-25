@@ -17,9 +17,9 @@ public class EliminarMetradoex : MonoBehaviour {
     private IEnumerator RegistraBD(int id)
     {
         WWWForm form = new WWWForm();
-        form.AddField("id", id.ToString());;
+        form.AddField("id", id.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Eliminar/Metradoex.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Eliminar/Metradoex.php", form))
         {
             yield return www.SendWebRequest();
 

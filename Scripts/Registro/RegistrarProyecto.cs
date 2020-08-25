@@ -19,7 +19,7 @@ public class RegistrarProyecto : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("nombre",nombre);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Proyecto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Proyecto.php", form))
         {
             yield return www.SendWebRequest();
 

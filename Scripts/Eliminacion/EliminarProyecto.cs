@@ -19,7 +19,7 @@ public class EliminarProyecto : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("id",id.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Eliminar/Proyecto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Eliminar/Proyecto.php", form))
         {
             yield return www.SendWebRequest();
 

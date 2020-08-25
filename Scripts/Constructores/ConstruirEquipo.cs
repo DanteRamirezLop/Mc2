@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
-public class Equipo
+public class Equipo : ConstruirMain
 {
     public int id;
     public int idProyecto;
@@ -37,6 +37,51 @@ public class Equipo
     public double ELatente;
     public double caudal;
     public bool estado;
+
+    public override void FormFill(WWWForm form, bool registrar)
+    {
+        if (registrar)
+            form.AddField("id", id.ToString());
+        form.AddField("idProyecto", idProyecto.ToString());
+        form.AddField("codigo", codigo.ToString());
+        form.AddField("tipo", tipo.ToString());
+        form.AddField("velocidadIny", velocidadIny.ToString());
+        form.AddField("velocidadExt", velocidadExt.ToString());
+        form.AddField("porcentajeIny", porcentajeIny.ToString());
+        form.AddField("porcentajeExt", porcentajeExt.ToString());
+        form.AddField("calculo", calculo.ToString());
+        form.AddField("vinculo", vinculo.ToString());
+        form.AddField("nivel", nivel.ToString());
+        form.AddField("idAmbiente", idAmbiente.ToString());
+        form.AddField("ccx", ccx.ToString());
+        form.AddField("ccy", ccy.ToString());
+        form.AddField("ccz", ccz.ToString());
+        //-------------
+        form.AddField("potencia", potencia.ToString());
+        form.AddField("voltaje", voltaje.ToString());
+        form.AddField("sistema", sistema.ToString());
+        form.AddField("enfEntrada1", enfEntrada1.ToString());
+        form.AddField("enfEntrada2", enfEntrada2.ToString());
+        form.AddField("enfSalida1", enfSalida1.ToString());
+        form.AddField("enfSalida2", enfSalida2.ToString());
+        form.AddField("tipo2", tipo2.ToString());
+        form.AddField("Hz", Hz.ToString());
+        form.AddField("CSensible", CSensible.ToString());
+        form.AddField("CLatente", CLatente.ToString());
+        form.AddField("ESensible", ESensible.ToString());
+        form.AddField("ELatente", ELatente.ToString());
+        form.AddField("caudal", caudal.ToString());
+    }
+
+    public override void FormFillElim(WWWForm form)
+    {
+        form.AddField("id", id.ToString());
+    }
+
+    public override string FormType()
+    {
+        return "Equipo";
+    }
 
     public override string ToString()
     {

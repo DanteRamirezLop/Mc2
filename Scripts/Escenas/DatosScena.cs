@@ -19,21 +19,12 @@ public class DatosScena : MonoBehaviour {
     public static List<Metradoex> Metradoex;
     public static List<Multiple> Multiple;
     public static List<Rejilla> Rejilla;
-    public static List<Eliminar> Eliminar = new List<Eliminar>();
+    public static List<clsEliminar> Eliminar = new List<clsEliminar>();
 
-    public static string escenaEdit = "PruebaCarga";
+    public static string escenaEdit = "PruebasScriptE";
+    public static string URL = "http://localhost:8080/mc2/";
 
-    /*
-    public RegistroAmbiente ScriptA;
-    public RegistroDucto ScriptD;
-    public RegistroDuctopass ScriptDP;
-    public RegistroEquipo ScriptE;
-    public RegistroFiltro ScriptF;
-    public RegistroEspfiltro ScriptEF;
-    public RegistroMetradoex ScriptME;
-    public RegistroMultiple ScriptMU;
-    public RegistroRejilla ScriptR;
-    */
+    
     /// <summary>
     /// Evita que el objeto sea destruido al pasar de escena (Singleton)
     /// </summary>
@@ -53,6 +44,7 @@ public class DatosScena : MonoBehaviour {
     }
     public static void CargaProyecto(string idProyecto)
     {
+        Id_proyecto = idProyecto;
         PantallaDeCarga.Instancia.CargarEscena(escenaEdit);
     }
 /*

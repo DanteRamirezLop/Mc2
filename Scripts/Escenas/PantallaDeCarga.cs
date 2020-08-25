@@ -20,7 +20,7 @@ public class PantallaDeCarga : MonoBehaviour {
     private float ContadorTiempo;
     public Text txtCargando;
     public Text txtInfo;
-    public string URL;
+    private string URL;
 
     void Awake()
     {
@@ -84,11 +84,12 @@ public class PantallaDeCarga : MonoBehaviour {
             c.a += velocidadAparecer;
             yield return null;
         }
+        this.URL = DatosScena.URL + "Listar/";
 
         //Cargar el text cargar
         txtCargando.text = "CARGANDO";
         //Solicitar y recepcionar los datos de La BD por medio del protrocolo HTTP y el metodo GET 
-        using (UnityWebRequest reqAmbiente = UnityWebRequest.Get(URL + "ambiente"))
+        using (UnityWebRequest reqAmbiente = UnityWebRequest.Get(URL + "ambiente" + "/" + DatosScena.Id_proyecto))
         {
             yield return reqAmbiente.SendWebRequest();
             if (!string.IsNullOrEmpty(reqAmbiente.error)) {
@@ -101,8 +102,9 @@ public class PantallaDeCarga : MonoBehaviour {
                 txtInfo.text = txtInfo.text + "Ambiente (CARGADO) \n";
             }
         }
+        Debug.Log("long: " + DatosScena.Ambiente.Count);
 
-        using (UnityWebRequest reqDucto = UnityWebRequest.Get(URL + "ducto"))
+        using (UnityWebRequest reqDucto = UnityWebRequest.Get(URL + "ducto" + "/" + DatosScena.Id_proyecto))
         {
             yield return reqDucto.SendWebRequest();
             if (!string.IsNullOrEmpty(reqDucto.error))
@@ -118,7 +120,7 @@ public class PantallaDeCarga : MonoBehaviour {
             }
         }
 
-        using (UnityWebRequest reqDuctopass = UnityWebRequest.Get(URL + "ductopass"))
+        using (UnityWebRequest reqDuctopass = UnityWebRequest.Get(URL + "ductopass" + "/" + DatosScena.Id_proyecto))
         {
             yield return reqDuctopass.SendWebRequest();
             if (!string.IsNullOrEmpty(reqDuctopass.error))
@@ -134,7 +136,7 @@ public class PantallaDeCarga : MonoBehaviour {
             }
         }
 
-        using (UnityWebRequest reqEquipo = UnityWebRequest.Get(URL + "equipo"))
+        using (UnityWebRequest reqEquipo = UnityWebRequest.Get(URL + "equipo" + "/" + DatosScena.Id_proyecto))
         {
             yield return reqEquipo.SendWebRequest();
             if (!string.IsNullOrEmpty(reqEquipo.error)) {
@@ -162,7 +164,7 @@ public class PantallaDeCarga : MonoBehaviour {
             }
         }
 
-        using (UnityWebRequest reqEspfiltro = UnityWebRequest.Get(URL + "espfiltro"))
+        using (UnityWebRequest reqEspfiltro = UnityWebRequest.Get(URL + "espfiltro" + "/" + DatosScena.Id_proyecto))
         {
             yield return reqEspfiltro.SendWebRequest();
             if (!string.IsNullOrEmpty(reqEspfiltro.error))
@@ -191,7 +193,7 @@ public class PantallaDeCarga : MonoBehaviour {
             }
         }*/
 
-        using (UnityWebRequest reqMetradoex = UnityWebRequest.Get(URL + "metradoex"))
+        using (UnityWebRequest reqMetradoex = UnityWebRequest.Get(URL + "metradoex" + "/" + DatosScena.Id_proyecto))
         {
             yield return reqMetradoex.SendWebRequest();
             if (!string.IsNullOrEmpty(reqMetradoex.error)) {
@@ -205,7 +207,7 @@ public class PantallaDeCarga : MonoBehaviour {
             }
         }
 
-        using (UnityWebRequest reqMultiple = UnityWebRequest.Get(URL + "multiple"))
+        using (UnityWebRequest reqMultiple = UnityWebRequest.Get(URL + "multiple" + "/" + DatosScena.Id_proyecto))
         {
             yield return reqMultiple.SendWebRequest();
             if (!string.IsNullOrEmpty(reqMultiple.error)) {
@@ -219,7 +221,7 @@ public class PantallaDeCarga : MonoBehaviour {
             }
         }
 
-        using (UnityWebRequest reqRejilla = UnityWebRequest.Get(URL + "rejilla")) {
+        using (UnityWebRequest reqRejilla = UnityWebRequest.Get(URL + "rejilla" + "/" + DatosScena.Id_proyecto)) {
             yield return reqRejilla.SendWebRequest();
             if (!string.IsNullOrEmpty(reqRejilla.error)) {
                 Debug.Log(reqRejilla.error);

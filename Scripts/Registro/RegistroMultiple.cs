@@ -23,7 +23,7 @@ public class RegistroMultiple : MonoBehaviour {
         form.AddField("idEquipo", datos.idEquipo.ToString());
         form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Multiple.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Multiple.php", form))
         {
             yield return www.SendWebRequest();
 

@@ -19,7 +19,7 @@ public class ElimiarAmbiente : MonoBehaviour {
         form.AddField("id", id.ToString());
 
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Eliminar/Ambiente.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Eliminar/Ambiente.php", form))
         {
             yield return www.SendWebRequest();
 

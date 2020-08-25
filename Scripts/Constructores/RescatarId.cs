@@ -21,7 +21,7 @@ public class RescatarId : MonoBehaviour {
 */
 	void Start () {
 
-        Eliminar varAux_1 = new Eliminar();
+        clsEliminar varAux_1 = new clsEliminar();
         varAux_1.id = 5;
         varAux_1.nom_Tabla ="Ducto";
         DatosScena.Eliminar.Add(varAux_1);

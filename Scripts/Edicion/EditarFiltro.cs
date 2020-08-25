@@ -19,7 +19,7 @@ public class EditarFiltro : MonoBehaviour {
 		form.AddField("id", datos.id.ToString());
         form.AddField("nombre", datos.nombre);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Filtro.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Filtro.php", form))
         {
             yield return www.SendWebRequest();
 

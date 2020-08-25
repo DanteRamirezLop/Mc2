@@ -23,7 +23,7 @@ public class EditarMetradoex : MonoBehaviour {
         form.AddField("tipo", datos.tipo.ToString());
         form.AddField("multi", datos.multi.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Metradoex.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Metradoex.php", form))
         {
             yield return www.SendWebRequest();
 

@@ -18,7 +18,7 @@ public class RegistroFiltro : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("nombre", datos.nombre);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Filtro.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Filtro.php", form))
         {
             yield return www.SendWebRequest();
 

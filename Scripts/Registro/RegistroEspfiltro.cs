@@ -20,7 +20,7 @@ public class RegistroEspfiltro : MonoBehaviour {
         form.AddField("idFiltro", datos.idFiltro.ToString());
 
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Espfiltro.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Espfiltro.php", form))
         {
             yield return www.SendWebRequest();
 

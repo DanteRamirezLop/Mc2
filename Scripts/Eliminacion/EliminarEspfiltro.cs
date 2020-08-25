@@ -20,7 +20,7 @@ public class EliminarEspfiltro : MonoBehaviour {
         form.AddField("idFiltro", idFiltro);
 
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Eliminar/Espfiltro.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Eliminar/Espfiltro.php", form))
         {
             yield return www.SendWebRequest();
 

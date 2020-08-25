@@ -19,7 +19,7 @@ public class EliminarFiltro : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("id", id.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Eliminar/Filtro.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Eliminar/Filtro.php", form))
         {
             yield return www.SendWebRequest();
 

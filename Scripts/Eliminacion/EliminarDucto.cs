@@ -19,7 +19,7 @@ public class EliminarDucto : MonoBehaviour {
         form.AddField("id", id.ToString());
         form.AddField("idItem", idItem.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Eliminar/Ducto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Eliminar/Ducto.php", form))
         {
             yield return www.SendWebRequest();
 

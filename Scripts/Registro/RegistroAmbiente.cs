@@ -28,7 +28,7 @@ public class RegistroAmbiente : MonoBehaviour {
         form.AddField("cfm", datos.cfm.ToString());
         form.AddField("coordenada", datos.coordenada.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Ambiente.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Ambiente.php", form))
         {
             yield return www.SendWebRequest();
 

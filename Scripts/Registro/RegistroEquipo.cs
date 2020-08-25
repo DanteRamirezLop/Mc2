@@ -46,7 +46,7 @@ public class RegistroEquipo : MonoBehaviour {
 		form.AddField("ELatente", datos.ELatente.ToString());
 		form.AddField("caudal", datos.caudal.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Registrar/Equipo.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Registrar/Equipo.php", form))
         {
             yield return www.SendWebRequest();
 

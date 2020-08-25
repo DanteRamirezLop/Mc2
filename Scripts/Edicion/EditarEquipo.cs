@@ -47,7 +47,7 @@ public class EditarEquipo : MonoBehaviour {
 		form.AddField("caudal", datos.caudal.ToString());
 
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Equipo.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Equipo.php", form))
         {
             yield return www.SendWebRequest();
 

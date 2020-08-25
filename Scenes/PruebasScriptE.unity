@@ -32909,9 +32909,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2426997513970438023}
+      - m_Target: {fileID: 11500000, guid: faed29fd1b3c0d94db4de7c7049f636f, type: 3}
         m_TargetAssemblyTypeName: 
-        m_MethodName: CambiarEscena
+        m_MethodName: 
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

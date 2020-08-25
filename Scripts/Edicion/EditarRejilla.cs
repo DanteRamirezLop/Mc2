@@ -24,7 +24,7 @@ public class EditarRejilla : MonoBehaviour {
         form.AddField("idEquipo", datos.idEquipo.ToString());
         form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Rejilla.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Rejilla.php", form))
         {
             yield return www.SendWebRequest();
 

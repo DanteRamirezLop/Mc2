@@ -56,6 +56,7 @@ public class ListarMenu : MonoBehaviour {
                     CrearControles(posY,pr);
                     posY += 35;
                 }
+                Ancla.GetComponent<RectTransform>().sizeDelta = new Vector2(Ancla.GetComponent<RectTransform>().sizeDelta.x, posY);
             }
         }
     }
@@ -83,38 +84,5 @@ public class ListarMenu : MonoBehaviour {
         cached.SetInsetAndSizeFromParentEdge(edge, ejex, cached.sizeDelta.x);
         cached.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, ejey, 30);
     }
-
- 
- [System.Serializable]
- public class Proyecto
- {
-     public string id;
-     public string nombre;
-
-     public override string ToString()
-     {
-         return string.Format("{0},{1}", id, nombre);
-     }
- }
-
- [System.Serializable]
- public class ListaProyectos
- {
-     public List<Proyecto> proyectos;
-     public void CargarText(GameObject Texto, int pos, GameObject BotonClon)
-      {
-          int count = 0;
-          foreach (Proyecto proyecto in proyectos)
-          {
-              if (count == pos) 
-              {
-                  Texto.GetComponent<Text>().text = proyecto.nombre;
-                  BotonClon.GetComponent<Cargar>().IdProyecto = proyecto.id; 
-              }
-              count++;
-          }
-      }
- }
-    
    
 }

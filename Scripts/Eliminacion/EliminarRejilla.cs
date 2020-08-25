@@ -20,7 +20,7 @@ public class EliminarRejilla : MonoBehaviour {
         form.AddField("id", id.ToString());
         form.AddField("idItem", idItem.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Eliminar/Rejilla.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Eliminar/Rejilla.php", form))
         {
             yield return www.SendWebRequest();
 

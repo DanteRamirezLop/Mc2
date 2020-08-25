@@ -24,7 +24,7 @@ public class EditarMultiple : MonoBehaviour {
         form.AddField("idEquipo", datos.idEquipo.ToString());
         form.AddField("conexion", datos.conexion.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Multiple.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Multiple.php", form))
         {
             yield return www.SendWebRequest();
 

@@ -22,7 +22,7 @@ public class EditarDuctopass : MonoBehaviour {
         form.AddField("paso", datos.paso.ToString());
         form.AddField("dibujar", datos.dibujar.ToString());
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Ductopass.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Ductopass.php", form))
         {
             yield return www.SendWebRequest();
 

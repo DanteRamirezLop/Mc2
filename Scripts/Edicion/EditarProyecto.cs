@@ -17,7 +17,7 @@ public class EditarProyecto : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("nombre",nombre);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:8080/Editar/Proyecto.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post(DatosScena.URL + "Editar/Proyecto.php", form))
         {
             yield return www.SendWebRequest();
 

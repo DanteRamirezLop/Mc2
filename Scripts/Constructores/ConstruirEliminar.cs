@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
-public class Eliminar
+public class clsEliminar
 {
     public int id;
     public string nom_Tabla;

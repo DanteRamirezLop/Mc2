@@ -4315,7 +4315,6 @@ MonoBehaviour:
   tiempo: 2
   txtCargando: {fileID: 173853634}
   txtInfo: {fileID: 385511684}
-  URL: http://localhost:8080/mc2/Listar/
 --- !u!114 &1351466434
 MonoBehaviour:
   m_ObjectHideFlags: 0
